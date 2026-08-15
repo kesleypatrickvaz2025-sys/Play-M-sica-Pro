@@ -2,32 +2,21 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
-<title>Music Pro V5.4</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Music Pro 1.4</title>
 
 <style>
-
-/* =========================================================
-   BASE
-========================================================= */
-
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
 }
 
-html,
 body{
-    width:100%;
-    min-height:100%;
-    background:#07080b;
+    min-height:100vh;
+    background:#08090c;
     color:#fff;
-    font-family:Arial,sans-serif;
-}
-
-body{
+    font-family:Arial,Helvetica,sans-serif;
     overflow-x:hidden;
 }
 
@@ -40,64 +29,57 @@ button{
     cursor:pointer;
 }
 
-/* =========================================================
-   APP
-========================================================= */
-
 .app{
     min-height:100vh;
-    max-width:820px;
+    max-width:900px;
     margin:auto;
     position:relative;
     overflow:hidden;
 
     background:
         radial-gradient(
-            circle at 50% 20%,
-            #282930 0%,
-            #111217 28%,
-            #08090c 68%
+            circle at 50% 25%,
+            #25262b 0,
+            #121318 35%,
+            #08090c 75%
         );
 }
 
-/* =========================================================
+/* =========================
    TOPO
-========================================================= */
+========================= */
 
 .top{
-    height:66px;
+    height:64px;
 
     display:flex;
     align-items:center;
     justify-content:space-between;
 
-    padding:0 16px;
+    padding:0 18px;
 
-    background:rgba(10,11,15,.90);
+    background:rgba(8,9,12,.92);
 
     border-bottom:1px solid #292a30;
 
-    backdrop-filter:blur(14px);
-
     position:relative;
-    z-index:10;
+    z-index:20;
 }
 
 .logo{
     font-size:20px;
-    font-weight:800;
+    font-weight:bold;
     letter-spacing:1px;
 }
 
 .logo span{
-    color:#ff8b00;
+    color:#ff8a00;
 }
 
 .version{
-    color:#707177;
+    color:#666870;
     font-size:9px;
-    margin-top:3px;
-    letter-spacing:.5px;
+    margin-top:4px;
 }
 
 .power{
@@ -106,288 +88,226 @@ button{
 
     border-radius:50%;
 
+    background:#17181d;
+    color:#777;
+
     border:1px solid #33343a;
-
-    background:#15161b;
-
-    color:#888;
 }
 
-.power.on{
-    color:#ff8b00;
-    border-color:#ff8b00;
-
-    box-shadow:
-        0 0 18px #ff8b0040;
+.power.active{
+    color:#ff8a00;
+    border-color:#ff8a00;
 }
 
-/* =========================================================
-   PLAYER CENTRAL
-========================================================= */
+/* =========================
+   PLAYER
+========================= */
 
-.main{
-    min-height:calc(100vh - 66px);
-
-    padding:
-        25px
-        65px
-        35px;
+.player{
+    min-height:calc(100vh - 64px);
 
     display:flex;
     flex-direction:column;
     align-items:center;
+
+    padding:
+        28px 70px 40px;
 }
 
 .cover{
-    width:min(65vw,285px);
+    width:min(62vw,290px);
     aspect-ratio:1;
 
-    margin-top:4px;
-
-    border-radius:25px;
+    border-radius:24px;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    font-size:90px;
-
     background:
         radial-gradient(
-            circle at 35% 28%,
-            #ffc06b 0%,
-            #dc6900 25%,
-            #393238 52%,
-            #111216 78%
+            circle at 35% 30%,
+            #ffc26e,
+            #d86c08 25%,
+            #4a4140 50%,
+            #121318 78%
         );
 
     box-shadow:
-        0 25px 70px #000;
+        0 25px 65px #000;
+
+    font-size:90px;
 
     overflow:hidden;
-
-    position:relative;
 }
 
-.cover:after{
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(255,255,255,.12),
-            transparent 35%
-        );
-}
-
-.song{
+.song-info{
     width:100%;
+    max-width:550px;
 
     text-align:center;
 
     margin-top:20px;
 }
 
-.song h1{
+.song-title{
     font-size:22px;
 
-    white-space:nowrap;
-
     overflow:hidden;
-
+    white-space:nowrap;
     text-overflow:ellipsis;
 }
 
-.song p{
-    color:#888;
-
+.artist{
+    color:#85868d;
     font-size:13px;
-
     margin-top:6px;
 }
 
-/* =========================================================
-   MINI VISUALIZER CENTRAL
-========================================================= */
+/* =========================
+   EQUALIZADOR DE AMOSTRA
+========================= */
 
-.visualizer{
+.sample-eq{
     width:100%;
-    max-width:510px;
+    max-width:500px;
 
-    height:65px;
+    height:60px;
 
     margin-top:17px;
 
     display:flex;
-
     align-items:center;
-
     justify-content:center;
 
     gap:4px;
 
-    padding:
-        8px
-        12px;
+    padding:8px 12px;
 
-    border-radius:14px;
+    border-radius:13px;
 
-    background:
-        rgba(15,16,21,.65);
-
-    border:1px solid #25262c;
-
-    box-shadow:
-        inset 0 0 25px #0008;
+    background:#111217;
+    border:1px solid #292a30;
 }
 
-.bar{
+.eq-bar{
     width:5px;
+    height:7px;
 
-    height:8px;
+    border-radius:5px;
 
-    min-height:4px;
+    background:#ff8a00;
 
-    border-radius:8px;
-
-    background:#ff8b00;
-
-    opacity:.75;
-
-    transition:
-        height .08s linear;
-
-    box-shadow:
-        0 0 8px #ff8b0030;
+    transition:height .08s linear;
 }
 
-/* =========================================================
+/* =========================
    PROGRESSO
-========================================================= */
+========================= */
 
-.progress{
+.progress-box{
     width:100%;
-
     max-width:560px;
 
-    margin-top:19px;
+    margin-top:18px;
 }
 
-input[type=range]{
+input[type="range"]{
     width:100%;
-
-    accent-color:#ff8b00;
+    accent-color:#ff8a00;
 }
 
 .times{
     display:flex;
-
     justify-content:space-between;
 
-    color:#777;
-
+    color:#707177;
     font-size:10px;
 
     margin-top:5px;
 }
 
-/* =========================================================
+/* =========================
    CONTROLES
-========================================================= */
+========================= */
 
 .controls{
     display:flex;
-
     align-items:center;
     justify-content:center;
 
-    gap:12px;
+    gap:13px;
 
-    margin-top:19px;
+    margin-top:18px;
 }
 
-.ctrl,
-.play{
+.control{
+    width:45px;
+    height:45px;
+
     border-radius:50%;
 
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-}
-
-.ctrl{
-    width:46px;
-    height:46px;
-
-    border:1px solid #303137;
+    border:1px solid #33343a;
 
     background:#17181d;
 
     color:#ddd;
 }
 
-.ctrl.active{
-    color:#ff8b00;
-
-    border-color:#ff8b00;
+.control.active{
+    color:#ff8a00;
+    border-color:#ff8a00;
 }
 
 .play{
-    width:65px;
-    height:65px;
+    width:64px;
+    height:64px;
 
     border:0;
+    border-radius:50%;
 
-    background:#ff8b00;
+    background:#ff8a00;
 
     color:#111;
 
-    font-size:24px;
+    font-size:23px;
 
     box-shadow:
-        0 8px 30px #ff8b0045;
+        0 8px 30px #ff8a0040;
 }
 
-/* =========================================================
+/* =========================
    VOLUME
-========================================================= */
+========================= */
 
 .volume{
     width:100%;
-
-    max-width:430px;
+    max-width:400px;
 
     display:flex;
-
     align-items:center;
 
     gap:9px;
 
-    margin-top:16px;
+    margin-top:17px;
 }
 
 .volume span{
     color:#777;
 }
 
-/* =========================================================
+/* =========================
    BOTÕES LATERAIS
-========================================================= */
+========================= */
 
 .side{
     position:fixed;
 
-    top:84px;
+    top:82px;
 
-    z-index:25;
+    z-index:30;
 
     display:flex;
-
     flex-direction:column;
 
     gap:9px;
@@ -395,51 +315,48 @@ input[type=range]{
 
 .side.left{
     left:max(
-        7px,
-        calc(50% - 395px)
+        6px,
+        calc(50% - 440px)
     );
 }
 
 .side.right{
     right:max(
-        7px,
-        calc(50% - 395px)
+        6px,
+        calc(50% - 440px)
     );
 }
 
-.side-btn{
-    width:44px;
-    height:44px;
+.side-button{
+    width:43px;
+    height:43px;
 
-    border-radius:13px;
+    border-radius:12px;
 
     background:#15161b;
 
-    color:#aaa;
+    color:#999;
 
     border:1px solid #303137;
 
-    box-shadow:
-        0 6px 22px #0008;
+    box-shadow:0 6px 20px #0008;
 
     font-size:18px;
 }
 
-.side-btn:hover,
-.side-btn.active{
-    color:#ff8b00;
-
-    border-color:#ff8b00;
+.side-button.active{
+    color:#ff8a00;
+    border-color:#ff8a00;
 }
 
-/* =========================================================
+/* =========================
    PAINÉIS
-========================================================= */
+========================= */
 
 .panel{
     position:fixed;
 
-    top:66px;
+    top:64px;
     bottom:0;
 
     width:min(350px,88vw);
@@ -448,56 +365,45 @@ input[type=range]{
 
     overflow-y:auto;
 
-    background:
-        rgba(13,14,19,.97);
+    background:rgba(13,14,19,.98);
 
-    backdrop-filter:blur(20px);
+    backdrop-filter:blur(15px);
 
-    z-index:40;
+    z-index:50;
 
     transition:
         transform .25s ease;
-
-    box-shadow:
-        0 0 50px #000;
 }
 
-.panel.left-panel{
+.left-panel{
     left:0;
 
-    transform:
-        translateX(-105%);
+    transform:translateX(-105%);
 
-    border-right:
-        1px solid #303137;
+    border-right:1px solid #303137;
 }
 
-.panel.right-panel{
+.right-panel{
     right:0;
 
-    transform:
-        translateX(105%);
+    transform:translateX(105%);
 
-    border-left:
-        1px solid #303137;
+    border-left:1px solid #303137;
 }
 
 .panel.open{
-    transform:
-        translateX(0);
+    transform:translateX(0);
 }
 
-.panel-title{
+.panel-header{
     display:flex;
-
     align-items:center;
-
     justify-content:space-between;
 
     margin-bottom:17px;
 }
 
-.panel-title h2{
+.panel-header h2{
     font-size:19px;
 }
 
@@ -506,17 +412,15 @@ input[type=range]{
     height:32px;
 
     border:0;
-
     border-radius:50%;
 
     background:#202127;
-
     color:#aaa;
 }
 
-/* =========================================================
+/* =========================
    CARDS
-========================================================= */
+========================= */
 
 .card{
     background:#17181e;
@@ -530,74 +434,90 @@ input[type=range]{
     margin-bottom:11px;
 }
 
-.label{
-    display:flex;
+.setting{
+    padding:13px 0;
 
+    display:flex;
+    align-items:center;
     justify-content:space-between;
 
-    color:#aaa;
+    border-bottom:1px solid #292a30;
+}
 
+.setting:last-child{
+    border-bottom:0;
+}
+
+.setting-name{
+    color:#ccc;
+    font-size:12px;
+}
+
+/* =========================
+   EQ
+========================= */
+
+.eq-title{
+    color:#aaa;
     font-size:12px;
 
-    margin-bottom:8px;
+    margin-bottom:10px;
 }
 
-.value{
-    color:#ff8b00;
-}
-
-/* =========================================================
-   EQUALIZADOR
-========================================================= */
-
-.eq{
-    height:285px;
+.eq-preview{
+    height:170px;
 
     display:flex;
+    align-items:flex-end;
+    justify-content:center;
 
-    align-items:center;
+    gap:6px;
 
-    gap:4px;
+    padding:15px 5px;
 
-    padding:5px 0;
+    border-radius:11px;
+
+    background:#101116;
+}
+
+.eq-preview-bar{
+    width:8px;
+
+    border-radius:6px 6px 2px 2px;
+
+    background:#ff8a00;
+
+    box-shadow:
+        0 0 10px #ff8a0035;
+}
+
+.band-list{
+    margin-top:15px;
 }
 
 .band{
-    flex:1;
-
-    height:270px;
-
     display:flex;
-
-    flex-direction:column;
-
     align-items:center;
+    gap:10px;
+
+    margin-bottom:11px;
 }
 
-.band-value{
-    color:#ff8b00;
+.band label{
+    width:42px;
 
-    font-size:8px;
+    color:#777;
 
-    height:13px;
+    font-size:9px;
 }
 
 .band input{
-    width:205px;
-
-    transform:
-        rotate(-90deg);
-
-    margin-top:91px;
+    flex:1;
 }
 
-.band small{
-    color:#777;
-
-    font-size:8px;
-
-    margin-top:auto;
-}
+/* =========================
+   PRESETS
+========================= */
 
 .presets{
     display:grid;
@@ -608,107 +528,37 @@ input[type=range]{
     gap:7px;
 }
 
-.presets button{
-    padding:10px;
-
-    border:1px solid #33353b;
+.preset{
+    padding:10px 6px;
 
     border-radius:9px;
-
-    background:#202127;
-
-    color:#ddd;
-}
-
-.presets button.active{
-    background:#ff8b00;
-
-    color:#111;
-
-    border-color:#ff8b00;
-}
-
-/* =========================================================
-   MODOS DE EQ
-========================================================= */
-
-.eq-modes-title{
-    margin:
-        20px 0 10px;
-
-    color:#aaa;
-
-    font-size:12px;
-}
-
-.eq-modes{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:7px;
-}
-
-.eq-mode{
-    padding:11px 7px;
 
     border:1px solid #303137;
 
-    border-radius:9px;
-
-    background:#1b1c21;
+    background:#1e1f25;
 
     color:#aaa;
 
     font-size:11px;
 }
 
-.eq-mode.active{
-    background:#ff8b00;
+.preset.active{
+    background:#ff8a00;
 
     color:#111;
 
-    border-color:#ff8b00;
-
-    font-weight:bold;
+    border-color:#ff8a00;
 }
 
-/* =========================================================
-   ÁUDIO
-========================================================= */
-
-.audio-card{
-    margin-bottom:11px;
-}
-
-/* =========================================================
+/* =========================
    SWITCH
-========================================================= */
-
-.row{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-    padding:13px 0;
-
-    border-bottom:
-        1px solid #28292f;
-}
-
-.row:last-child{
-    border-bottom:0;
-}
+========================= */
 
 .switch{
-    width:47px;
+    width:46px;
     height:25px;
 
     border:0;
-
     border-radius:20px;
 
     background:#303137;
@@ -716,7 +566,7 @@ input[type=range]{
     position:relative;
 }
 
-.switch:after{
+.switch::after{
     content:"";
 
     position:absolute;
@@ -724,8 +574,8 @@ input[type=range]{
     width:19px;
     height:19px;
 
-    top:3px;
     left:4px;
+    top:3px;
 
     border-radius:50%;
 
@@ -735,29 +585,28 @@ input[type=range]{
 }
 
 .switch.on{
-    background:#ff8b00;
+    background:#ff8a00;
 }
 
-.switch.on:after{
-    left:24px;
-
+.switch.on::after{
+    left:23px;
     background:#111;
 }
 
-/* =========================================================
-   BIBLIOTECA
-========================================================= */
+/* =========================
+   MÚSICAS
+========================= */
 
-.file{
+.file-button{
     display:block;
-
-    padding:13px;
 
     text-align:center;
 
+    padding:13px;
+
     border-radius:10px;
 
-    background:#ff8b00;
+    background:#ff8a00;
 
     color:#111;
 
@@ -766,193 +615,81 @@ input[type=range]{
     margin-bottom:12px;
 }
 
-.file input{
+.file-button input{
     display:none;
 }
 
 .track{
     display:flex;
-
     align-items:center;
 
     gap:10px;
 
-    padding:12px 8px;
+    padding:12px 5px;
 
-    border-bottom:
-        1px solid #28292f;
+    border-bottom:1px solid #292a30;
 }
 
 .track.active{
-    background:#281b0d;
+    background:#261a0d;
 }
 
 .track-info{
     flex:1;
-
     min-width:0;
 }
 
-.track-info b{
+.track-info strong{
     display:block;
 
+    font-size:12px;
+
     overflow:hidden;
-
-    text-overflow:ellipsis;
-
     white-space:nowrap;
-
-    font-size:13px;
+    text-overflow:ellipsis;
 }
 
 .track-info small{
-    color:#777;
-
-    font-size:10px;
+    color:#707177;
+    font-size:9px;
 }
 
-.track button{
-    background:none;
-
-    border:0;
-
-    color:#aaa;
-}
-
-/* =========================================================
+/* =========================
    PASTAS
-========================================================= */
+========================= */
 
 .folder{
     display:flex;
-
     align-items:center;
 
     gap:12px;
 
-    padding:15px;
-
-    border-radius:11px;
+    padding:14px;
 
     background:#18191f;
 
     border:1px solid #292a30;
 
+    border-radius:11px;
+
     margin-bottom:9px;
+
+    color:#ccc;
 }
 
 .folder-icon{
-    font-size:23px;
+    font-size:22px;
 }
 
-/* =========================================================
-   VISUALIZADOR
-========================================================= */
-
-.visual-card{
-    width:100%;
-
-    height:280px;
-
-    background:
-        radial-gradient(
-            circle at center,
-            #21170c,
-            #101116 65%
-        );
-
-    border:
-        1px solid #2c2d33;
-
-    border-radius:18px;
-
-    overflow:hidden;
-
-    box-shadow:
-        inset 0 0 35px #000;
-}
-
-#visualCanvas{
-    width:100%;
-    height:100%;
-
-    display:block;
-}
-
-.visual-modes{
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:7px;
-
-    margin-top:12px;
-}
-
-.visual-mode{
-    padding:10px 5px;
-
-    border:
-        1px solid #303137;
-
-    border-radius:9px;
-
-    background:#191a20;
-
-    color:#999;
-}
-
-.visual-mode.active{
-    background:#ff8b00;
-
-    border-color:#ff8b00;
-
-    color:#111;
-
-    font-weight:bold;
-}
-
-.visual-info{
-    margin-top:12px;
-
-    padding:12px;
-
-    border-radius:11px;
-
-    background:#18191f;
-
-    border:
-        1px solid #292a30;
-}
-
-.visual-info span{
-    display:block;
-
-    color:#666;
-
-    font-size:9px;
-}
-
-.visual-info b{
-    display:block;
-
-    color:#ff8b00;
-
-    margin-top:5px;
-
-    font-size:12px;
-}
-
-/* =========================================================
+/* =========================
    MOBILE
-========================================================= */
+========================= */
 
 @media(max-width:600px){
 
-    .main{
-        padding-left:56px;
-        padding-right:56px;
+    .player{
+        padding-left:55px;
+        padding-right:55px;
     }
 
     .side.left{
@@ -963,24 +700,29 @@ input[type=range]{
         right:5px;
     }
 
-    .side-btn{
-        width:40px;
-        height:40px;
+    .side-button{
+        width:39px;
+        height:39px;
     }
 
     .cover{
-        width:min(62vw,250px);
+        width:min(62vw,245px);
     }
 
-    .visualizer{
-        height:60px;
+    .controls{
+        gap:8px;
     }
 
-    .visual-card{
-        height:250px;
+    .control{
+        width:41px;
+        height:41px;
+    }
+
+    .play{
+        width:58px;
+        height:58px;
     }
 }
-
 </style>
 </head>
 
@@ -995,19 +737,17 @@ input[type=range]{
 <header class="top">
 
     <div>
-
         <div class="logo">
             MUSIC <span>PRO</span>
         </div>
 
         <div class="version">
-            V5.4 • AUDIO PLAYER
+            VERSÃO 1.4
         </div>
-
     </div>
 
     <button
-        class="power on"
+        class="power active"
         id="power"
     >
         ⏻
@@ -1022,15 +762,15 @@ input[type=range]{
 <div class="side left">
 
     <button
-        class="side-btn"
-        data-panel="eqPanel"
+        class="side-button"
+        data-panel="equalizerPanel"
         title="Equalizador"
     >
         🎚️
     </button>
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="audioPanel"
         title="Áudio"
     >
@@ -1038,7 +778,7 @@ input[type=range]{
     </button>
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="musicPanel"
         title="Músicas"
     >
@@ -1046,19 +786,11 @@ input[type=range]{
     </button>
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="folderPanel"
         title="Pastas"
     >
         📁
-    </button>
-
-    <button
-        class="side-btn"
-        data-panel="visualPanel"
-        title="Visualizador"
-    >
-        📊
     </button>
 
 </div>
@@ -1070,7 +802,7 @@ input[type=range]{
 <div class="side right">
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="settingsPanel"
         title="Configurações"
     >
@@ -1078,7 +810,7 @@ input[type=range]{
     </button>
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="playlistPanel"
         title="Playlist"
     >
@@ -1086,15 +818,15 @@ input[type=range]{
     </button>
 
     <button
-        class="side-btn"
-        data-panel="favoritePanel"
+        class="side-button"
+        data-panel="favoritesPanel"
         title="Favoritos"
     >
         ♥
     </button>
 
     <button
-        class="side-btn"
+        class="side-button"
         data-panel="infoPanel"
         title="Informações"
     >
@@ -1104,40 +836,46 @@ input[type=range]{
 </div>
 
 <!-- =====================================================
-     PLAYER
+     PLAYER CENTRAL
 ===================================================== -->
 
-<main class="main">
+<main class="player">
 
     <div
         class="cover"
         id="cover"
     >
-        ♫
+        ♪
     </div>
 
-    <div class="song">
+    <div class="song-info">
 
-        <h1 id="title">
+        <h1
+            class="song-title"
+            id="songTitle"
+        >
             Nenhuma música selecionada
         </h1>
 
-        <p id="artist">
-            Music Pro V5.4
+        <p
+            class="artist"
+            id="artist"
+        >
+            Music Pro 1.4
         </p>
 
     </div>
 
-    <!-- MINI VISUALIZADOR -->
+    <!-- EQUALIZADOR DE AMOSTRA -->
 
     <div
-        class="visualizer"
-        id="visualizer"
+        class="sample-eq"
+        id="sampleEq"
     ></div>
 
     <!-- PROGRESSO -->
 
-    <div class="progress">
+    <div class="progress-box">
 
         <input
             id="progress"
@@ -1149,11 +887,11 @@ input[type=range]{
 
         <div class="times">
 
-            <span id="current">
+            <span id="currentTime">
                 00:00
             </span>
 
-            <span id="duration">
+            <span id="totalTime">
                 00:00
             </span>
 
@@ -1166,14 +904,14 @@ input[type=range]{
     <div class="controls">
 
         <button
-            class="ctrl"
-            id="prev"
+            class="control"
+            id="previous"
         >
             ⏮
         </button>
 
         <button
-            class="ctrl"
+            class="control"
             id="shuffle"
         >
             🔀
@@ -1187,14 +925,14 @@ input[type=range]{
         </button>
 
         <button
-            class="ctrl"
+            class="control"
             id="repeat"
         >
             🔁
         </button>
 
         <button
-            class="ctrl"
+            class="control"
             id="next"
         >
             ⏭
@@ -1229,16 +967,13 @@ input[type=range]{
 
 <section
     class="panel left-panel"
-    id="eqPanel"
+    id="equalizerPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Equalizador
-            <small style="color:#777">
-                15 bandas
-            </small>
         </h2>
 
         <button class="close">
@@ -1249,19 +984,81 @@ input[type=range]{
 
     <div class="card">
 
-        <div
-            class="eq"
-            id="eq"
-        ></div>
-
-        <div class="eq-modes-title">
-            Modos rápidos
+        <div class="eq-title">
+            Equalizador de amostra
         </div>
 
         <div
-            class="eq-modes"
-            id="eqModes"
+            class="eq-preview"
+            id="eqPreview"
         ></div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="eq-title">
+            Ajuste das bandas
+        </div>
+
+        <div
+            class="band-list"
+            id="bandList"
+        ></div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="eq-title">
+            Presets
+        </div>
+
+        <div class="presets">
+
+            <button
+                class="preset active"
+                data-preset="Normal"
+            >
+                Normal
+            </button>
+
+            <button
+                class="preset"
+                data-preset="Rock"
+            >
+                Rock
+            </button>
+
+            <button
+                class="preset"
+                data-preset="Pop"
+            >
+                Pop
+            </button>
+
+            <button
+                class="preset"
+                data-preset="Jazz"
+            >
+                Jazz
+            </button>
+
+            <button
+                class="preset"
+                data-preset="Bass"
+            >
+                Bass
+            </button>
+
+            <button
+                class="preset"
+                data-preset="Vocal"
+            >
+                Vocal
+            </button>
+
+        </div>
 
     </div>
 
@@ -1276,7 +1073,7 @@ input[type=range]{
     id="audioPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Áudio
@@ -1288,17 +1085,17 @@ input[type=range]{
 
     </div>
 
-    <div class="card audio-card">
+    <div class="card">
 
-        <div class="label">
+        <div class="setting">
 
-            <span>
+            <span class="setting-name">
                 Bass
             </span>
 
             <span
-                class="value"
                 id="bassValue"
+                style="color:#ff8a00"
             >
                 0 dB
             </span>
@@ -1315,17 +1112,17 @@ input[type=range]{
 
     </div>
 
-    <div class="card audio-card">
+    <div class="card">
 
-        <div class="label">
+        <div class="setting">
 
-            <span>
+            <span class="setting-name">
                 Treble
             </span>
 
             <span
-                class="value"
                 id="trebleValue"
+                style="color:#ff8a00"
             >
                 0 dB
             </span>
@@ -1342,44 +1139,17 @@ input[type=range]{
 
     </div>
 
-    <div class="card audio-card">
+    <div class="card">
 
-        <div class="label">
+        <div class="setting">
 
-            <span>
-                Loudness
-            </span>
-
-            <span
-                class="value"
-                id="loudValue"
-            >
-                0 dB
-            </span>
-
-        </div>
-
-        <input
-            id="loudness"
-            type="range"
-            min="0"
-            max="6"
-            value="0"
-        >
-
-    </div>
-
-    <div class="card audio-card">
-
-        <div class="label">
-
-            <span>
+            <span class="setting-name">
                 Balance
             </span>
 
             <span
-                class="value"
                 id="balanceValue"
+                style="color:#ff8a00"
             >
                 0
             </span>
@@ -1408,7 +1178,7 @@ input[type=range]{
     id="musicPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Músicas
@@ -1420,7 +1190,7 @@ input[type=range]{
 
     </div>
 
-    <label class="file">
+    <label class="file-button">
 
         ＋ Adicionar músicas
 
@@ -1446,7 +1216,7 @@ input[type=range]{
     id="folderPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Pastas
@@ -1497,74 +1267,6 @@ input[type=range]{
 </section>
 
 <!-- =====================================================
-     VISUALIZADOR
-===================================================== -->
-
-<section
-    class="panel left-panel"
-    id="visualPanel"
->
-
-    <div class="panel-title">
-
-        <h2>
-            Visualizador
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="visual-card">
-
-        <canvas
-            id="visualCanvas"
-        ></canvas>
-
-    </div>
-
-    <div class="visual-modes">
-
-        <button
-            class="visual-mode active"
-            data-visual="spectrum"
-        >
-            Spectrum
-        </button>
-
-        <button
-            class="visual-mode"
-            data-visual="wave"
-        >
-            Wave
-        </button>
-
-        <button
-            class="visual-mode"
-            data-visual="circle"
-        >
-            Circle
-        </button>
-
-    </div>
-
-    <div class="visual-info">
-
-        <span>
-            VISUALIZAÇÃO
-        </span>
-
-        <b id="visualStatus">
-            Aguardando música
-        </b>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
      CONFIGURAÇÕES
 ===================================================== -->
 
@@ -1573,7 +1275,7 @@ input[type=range]{
     id="settingsPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Configurações
@@ -1587,36 +1289,10 @@ input[type=range]{
 
     <div class="card">
 
-        <div class="row">
+        <div class="setting">
 
-            <span>
-                🎧 Spatial Audio
-            </span>
-
-            <button
-                class="switch"
-                id="spatialSwitch"
-            ></button>
-
-        </div>
-
-        <div class="row">
-
-            <span>
-                ✨ Bass Boost
-            </span>
-
-            <button
-                class="switch"
-                id="bassBoost"
-            ></button>
-
-        </div>
-
-        <div class="row">
-
-            <span>
-                🎚️ Equalizador
+            <span class="setting-name">
+                Equalizador
             </span>
 
             <button
@@ -1626,15 +1302,28 @@ input[type=range]{
 
         </div>
 
-        <div class="row">
+        <div class="setting">
 
-            <span>
-                🔊 Loudness automático
+            <span class="setting-name">
+                Bass Boost
             </span>
 
             <button
                 class="switch"
-                id="autoLoud"
+                id="bassSwitch"
+            ></button>
+
+        </div>
+
+        <div class="setting">
+
+            <span class="setting-name">
+                Loudness
+            </span>
+
+            <button
+                class="switch"
+                id="loudSwitch"
             ></button>
 
         </div>
@@ -1652,7 +1341,7 @@ input[type=range]{
     id="playlistPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Playlist
@@ -1664,11 +1353,10 @@ input[type=range]{
 
     </div>
 
-    <div
-        id="playlist"
-        class="card"
-    >
-        Nenhuma playlist criada.
+    <div class="card">
+
+        Sua playlist aparecerá aqui.
+
     </div>
 
 </section>
@@ -1679,10 +1367,10 @@ input[type=range]{
 
 <section
     class="panel right-panel"
-    id="favoritePanel"
+    id="favoritesPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Favoritos
@@ -1695,7 +1383,9 @@ input[type=range]{
     </div>
 
     <div class="card">
+
         Nenhuma música favorita.
+
     </div>
 
 </section>
@@ -1709,7 +1399,7 @@ input[type=range]{
     id="infoPanel"
 >
 
-    <div class="panel-title">
+    <div class="panel-header">
 
         <h2>
             Informações
@@ -1723,15 +1413,13 @@ input[type=range]{
 
     <div class="card">
 
-        <div style="color:#777;font-size:11px">
-            MUSIC PRO
-        </div>
+        <strong>
+            Music Pro
+        </strong>
 
-        <br>
+        <br><br>
 
-        <b>
-            Versão 5.4
-        </b>
+        Versão 1.4
 
         <br><br>
 
@@ -1739,261 +1427,216 @@ input[type=range]{
 
         <br><br>
 
-        • EQ de 15 bandas<br>
-        • Modos de áudio<br>
-        • Visualizador reativo<br>
-        • Spectrum<br>
-        • Wave<br>
-        • Circle<br>
-        • Biblioteca local
+        • Player central<br>
+        • Equalizador de amostra<br>
+        • Controles de áudio<br>
+        • Biblioteca local<br>
+        • Pastas<br>
+        • Playlist<br>
+        • Favoritos<br>
+        • Configurações laterais
 
     </div>
 
 </section>
 
-<!-- =====================================================
-     ÁUDIO
-===================================================== -->
-
-<audio
-    id="audio"
-    crossorigin="anonymous"
-></audio>
+<audio id="audio"></audio>
 
 <script>
 
 /* =========================================================
-   MUSIC PRO V5.4
-   MOTOR PRINCIPAL
+   PLAYER
 ========================================================= */
 
 const audio =
     document.getElementById("audio");
 
+let tracks = [];
+
+let currentTrack = 0;
+
+let shuffle = false;
+
+let repeat = false;
+
 let audioContext = null;
 
 let source = null;
-
-let masterGain = null;
 
 let bassFilter = null;
 
 let trebleFilter = null;
 
-let compressor = null;
+let masterGain = null;
 
-let stereoPanner = null;
+let panner = null;
 
 let analyser = null;
 
 let eqFilters = [];
 
-let audioReady = false;
-
-let visualizerReady = false;
-
-let tracks = [];
-
-let currentTrack = 0;
-
 let eqEnabled = true;
 
-let repeat = false;
+let bassBoost = false;
 
-let shuffle = false;
-
-let visualMode = "spectrum";
+let loudness = false;
 
 /* =========================================================
-   FREQUÊNCIAS DO EQ
+   INICIALIZAÇÃO DE ÁUDIO
 ========================================================= */
 
-const frequencies = [
+function initAudio(){
 
-    31,
-    62,
-    125,
-    250,
-    500,
-
-    1000,
-    2000,
-    4000,
-    8000,
-    12000,
-
-    16000,
-    18000,
-    20000,
-    24000,
-    32000
-
-];
-
-/* =========================================================
-   MODOS DE EQ
-========================================================= */
-
-const eqModes = {
-
-    "Normal":[
-        0,0,0,0,0,
-        0,0,0,0,0,
-        0,0,0,0,0
-    ],
-
-    "Rap":[
-        6,6,5,3,1,
-        0,1,3,3,2,
-        1,0,0,0,0
-    ],
-
-    "Pop":[
-        2,1,0,-1,0,
-        2,3,3,2,2,
-        1,1,0,0,0
-    ],
-
-    "Rock":[
-        5,4,2,-1,-2,
-        0,2,3,4,4,
-        3,2,1,0,0
-    ],
-
-    "Vocal":[
-        -3,-2,-1,0,2,
-        4,5,4,2,1,
-        0,0,0,0,0
-    ],
-
-    "Clássico":[
-        3,2,1,0,-1,
-        -1,0,1,2,3,
-        3,2,1,0,0
-    ],
-
-    "Dance":[
-        6,5,3,0,-1,
-        1,2,3,4,5,
-        4,3,2,1,0
-    ],
-
-    "Bass Boost":[
-        9,8,7,5,3,
-        1,0,0,0,0,
-        0,0,0,0,0
-    ],
-
-    "Lounge":[
-        3,2,1,0,1,
-        2,3,2,1,1,
-        0,0,0,0,0
-    ],
-
-    "Cinema":[
-        5,4,3,1,-1,
-        -1,1,3,4,5,
-        4,3,2,1,0
-    ],
-
-    "Game":[
-        5,4,2,0,-1,
-        1,3,4,4,3,
-        2,1,0,0,0
-    ],
-
-    "Podcast":[
-        -4,-3,-2,0,3,
-        5,5,4,2,1,
-        0,0,0,0,0
-    ],
-
-    "Power":[
-        5,5,4,2,1,
-        1,2,3,4,4,
-        3,2,1,0,0
-    ],
-
-    "Electronic":[
-        7,6,4,1,-1,
-        1,3,4,5,5,
-        4,3,2,1,0
-    ],
-
-    "Jazz":[
-        4,3,2,1,0,
-        1,2,3,3,2,
-        2,1,0,0,0
-    ],
-
-    "Acoustic":[
-        3,2,1,0,1,
-        2,3,4,3,2,
-        1,0,0,0,0
-    ]
-
-};
-
-/* =========================================================
-   CRIA OS BOTÕES DOS MODOS
-========================================================= */
-
-const eqModesContainer =
-    document.getElementById("eqModes");
-
-Object.keys(eqModes).forEach(mode=>{
-
-    const button =
-        document.createElement("button");
-
-    button.className =
-        "eq-mode";
-
-    button.textContent =
-        mode;
-
-    if(mode==="Normal"){
-        button.classList.add("active");
+    if(audioContext){
+        return;
     }
 
-    button.addEventListener(
-        "click",
-        ()=>{
+    const AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
 
-            document
-                .querySelectorAll(".eq-mode")
-                .forEach(b=>{
-                    b.classList.remove("active");
-                });
+    if(!AudioContext){
+        return;
+    }
 
-            button.classList.add("active");
+    audioContext =
+        new AudioContext();
 
-            setEQ(
-                eqModes[mode]
+    source =
+        audioContext
+            .createMediaElementSource(
+                audio
             );
+
+    bassFilter =
+        audioContext
+            .createBiquadFilter();
+
+    bassFilter.type =
+        "lowshelf";
+
+    bassFilter.frequency.value =
+        100;
+
+    trebleFilter =
+        audioContext
+            .createBiquadFilter();
+
+    trebleFilter.type =
+        "highshelf";
+
+    trebleFilter.frequency.value =
+        8000;
+
+    masterGain =
+        audioContext
+            .createGain();
+
+    panner =
+        audioContext
+            .createStereoPanner();
+
+    analyser =
+        audioContext
+            .createAnalyser();
+
+    analyser.fftSize =
+        128;
+
+    analyser.smoothingTimeConstant =
+        .8;
+
+    let node = source;
+
+    const frequencies = [
+        60,
+        120,
+        250,
+        500,
+        1000,
+        2000,
+        4000,
+        8000,
+        12000,
+        16000
+    ];
+
+    frequencies.forEach(
+        frequency=>{
+
+            const filter =
+                audioContext
+                    .createBiquadFilter();
+
+            filter.type =
+                "peaking";
+
+            filter.frequency.value =
+                frequency;
+
+            filter.Q.value =
+                1;
+
+            filter.gain.value =
+                0;
+
+            eqFilters.push(
+                filter
+            );
+
+            node.connect(
+                filter
+            );
+
+            node = filter;
 
         }
     );
 
-    eqModesContainer.appendChild(button);
+    node.connect(
+        bassFilter
+    );
 
-});
+    bassFilter.connect(
+        trebleFilter
+    );
+
+    trebleFilter.connect(
+        masterGain
+    );
+
+    masterGain.connect(
+        panner
+    );
+
+    panner.connect(
+        analyser
+    );
+
+    analyser.connect(
+        audioContext.destination
+    );
+
+}
 
 /* =========================================================
-   PAINÉIS
+   BOTÕES LATERAIS
 ========================================================= */
 
 document
-    .querySelectorAll(".side-btn")
+    .querySelectorAll(".side-button")
     .forEach(button=>{
 
         button.addEventListener(
             "click",
             ()=>{
 
+                const id =
+                    button.dataset.panel;
+
                 const panel =
                     document.getElementById(
-                        button.dataset.panel
+                        id
                     );
 
                 document
@@ -2013,23 +1656,37 @@ document
                 );
 
                 document
-                    .querySelectorAll(".side-btn")
-                    .forEach(b=>{
-                        b.classList.remove(
-                            "active"
-                        );
-                    });
+                    .querySelectorAll(
+                        ".side-button"
+                    )
+                    .forEach(
+                        b=>{
+                            b.classList.remove(
+                                "active"
+                            );
+                        }
+                    );
 
-                if(panel.classList.contains("open")){
+                if(
+                    panel.classList.contains(
+                        "open"
+                    )
+                ){
+
                     button.classList.add(
                         "active"
                     );
+
                 }
 
             }
         );
 
     });
+
+/* =========================================================
+   FECHAR PAINÉIS
+========================================================= */
 
 document
     .querySelectorAll(".close")
@@ -2040,24 +1697,25 @@ document
             ()=>{
 
                 const panel =
-                    button.closest(".panel");
+                    button.closest(
+                        ".panel"
+                    );
 
                 panel.classList.remove(
                     "open"
                 );
 
                 document
-                    .querySelectorAll(".side-btn")
-                    .forEach(b=>{
-                        if(
-                            b.dataset.panel===
-                            panel.id
-                        ){
+                    .querySelectorAll(
+                        ".side-button"
+                    )
+                    .forEach(
+                        b=>{
                             b.classList.remove(
                                 "active"
                             );
                         }
-                    });
+                    );
 
             }
         );
@@ -2065,764 +1723,7 @@ document
     });
 
 /* =========================================================
-   INICIALIZA AUDIO
-========================================================= */
-
-function initAudio(){
-
-    if(audioReady){
-        return;
-    }
-
-    const AudioContext =
-        window.AudioContext ||
-        window.webkitAudioContext;
-
-    if(!AudioContext){
-
-        console.warn(
-            "Web Audio API não disponível."
-        );
-
-        return;
-    }
-
-    audioContext =
-        new AudioContext();
-
-    source =
-        audioContext
-        .createMediaElementSource(
-            audio
-        );
-
-    masterGain =
-        audioContext.createGain();
-
-    masterGain.gain.value =
-        Number(
-            document
-                .getElementById("volume")
-                .value
-        );
-
-    bassFilter =
-        audioContext
-        .createBiquadFilter();
-
-    bassFilter.type =
-        "lowshelf";
-
-    bassFilter.frequency.value =
-        100;
-
-    bassFilter.gain.value =
-        0;
-
-    trebleFilter =
-        audioContext
-        .createBiquadFilter();
-
-    trebleFilter.type =
-        "highshelf";
-
-    trebleFilter.frequency.value =
-        8000;
-
-    trebleFilter.gain.value =
-        0;
-
-    compressor =
-        audioContext
-        .createDynamicsCompressor();
-
-    compressor.threshold.value =
-        -14;
-
-    compressor.knee.value =
-        18;
-
-    compressor.ratio.value =
-        2.5;
-
-    compressor.attack.value =
-        .01;
-
-    compressor.release.value =
-        .2;
-
-    stereoPanner =
-        audioContext
-        .createStereoPanner();
-
-    stereoPanner.pan.value =
-        0;
-
-    let node =
-        source;
-
-    /*
-       EQ de 15 bandas
-    */
-
-    frequencies.forEach(
-        frequency=>{
-
-            const filter =
-                audioContext
-                .createBiquadFilter();
-
-            filter.type =
-                "peaking";
-
-            filter.frequency.value =
-                frequency;
-
-            filter.Q.value =
-                .9;
-
-            filter.gain.value =
-                0;
-
-            eqFilters.push(
-                filter
-            );
-
-            node.connect(
-                filter
-            );
-
-            node =
-                filter;
-
-        }
-    );
-
-    node.connect(
-        bassFilter
-    );
-
-    bassFilter.connect(
-        trebleFilter
-    );
-
-    trebleFilter.connect(
-        masterGain
-    );
-
-    masterGain.connect(
-        compressor
-    );
-
-    compressor.connect(
-        stereoPanner
-    );
-
-    stereoPanner.connect(
-        audioContext.destination
-    );
-
-    audioReady =
-        true;
-
-    initVisualizer();
-
-}
-
-/* =========================================================
-   VISUALIZADOR
-========================================================= */
-
-const canvas =
-    document.getElementById(
-        "visualCanvas"
-    );
-
-const canvasCtx =
-    canvas.getContext("2d");
-
-let visualData = null;
-
-function initVisualizer(){
-
-    if(visualizerReady){
-        return;
-    }
-
-    if(!audioContext ||
-       !source){
-        return;
-    }
-
-    analyser =
-        audioContext
-        .createAnalyser();
-
-    analyser.fftSize =
-        256;
-
-    analyser.smoothingTimeConstant =
-        .82;
-
-    /*
-       O analisador recebe o mesmo
-       áudio que já está sendo tocado.
-    */
-
-    source.connect(
-        analyser
-    );
-
-    visualData =
-        new Uint8Array(
-            analyser.frequencyBinCount
-        );
-
-    visualizerReady =
-        true;
-
-    resizeCanvas();
-
-    requestAnimationFrame(
-        drawVisualizer
-    );
-
-}
-
-/* =========================================================
-   CANVAS
-========================================================= */
-
-function resizeCanvas(){
-
-    const rect =
-        canvas.getBoundingClientRect();
-
-    const ratio =
-        window.devicePixelRatio || 1;
-
-    canvas.width =
-        rect.width * ratio;
-
-    canvas.height =
-        rect.height * ratio;
-
-    canvasCtx.setTransform(
-        ratio,
-        0,
-        0,
-        ratio,
-        0,
-        0
-    );
-
-}
-
-window.addEventListener(
-    "resize",
-    resizeCanvas
-);
-
-/* =========================================================
-   MODOS VISUAIS
-========================================================= */
-
-document
-    .querySelectorAll(".visual-mode")
-    .forEach(button=>{
-
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                document
-                    .querySelectorAll(".visual-mode")
-                    .forEach(b=>{
-                        b.classList.remove(
-                            "active"
-                        );
-                    });
-
-                button.classList.add(
-                    "active"
-                );
-
-                visualMode =
-                    button.dataset.visual;
-
-            }
-        );
-
-    });
-
-/* =========================================================
-   LOOP DO VISUALIZADOR
-========================================================= */
-
-function drawVisualizer(){
-
-    requestAnimationFrame(
-        drawVisualizer
-    );
-
-    const width =
-        canvas.clientWidth;
-
-    const height =
-        canvas.clientHeight;
-
-    canvasCtx.clearRect(
-        0,
-        0,
-        width,
-        height
-    );
-
-    if(!analyser){
-
-        drawWaiting(
-            width,
-            height
-        );
-
-        return;
-    }
-
-    analyser.getByteFrequencyData(
-        visualData
-    );
-
-    if(visualMode==="spectrum"){
-
-        drawSpectrum(
-            width,
-            height
-        );
-
-    }
-
-    else if(
-        visualMode==="wave"
-    ){
-
-        drawWave(
-            width,
-            height
-        );
-
-    }
-
-    else if(
-        visualMode==="circle"
-    ){
-
-        drawCircle(
-            width,
-            height
-        );
-
-    }
-
-    const status =
-        document.getElementById(
-            "visualStatus"
-        );
-
-    if(
-        audio.src &&
-        !audio.paused
-    ){
-
-        status.textContent =
-            "Reagindo à música";
-
-    }else{
-
-        status.textContent =
-            "Música pausada";
-
-    }
-
-}
-
-/* =========================================================
-   SPECTRUM
-========================================================= */
-
-function drawSpectrum(
-    width,
-    height
-){
-
-    const bars =
-        42;
-
-    const gap =
-        3;
-
-    const barWidth =
-        (
-            width -
-            gap*(bars-1)
-        ) / bars;
-
-    for(
-        let i=0;
-        i<bars;
-        i++
-    ){
-
-        const index =
-            Math.floor(
-                i *
-                visualData.length /
-                bars
-            );
-
-        const value =
-            visualData[index]/255;
-
-        const boosted =
-            Math.pow(
-                value,
-                .65
-            );
-
-        const barHeight =
-            Math.max(
-                4,
-                boosted *
-                height *
-                .9
-            );
-
-        const x =
-            i *
-            (
-                barWidth+
-                gap
-            );
-
-        const y =
-            height -
-            barHeight;
-
-        const gradient =
-            canvasCtx.createLinearGradient(
-                0,
-                y,
-                0,
-                height
-            );
-
-        gradient.addColorStop(
-            0,
-            "#ffd27a"
-        );
-
-        gradient.addColorStop(
-            .35,
-            "#ff9b20"
-        );
-
-        gradient.addColorStop(
-            1,
-            "#c65300"
-        );
-
-        canvasCtx.fillStyle =
-            gradient;
-
-        canvasCtx.beginPath();
-
-        if(
-            canvasCtx.roundRect
-        ){
-
-            canvasCtx.roundRect(
-                x,
-                y,
-                barWidth,
-                barHeight,
-                4
-            );
-
-        }else{
-
-            canvasCtx.rect(
-                x,
-                y,
-                barWidth,
-                barHeight
-            );
-
-        }
-
-        canvasCtx.fill();
-
-    }
-
-}
-
-/* =========================================================
-   WAVE
-========================================================= */
-
-function drawWave(
-    width,
-    height
-){
-
-    analyser.getByteTimeDomainData(
-        visualData
-    );
-
-    canvasCtx.beginPath();
-
-    const slice =
-        width /
-        visualData.length;
-
-    let x=0;
-
-    for(
-        let i=0;
-        i<visualData.length;
-        i++
-    ){
-
-        const value =
-            visualData[i]/128;
-
-        const y =
-            value *
-            height/2;
-
-        if(i===0){
-
-            canvasCtx.moveTo(
-                x,
-                y
-            );
-
-        }else{
-
-            canvasCtx.lineTo(
-                x,
-                y
-            );
-
-        }
-
-        x+=slice;
-
-    }
-
-    canvasCtx.lineWidth =
-        2.5;
-
-    canvasCtx.strokeStyle =
-        "#ff8b00";
-
-    canvasCtx.shadowBlur =
-        12;
-
-    canvasCtx.shadowColor =
-        "#ff8b00";
-
-    canvasCtx.stroke();
-
-    canvasCtx.shadowBlur =
-        0;
-
-}
-
-/* =========================================================
-   CIRCLE
-========================================================= */
-
-function drawCircle(
-    width,
-    height
-){
-
-    const cx =
-        width/2;
-
-    const cy =
-        height/2;
-
-    const radius =
-        Math.min(
-            width,
-            height
-        )*.25;
-
-    let total=0;
-
-    for(
-        let i=0;
-        i<visualData.length;
-        i++
-    ){
-
-        total +=
-            visualData[i];
-
-    }
-
-    const average =
-        total /
-        visualData.length /
-        255;
-
-    const pulse =
-        average*55;
-
-    /* Círculo externo */
-
-    canvasCtx.beginPath();
-
-    canvasCtx.arc(
-        cx,
-        cy,
-        radius+pulse,
-        0,
-        Math.PI*2
-    );
-
-    canvasCtx.strokeStyle =
-        "#ff8b00";
-
-    canvasCtx.lineWidth =
-        3;
-
-    canvasCtx.shadowBlur =
-        25;
-
-    canvasCtx.shadowColor =
-        "#ff8b00";
-
-    canvasCtx.stroke();
-
-    canvasCtx.shadowBlur =
-        0;
-
-    /* Barras circulares */
-
-    const bars =
-        48;
-
-    for(
-        let i=0;
-        i<bars;
-        i++
-    ){
-
-        const index =
-            Math.floor(
-                i *
-                visualData.length /
-                bars
-            );
-
-        const value =
-            visualData[index]/255;
-
-        const length =
-            8 +
-            value*55;
-
-        const angle =
-            (
-                i/bars
-            ) *
-            Math.PI*2;
-
-        const inner =
-            radius+8;
-
-        const outer =
-            inner+length;
-
-        const x1 =
-            cx+
-            Math.cos(angle)*
-            inner;
-
-        const y1 =
-            cy+
-            Math.sin(angle)*
-            inner;
-
-        const x2 =
-            cx+
-            Math.cos(angle)*
-            outer;
-
-        const y2 =
-            cy+
-            Math.sin(angle)*
-            outer;
-
-        canvasCtx.beginPath();
-
-        canvasCtx.moveTo(
-            x1,
-            y1
-        );
-
-        canvasCtx.lineTo(
-            x2,
-            y2
-        );
-
-        canvasCtx.lineWidth =
-            3;
-
-        canvasCtx.lineCap =
-            "round";
-
-        canvasCtx.strokeStyle =
-            "#ff8b00";
-
-        canvasCtx.stroke();
-
-    }
-
-}
-
-/* =========================================================
-   ESPERA
-========================================================= */
-
-function drawWaiting(
-    width,
-    height
-){
-
-    canvasCtx.textAlign =
-        "center";
-
-    canvasCtx.textBaseline =
-        "middle";
-
-    canvasCtx.fillStyle =
-        "#555";
-
-    canvasCtx.font =
-        "13px Arial";
-
-    canvasCtx.fillText(
-        "Toque uma música",
-        width/2,
-        height/2
-    );
-
-}
-
-/* =========================================================
-   PLAY / PAUSE
+   PLAY
 ========================================================= */
 
 document
@@ -2848,8 +1749,7 @@ document
             initAudio();
 
             if(
-                audioContext &&
-                audioContext.state===
+                audioContext.state ===
                 "suspended"
             ){
 
@@ -2859,24 +1759,14 @@ document
 
             if(audio.paused){
 
-                try{
+                await audio.play();
 
-                    await audio.play();
-
-                    document
-                        .getElementById(
-                            "play"
-                        )
-                        .textContent =
-                        "⏸";
-
-                }catch(error){
-
-                    console.warn(
-                        error
-                    );
-
-                }
+                document
+                    .getElementById(
+                        "play"
+                    )
+                    .textContent =
+                    "⏸";
 
             }else{
 
@@ -2913,10 +1803,8 @@ document
                 value;
 
             if(masterGain){
-
                 masterGain.gain.value =
                     value;
-
             }
 
         }
@@ -2973,7 +1861,7 @@ function renderTracks(){
             "trackList"
         );
 
-    list.innerHTML="";
+    list.innerHTML = "";
 
     tracks.forEach(
         (track,index)=>{
@@ -2997,7 +1885,7 @@ function renderTracks(){
 
             }
 
-            row.innerHTML=`
+            row.innerHTML = `
 
                 <span>
                     ${index+1}
@@ -3005,21 +1893,21 @@ function renderTracks(){
 
                 <div class="track-info">
 
-                    <b>
+                    <strong>
                         ${escapeHTML(
                             track.name
                         )}
-                    </b>
+                    </strong>
 
                     <small>
-                        Arquivo local
+                        Música local
                     </small>
 
                 </div>
 
-                <button>
+                <span>
                     ▶
-                </button>
+                </span>
 
             `;
 
@@ -3042,31 +1930,15 @@ function renderTracks(){
 function escapeHTML(text){
 
     return text
-
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        );
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;");
 
 }
 
 /* =========================================================
-   CARREGAR MÚSICA
+   CARREGAR
 ========================================================= */
 
 function loadTrack(index){
@@ -3085,7 +1957,7 @@ function loadTrack(index){
 
     document
         .getElementById(
-            "title"
+            "songTitle"
         )
         .textContent =
         tracks[index].name;
@@ -3095,9 +1967,7 @@ function loadTrack(index){
             "artist"
         )
         .textContent =
-        "Arquivo local • Music Pro V5.4";
-
-    audio.load();
+        "Música local";
 
     renderTracks();
 
@@ -3131,154 +2001,67 @@ function loadTrack(index){
 
 document
     .getElementById("next")
-    .onclick=()=>{
+    .addEventListener(
+        "click",
+        ()=>{
 
-        if(!tracks.length){
-            return;
+            if(!tracks.length){
+                return;
+            }
+
+            let next;
+
+            if(shuffle){
+
+                next =
+                    Math.floor(
+                        Math.random()*
+                        tracks.length
+                    );
+
+            }else{
+
+                next =
+                    (
+                        currentTrack+
+                        1
+                    )%
+                    tracks.length;
+
+            }
+
+            loadTrack(next);
+
         }
-
-        let next;
-
-        if(shuffle){
-
-            next =
-                Math.floor(
-                    Math.random()*
-                    tracks.length
-                );
-
-        }else{
-
-            next =
-                (
-                    currentTrack+
-                    1
-                )%
-                tracks.length;
-
-        }
-
-        loadTrack(next);
-
-    };
+    );
 
 /* =========================================================
    ANTERIOR
 ========================================================= */
 
 document
-    .getElementById("prev")
-    .onclick=()=>{
-
-        if(!tracks.length){
-            return;
-        }
-
-        loadTrack(
-
-            (
-                currentTrack-
-                1+
-                tracks.length
-            )%
-            tracks.length
-
-        );
-
-    };
-
-/* =========================================================
-   PROGRESSO
-========================================================= */
-
-audio.addEventListener(
-    "timeupdate",
-    ()=>{
-
-        if(!audio.duration){
-            return;
-        }
-
-        document
-            .getElementById(
-                "progress"
-            )
-            .value =
-            audio.currentTime /
-            audio.duration *
-            100;
-
-        document
-            .getElementById(
-                "current"
-            )
-            .textContent =
-            formatTime(
-                audio.currentTime
-            );
-
-    }
-);
-
-audio.addEventListener(
-    "loadedmetadata",
-    ()=>{
-
-        document
-            .getElementById(
-                "duration"
-            )
-            .textContent =
-            formatTime(
-                audio.duration
-            );
-
-    }
-);
-
-document
-    .getElementById("progress")
+    .getElementById("previous")
     .addEventListener(
-        "input",
-        event=>{
+        "click",
+        ()=>{
 
-            if(audio.duration){
-
-                audio.currentTime =
-                    Number(
-                        event.target.value
-                    ) /
-                    100 *
-                    audio.duration;
-
+            if(!tracks.length){
+                return;
             }
+
+            loadTrack(
+
+                (
+                    currentTrack-
+                    1+
+                    tracks.length
+                )%
+                tracks.length
+
+            );
 
         }
     );
-
-function formatTime(seconds){
-
-    if(!isFinite(seconds)){
-        return "00:00";
-    }
-
-    return String(
-        Math.floor(
-            seconds/60
-        )
-    ).padStart(2,"0")
-
-    +":"
-
-    +
-
-    String(
-        Math.floor(
-            seconds%60
-        )
-    ).padStart(2,"0");
-
-}
 
 /* =========================================================
    SHUFFLE
@@ -3286,17 +2069,20 @@ function formatTime(seconds){
 
 document
     .getElementById("shuffle")
-    .onclick=function(){
+    .addEventListener(
+        "click",
+        function(){
 
-        shuffle =
-            !shuffle;
+            shuffle =
+                !shuffle;
 
-        this.classList.toggle(
-            "active",
-            shuffle
-        );
+            this.classList.toggle(
+                "active",
+                shuffle
+            );
 
-    };
+        }
+    );
 
 /* =========================================================
    REPEAT
@@ -3304,20 +2090,23 @@ document
 
 document
     .getElementById("repeat")
-    .onclick=function(){
+    .addEventListener(
+        "click",
+        function(){
 
-        repeat =
-            !repeat;
+            repeat =
+                !repeat;
 
-        this.classList.toggle(
-            "active",
-            repeat
-        );
+            this.classList.toggle(
+                "active",
+                repeat
+            );
 
-    };
+        }
+    );
 
 /* =========================================================
-   FIM DA MÚSICA
+   FINAL DA MÚSICA
 ========================================================= */
 
 audio.addEventListener(
@@ -3366,121 +2155,98 @@ audio.addEventListener(
 );
 
 /* =========================================================
-   CRIA EQ DE 15 BANDAS
+   PROGRESSO
 ========================================================= */
 
-const eqBox =
-    document.getElementById(
-        "eq"
-    );
+audio.addEventListener(
+    "timeupdate",
+    ()=>{
 
-frequencies.forEach(
-    (frequency,index)=>{
+        if(!audio.duration){
+            return;
+        }
 
-        const band =
-            document.createElement(
-                "div"
+        document
+            .getElementById(
+                "progress"
+            )
+            .value =
+            (
+                audio.currentTime /
+                audio.duration
+            )*100;
+
+        document
+            .getElementById(
+                "currentTime"
+            )
+            .textContent =
+            formatTime(
+                audio.currentTime
             );
-
-        band.className =
-            "band";
-
-        band.innerHTML=`
-
-            <div
-                class="band-value"
-                id="eqValue${index}"
-            >
-                0
-            </div>
-
-            <input
-                type="range"
-                min="-12"
-                max="12"
-                step=".5"
-                value="0"
-            >
-
-            <small>
-                ${
-                    frequency>=1000
-                    ?frequency/1000+"k"
-                    :frequency
-                }
-            </small>
-
-        `;
-
-        const slider =
-            band.querySelector(
-                "input"
-            );
-
-        slider.addEventListener(
-            "input",
-            ()=>{
-
-                const value =
-                    Number(
-                        slider.value
-                    );
-
-                document
-                    .getElementById(
-                        "eqValue"+
-                        index
-                    )
-                    .textContent =
-                    value+" dB";
-
-                if(
-                    eqFilters[index]
-                ){
-
-                    eqFilters[index]
-                        .gain.value =
-                        eqEnabled
-                        ?value
-                        :0;
-
-                }
-
-            }
-        );
-
-        eqBox.appendChild(
-            band
-        );
 
     }
 );
 
-/* =========================================================
-   SET EQ
-========================================================= */
+audio.addEventListener(
+    "loadedmetadata",
+    ()=>{
 
-function setEQ(values){
+        document
+            .getElementById(
+                "totalTime"
+            )
+            .textContent =
+            formatTime(
+                audio.duration
+            );
 
-    document
-        .querySelectorAll(
-            "#eq input"
-        )
-        .forEach(
-            (slider,index)=>{
+    }
+);
 
-                slider.value =
-                    values[index] ||
-                    0;
+document
+    .getElementById("progress")
+    .addEventListener(
+        "input",
+        event=>{
 
-                slider.dispatchEvent(
-                    new Event(
-                        "input"
-                    )
-                );
+            if(audio.duration){
+
+                audio.currentTime =
+                    (
+                        Number(
+                            event.target.value
+                        )/100
+                    )*
+                    audio.duration;
 
             }
+
+        }
+    );
+
+function formatTime(seconds){
+
+    if(!isFinite(seconds)){
+        return "00:00";
+    }
+
+    const minutes =
+        Math.floor(
+            seconds/60
         );
+
+    const secs =
+        Math.floor(
+            seconds%60
+        );
+
+    return String(minutes)
+        .padStart(2,"0")
+        +":"
+        +
+        String(secs)
+        .padStart(2,"0");
 
 }
 
@@ -3509,7 +2275,9 @@ document
             if(bassFilter){
 
                 bassFilter.gain.value =
-                    value;
+                    bassBoost
+                    ?value+4
+                    :value;
 
             }
 
@@ -3549,51 +2317,6 @@ document
     );
 
 /* =========================================================
-   LOUDNESS
-========================================================= */
-
-document
-    .getElementById("loudness")
-    .addEventListener(
-        "input",
-        event=>{
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-            document
-                .getElementById(
-                    "loudValue"
-                )
-                .textContent =
-                value+" dB";
-
-            if(masterGain){
-
-                const volume =
-                    Number(
-                        document
-                            .getElementById(
-                                "volume"
-                            )
-                            .value
-                    );
-
-                masterGain.gain.value =
-                    volume *
-                    Math.pow(
-                        10,
-                        value/20
-                    );
-
-            }
-
-        }
-    );
-
-/* =========================================================
    BALANCE
 ========================================================= */
 
@@ -3613,24 +2336,15 @@ document
                     "balanceValue"
                 )
                 .textContent =
-
                 value===0
-
                 ? "0"
-
                 : value<0
+                ? "L "+Math.abs(value)
+                : "R "+value;
 
-                ? "L "+
-                  Math.abs(
-                      value
-                  ).toFixed(2)
+            if(panner){
 
-                : "R "+
-                  value.toFixed(2);
-
-            if(stereoPanner){
-
-                stereoPanner.pan.value =
+                panner.pan.value =
                     value;
 
             }
@@ -3639,10 +2353,253 @@ document
     );
 
 /* =========================================================
+   EQ BANDS
+========================================================= */
+
+const bandList =
+    document.getElementById(
+        "bandList"
+    );
+
+const eqPreview =
+    document.getElementById(
+        "eqPreview"
+    );
+
+const bandValues =
+    [
+        60,
+        120,
+        250,
+        500,
+        1000,
+        2000,
+        4000,
+        8000,
+        12000,
+        16000
+    ];
+
+const sliders = [];
+
+bandValues.forEach(
+    (frequency,index)=>{
+
+        const row =
+            document.createElement(
+                "div"
+            );
+
+        row.className =
+            "band";
+
+        row.innerHTML = `
+
+            <label>
+                ${
+                    frequency>=1000
+                    ?frequency/1000+"k"
+                    :frequency
+                }
+            </label>
+
+            <input
+                type="range"
+                min="-12"
+                max="12"
+                value="0"
+            >
+
+        `;
+
+        const slider =
+            row.querySelector(
+                "input"
+            );
+
+        sliders.push(
+            slider
+        );
+
+        slider.addEventListener(
+            "input",
+            ()=>{
+
+                updateEQ(
+                    index,
+                    Number(
+                        slider.value
+                    )
+                );
+
+            }
+        );
+
+        bandList.appendChild(
+            row
+        );
+
+    }
+);
+
+/* =========================================================
+   PREVIEW BARS
+========================================================= */
+
+for(
+    let i=0;
+    i<10;
+    i++
+){
+
+    const bar =
+        document.createElement(
+            "div"
+        );
+
+    bar.className =
+        "eq-preview-bar";
+
+    bar.style.height =
+        "25px";
+
+    eqPreview.appendChild(
+        bar
+    );
+
+}
+
+/* =========================================================
+   EQ
+========================================================= */
+
+function updateEQ(
+    index,
+    value
+){
+
+    if(eqFilters[index]){
+
+        eqFilters[index]
+            .gain.value =
+            eqEnabled
+            ?value
+            :0;
+
+    }
+
+    const bars =
+        document.querySelectorAll(
+            ".eq-preview-bar"
+        );
+
+    if(bars[index]){
+
+        const height =
+            25 +
+            (
+                (value+12)/24
+            )*
+            110;
+
+        bars[index].style.height =
+            height+"px";
+
+    }
+
+}
+
+/* =========================================================
+   PRESETS
+========================================================= */
+
+const presets = {
+
+    Normal:[
+        0,0,0,0,0,
+        0,0,0,0,0
+    ],
+
+    Rock:[
+        5,4,2,-1,-2,
+        1,3,4,4,3
+    ],
+
+    Pop:[
+        2,1,0,-1,0,
+        2,3,3,2,2
+    ],
+
+    Jazz:[
+        3,2,1,0,1,
+        2,3,2,2,1
+    ],
+
+    Bass:[
+        9,7,5,3,1,
+        0,0,0,0,0
+    ],
+
+    Vocal:[
+        -3,-2,0,2,4,
+        5,4,2,1,0
+    ]
+
+};
+
+document
+    .querySelectorAll(".preset")
+    .forEach(button=>{
+
+        button.addEventListener(
+            "click",
+            ()=>{
+
+                document
+                    .querySelectorAll(
+                        ".preset"
+                    )
+                    .forEach(
+                        b=>{
+                            b.classList.remove(
+                                "active"
+                            );
+                        }
+                    );
+
+                button.classList.add(
+                    "active"
+                );
+
+                const values =
+                    presets[
+                        button.dataset.preset
+                    ];
+
+                sliders.forEach(
+                    (slider,index)=>{
+
+                        slider.value =
+                            values[index];
+
+                        updateEQ(
+                            index,
+                            values[index]
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    });
+
+/* =========================================================
    SWITCHES
 ========================================================= */
 
-function makeSwitch(
+function switchButton(
     id,
     callback
 ){
@@ -3668,32 +2625,29 @@ function makeSwitch(
 
 }
 
-/* =========================================================
-   EQ SWITCH
-========================================================= */
+/* EQ */
 
-makeSwitch(
+switchButton(
     "eqSwitch",
     enabled=>{
 
         eqEnabled =
             enabled;
 
-        eqFilters.forEach(
-            (filter,index)=>{
+        sliders.forEach(
+            (slider,index)=>{
 
-                const slider =
-                    document
-                        .querySelectorAll(
-                            "#eq input"
-                        )[index];
+                if(eqFilters[index]){
 
-                filter.gain.value =
-                    enabled
-                    ?Number(
-                        slider.value
-                    )
-                    :0;
+                    eqFilters[index]
+                        .gain.value =
+                        enabled
+                        ?Number(
+                            slider.value
+                        )
+                        :0;
+
+                }
 
             }
         );
@@ -3701,79 +2655,62 @@ makeSwitch(
     }
 );
 
-/* =========================================================
-   BASS BOOST
-========================================================= */
+/* BASS BOOST */
 
-makeSwitch(
-    "bassBoost",
+switchButton(
+    "bassSwitch",
     enabled=>{
 
-        if(!bassFilter){
-            return;
-        }
+        bassBoost =
+            enabled;
 
-        const value =
-            Number(
-                document
-                    .getElementById(
-                        "bass"
-                    )
-                    .value
-            );
+        if(bassFilter){
 
-        bassFilter.gain.value =
-            enabled
-            ?value+4
-            :value;
-
-    }
-);
-
-/* =========================================================
-   SPATIAL
-========================================================= */
-
-makeSwitch(
-    "spatialSwitch",
-    enabled=>{
-
-        if(!stereoPanner){
-            return;
-        }
-
-        if(!enabled){
-
-            stereoPanner.pan.value =
+            const value =
                 Number(
                     document
                         .getElementById(
-                            "balance"
+                            "bass"
                         )
                         .value
                 );
 
+            bassFilter.gain.value =
+                enabled
+                ?value+4
+                :value;
+
         }
 
     }
 );
 
-/* =========================================================
-   AUTO LOUDNESS
-========================================================= */
+/* LOUDNESS */
 
-makeSwitch(
-    "autoLoud",
+switchButton(
+    "loudSwitch",
     enabled=>{
 
-        if(!compressor){
-            return;
-        }
+        loudness =
+            enabled;
 
-        compressor.ratio.value =
-            enabled
-            ?3.5
-            :2.5;
+        if(masterGain){
+
+            const volume =
+                Number(
+                    document
+                        .getElementById(
+                            "volume"
+                        )
+                        .value
+                );
+
+            masterGain.gain.value =
+                enabled
+                ?volume*1.15
+                :volume;
+
+        }
 
     }
 );
@@ -3789,26 +2726,14 @@ document
         function(){
 
             this.classList.toggle(
-                "on"
+                "active"
             );
 
             if(
-                this.classList.contains(
-                    "on"
+                !this.classList.contains(
+                    "active"
                 )
             ){
-
-                if(
-                    audioContext &&
-                    audioContext.state===
-                    "suspended"
-                ){
-
-                    audioContext.resume();
-
-                }
-
-            }else{
 
                 audio.pause();
 
@@ -3825,19 +2750,19 @@ document
     );
 
 /* =========================================================
-   MINI VISUALIZER
+   EQUALIZADOR DE AMOSTRA ANIMADO
 ========================================================= */
 
-const miniVisualizer =
+const sampleEq =
     document.getElementById(
-        "visualizer"
+        "sampleEq"
     );
 
-const miniBars=[];
+const sampleBars = [];
 
 for(
     let i=0;
-    i<38;
+    i<36;
     i++
 ){
 
@@ -3847,56 +2772,67 @@ for(
         );
 
     bar.className =
-        "bar";
+        "eq-bar";
 
-    miniVisualizer.appendChild(
+    sampleEq.appendChild(
         bar
     );
 
-    miniBars.push(
+    sampleBars.push(
         bar
     );
 
 }
 
-function animateMini(){
+/* =========================================================
+   ANIMAÇÃO DO EQ
+========================================================= */
+
+function animateSampleEQ(){
 
     requestAnimationFrame(
-        animateMini
+        animateSampleEQ
     );
 
-    const playing =
-        audio.src &&
-        !audio.paused &&
-        !audio.ended;
+    let data = null;
 
-    miniBars.forEach(
+    if(analyser){
+
+        data =
+            new Uint8Array(
+                analyser.frequencyBinCount
+            );
+
+        analyser.getByteFrequencyData(
+            data
+        );
+
+    }
+
+    sampleBars.forEach(
         (bar,index)=>{
 
             let height=7;
 
             if(
-                playing &&
-                analyser
+                data &&
+                !audio.paused
             ){
 
-                const data =
-                    visualData;
-
-                const pos =
+                const position =
                     Math.floor(
                         index *
                         data.length /
-                        miniBars.length
+                        sampleBars.length
                     );
 
                 const value =
-                    data[pos] ||
+                    data[position] ||
                     0;
 
                 height =
-                    5 +
-                    (value/255)*48;
+                    6 +
+                    value/255*45;
 
             }
 
@@ -3908,10 +2844,10 @@ function animateMini(){
 
 }
 
-animateMini();
+animateSampleEQ();
 
 /* =========================================================
-   INÍCIO
+   INICIALIZAÇÃO
 ========================================================= */
 
 audio.volume =
