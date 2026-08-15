@@ -3,100 +3,359 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Music Pro 1.4</title>
+<title>V4.2 • Player Profissional</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
 *{
-    box-sizing:border-box;
     margin:0;
     padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#a3ff00;
+    --primary2:#d5ff70;
+    --primary-dim:rgba(163,255,0,.16);
+
+    --bg:#080b08;
+    --glass:rgba(20,25,18,.62);
+    --glass2:rgba(30,38,25,.48);
+    --border:rgba(163,255,0,.16);
+    --border2:rgba(255,255,255,.08);
+
+    --text:#f3f3f3;
+    --muted:#aeb6ad;
+
+    --blur:24px;
+    --radius:18px;
 }
 
 body{
-    min-height:100vh;
-    background:#08090c;
-    color:#fff;
-    font-family:Arial,Helvetica,sans-serif;
-    overflow-x:hidden;
-}
-
-button,
-input{
-    font:inherit;
-}
-
-button{
-    cursor:pointer;
-}
-
-.app{
-    min-height:100vh;
-    max-width:900px;
-    margin:auto;
-    position:relative;
-    overflow:hidden;
-
+    font-family:"Segoe UI",system-ui,sans-serif;
     background:
-        radial-gradient(
-            circle at 50% 25%,
-            #25262b 0,
-            #121318 35%,
-            #08090c 75%
-        );
+        radial-gradient(circle at 15% 20%,rgba(163,255,0,.07),transparent 35%),
+        radial-gradient(circle at 85% 80%,rgba(0,255,170,.04),transparent 35%),
+        var(--bg);
+    color:var(--text);
+    height:100vh;
+    overflow:hidden;
 }
 
 /* =========================
-   TOPO
+   TEMAS DE VIDRO
 ========================= */
 
-.top{
-    height:64px;
+body.glass-frost{
+    --primary:#a3ff00;
+    --primary-dim:rgba(163,255,0,.16);
+    --glass:rgba(20,25,18,.62);
+    --border:rgba(163,255,0,.16);
+}
 
+body.glass-neon{
+    --primary:#00ffcc;
+    --primary-dim:rgba(0,255,204,.15);
+    --glass:rgba(0,28,22,.60);
+    --border:rgba(0,255,204,.22);
+}
+
+body.glass-amber{
+    --primary:#ffb347;
+    --primary-dim:rgba(255,179,71,.15);
+    --glass:rgba(40,27,12,.60);
+    --border:rgba(255,179,71,.20);
+}
+
+body.glass-azure{
+    --primary:#4fc3ff;
+    --primary-dim:rgba(79,195,255,.15);
+    --glass:rgba(10,27,43,.60);
+    --border:rgba(79,195,255,.20);
+}
+
+body.glass-rose{
+    --primary:#ff6b9d;
+    --primary-dim:rgba(255,107,157,.15);
+    --glass:rgba(40,12,23,.60);
+    --border:rgba(255,107,157,.20);
+}
+
+body.glass-purple{
+    --primary:#bd7cff;
+    --primary-dim:rgba(189,124,255,.15);
+    --glass:rgba(28,13,45,.60);
+    --border:rgba(189,124,255,.22);
+}
+
+body.glass-red{
+    --primary:#ff4757;
+    --primary-dim:rgba(255,71,87,.15);
+    --glass:rgba(42,12,15,.60);
+    --border:rgba(255,71,87,.22);
+}
+
+body.glass-blue{
+    --primary:#5577ff;
+    --primary-dim:rgba(85,119,255,.15);
+    --glass:rgba(12,18,45,.60);
+    --border:rgba(85,119,255,.22);
+}
+
+body.glass-gold{
+    --primary:#ffd700;
+    --primary-dim:rgba(255,215,0,.15);
+    --glass:rgba(40,34,10,.60);
+    --border:rgba(255,215,0,.22);
+}
+
+body.glass-dark{
+    --primary:#bdbdbd;
+    --primary-dim:rgba(255,255,255,.08);
+    --glass:rgba(8,8,8,.78);
+    --border:rgba(255,255,255,.12);
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.app{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
+    height:calc(100vh - 92px);
+}
 
-    padding:0 18px;
+.sidebar{
+    width:220px;
+    min-width:220px;
+    padding:22px 12px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 
-    background:rgba(8,9,12,.92);
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.055),
+        var(--glass)
+    );
 
-    border-bottom:1px solid #292a30;
+    backdrop-filter:blur(var(--blur));
+    -webkit-backdrop-filter:blur(var(--blur));
 
-    position:relative;
-    z-index:20;
+    border-right:1px solid var(--border);
+    box-shadow:10px 0 35px rgba(0,0,0,.35);
 }
 
 .logo{
-    font-size:20px;
-    font-weight:bold;
-    letter-spacing:1px;
+    padding:8px 12px 22px;
+    margin-bottom:10px;
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    color:var(--primary);
+    font-size:21px;
+    font-weight:700;
+
+    border-bottom:1px solid var(--border);
 }
 
-.logo span{
-    color:#ff8a00;
+.logo i{
+    font-size:25px;
 }
 
-.version{
-    color:#666870;
-    font-size:9px;
+.nav{
+    width:100%;
+    padding:11px 14px;
+    border:1px solid transparent;
+    border-radius:13px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    background:transparent;
+    color:var(--muted);
+
+    font-size:14px;
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.nav i{
+    width:20px;
+    text-align:center;
+}
+
+.nav:hover,
+.nav.active{
+    color:var(--primary);
+    background:var(--primary-dim);
+    border-color:var(--border);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    flex:1;
+    padding:28px 32px;
+    overflow:auto;
+
+    background:
+        radial-gradient(circle at 20% 20%,var(--primary-dim),transparent 35%);
+}
+
+.section{
+    display:none;
+    animation:appear .3s ease;
+}
+
+.section.active{
+    display:block;
+}
+
+@keyframes appear{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-size:28px;
+    margin-bottom:6px;
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.glass-panel{
+    margin-top:18px;
+    padding:22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.055),
+            var(--glass)
+        );
+
+    backdrop-filter:blur(var(--blur));
+    -webkit-backdrop-filter:blur(var(--blur));
+
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+
+    box-shadow:
+        inset 0 1px rgba(255,255,255,.05),
+        0 15px 40px rgba(0,0,0,.28);
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+    gap:17px;
+    margin-top:18px;
+}
+
+.card{
+    padding:14px;
+    text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.05),
+            var(--glass)
+        );
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid var(--border);
+    border-radius:16px;
+
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:var(--primary);
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.cover{
+    aspect-ratio:1;
+    border-radius:12px;
+    overflow:hidden;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.04);
+    color:var(--primary);
+
+    font-size:34px;
+}
+
+.cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.card-title{
+    margin-top:10px;
+    font-weight:600;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.card-sub{
+    color:var(--muted);
+    font-size:12px;
     margin-top:4px;
 }
 
-.power{
-    width:40px;
-    height:40px;
+/* =========================
+   BOTÕES
+========================= */
 
-    border-radius:50%;
+.btn{
+    padding:9px 17px;
+    border-radius:25px;
 
-    background:#17181d;
-    color:#777;
+    border:1px solid var(--border);
+    background:var(--glass);
 
-    border:1px solid #33343a;
+    color:var(--muted);
+    cursor:pointer;
+
+    transition:.2s;
 }
 
-.power.active{
-    color:#ff8a00;
-    border-color:#ff8a00;
+.btn:hover,
+.btn.active{
+    color:var(--primary);
+    background:var(--primary-dim);
+    border-color:var(--primary);
 }
 
 /* =========================
@@ -104,2758 +363,2412 @@ button{
 ========================= */
 
 .player{
-    min-height:calc(100vh - 64px);
+    height:92px;
+    min-height:92px;
 
     display:flex;
-    flex-direction:column;
     align-items:center;
+    gap:20px;
 
-    padding:
-        28px 70px 40px;
+    padding:0 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.05),
+            var(--glass)
+        );
+
+    backdrop-filter:blur(30px);
+    -webkit-backdrop-filter:blur(30px);
+
+    border-top:1px solid var(--border);
+
+    box-shadow:0 -15px 40px rgba(0,0,0,.45);
+
+    position:relative;
+    z-index:20;
 }
 
-.cover{
-    width:min(62vw,290px);
-    aspect-ratio:1;
+.track{
+    width:220px;
+    min-width:180px;
 
-    border-radius:24px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.track-cover{
+    width:52px;
+    height:52px;
+
+    border-radius:10px;
+
+    overflow:hidden;
 
     display:flex;
     align-items:center;
     justify-content:center;
 
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #ffc26e,
-            #d86c08 25%,
-            #4a4140 50%,
-            #121318 78%
-        );
-
-    box-shadow:
-        0 25px 65px #000;
-
-    font-size:90px;
-
-    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    color:var(--primary);
 }
 
-.song-info{
+.track-cover img{
     width:100%;
-    max-width:550px;
-
-    text-align:center;
-
-    margin-top:20px;
+    height:100%;
+    object-fit:cover;
 }
 
-.song-title{
-    font-size:22px;
-
-    overflow:hidden;
+.track-name{
+    font-weight:600;
     white-space:nowrap;
+    overflow:hidden;
     text-overflow:ellipsis;
 }
 
-.artist{
-    color:#85868d;
-    font-size:13px;
-    margin-top:6px;
+.track-artist{
+    font-size:12px;
+    color:var(--muted);
 }
-
-/* =========================
-   EQUALIZADOR DE AMOSTRA
-========================= */
-
-.sample-eq{
-    width:100%;
-    max-width:500px;
-
-    height:60px;
-
-    margin-top:17px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    gap:4px;
-
-    padding:8px 12px;
-
-    border-radius:13px;
-
-    background:#111217;
-    border:1px solid #292a30;
-}
-
-.eq-bar{
-    width:5px;
-    height:7px;
-
-    border-radius:5px;
-
-    background:#ff8a00;
-
-    transition:height .08s linear;
-}
-
-/* =========================
-   PROGRESSO
-========================= */
-
-.progress-box{
-    width:100%;
-    max-width:560px;
-
-    margin-top:18px;
-}
-
-input[type="range"]{
-    width:100%;
-    accent-color:#ff8a00;
-}
-
-.times{
-    display:flex;
-    justify-content:space-between;
-
-    color:#707177;
-    font-size:10px;
-
-    margin-top:5px;
-}
-
-/* =========================
-   CONTROLES
-========================= */
 
 .controls{
     display:flex;
     align-items:center;
     justify-content:center;
-
-    gap:13px;
-
-    margin-top:18px;
+    gap:18px;
 }
 
-.control{
-    width:45px;
-    height:45px;
+.ctrl{
+    background:none;
+    border:0;
 
-    border-radius:50%;
+    color:var(--muted);
+    font-size:20px;
 
-    border:1px solid #33343a;
-
-    background:#17181d;
-
-    color:#ddd;
+    cursor:pointer;
+    transition:.2s;
 }
 
-.control.active{
-    color:#ff8a00;
-    border-color:#ff8a00;
+.ctrl:hover{
+    color:var(--primary);
+    transform:scale(1.08);
 }
 
 .play{
-    width:64px;
-    height:64px;
-
-    border:0;
-    border-radius:50%;
-
-    background:#ff8a00;
-
-    color:#111;
-
-    font-size:23px;
-
-    box-shadow:
-        0 8px 30px #ff8a0040;
+    font-size:31px;
+    color:var(--primary);
 }
 
-/* =========================
-   VOLUME
-========================= */
+.progress{
+    flex:1;
 
-.volume{
-    width:100%;
-    max-width:400px;
-
-    display:flex;
-    align-items:center;
-
-    gap:9px;
-
-    margin-top:17px;
-}
-
-.volume span{
-    color:#777;
-}
-
-/* =========================
-   BOTÕES LATERAIS
-========================= */
-
-.side{
-    position:fixed;
-
-    top:82px;
-
-    z-index:30;
-
-    display:flex;
-    flex-direction:column;
-
-    gap:9px;
-}
-
-.side.left{
-    left:max(
-        6px,
-        calc(50% - 440px)
-    );
-}
-
-.side.right{
-    right:max(
-        6px,
-        calc(50% - 440px)
-    );
-}
-
-.side-button{
-    width:43px;
-    height:43px;
-
-    border-radius:12px;
-
-    background:#15161b;
-
-    color:#999;
-
-    border:1px solid #303137;
-
-    box-shadow:0 6px 20px #0008;
-
-    font-size:18px;
-}
-
-.side-button.active{
-    color:#ff8a00;
-    border-color:#ff8a00;
-}
-
-/* =========================
-   PAINÉIS
-========================= */
-
-.panel{
-    position:fixed;
-
-    top:64px;
-    bottom:0;
-
-    width:min(350px,88vw);
-
-    padding:18px;
-
-    overflow-y:auto;
-
-    background:rgba(13,14,19,.98);
-
-    backdrop-filter:blur(15px);
-
-    z-index:50;
-
-    transition:
-        transform .25s ease;
-}
-
-.left-panel{
-    left:0;
-
-    transform:translateX(-105%);
-
-    border-right:1px solid #303137;
-}
-
-.right-panel{
-    right:0;
-
-    transform:translateX(105%);
-
-    border-left:1px solid #303137;
-}
-
-.panel.open{
-    transform:translateX(0);
-}
-
-.panel-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin-bottom:17px;
-}
-
-.panel-header h2{
-    font-size:19px;
-}
-
-.close{
-    width:32px;
-    height:32px;
-
-    border:0;
-    border-radius:50%;
-
-    background:#202127;
-    color:#aaa;
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.card{
-    background:#17181e;
-
-    border:1px solid #292a30;
-
-    border-radius:14px;
-
-    padding:14px;
-
-    margin-bottom:11px;
-}
-
-.setting{
-    padding:13px 0;
-
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    border-bottom:1px solid #292a30;
-}
-
-.setting:last-child{
-    border-bottom:0;
-}
-
-.setting-name{
-    color:#ccc;
-    font-size:12px;
-}
-
-/* =========================
-   EQ
-========================= */
-
-.eq-title{
-    color:#aaa;
-    font-size:12px;
-
-    margin-bottom:10px;
-}
-
-.eq-preview{
-    height:170px;
-
-    display:flex;
-    align-items:flex-end;
-    justify-content:center;
-
-    gap:6px;
-
-    padding:15px 5px;
-
-    border-radius:11px;
-
-    background:#101116;
-}
-
-.eq-preview-bar{
-    width:8px;
-
-    border-radius:6px 6px 2px 2px;
-
-    background:#ff8a00;
-
-    box-shadow:
-        0 0 10px #ff8a0035;
-}
-
-.band-list{
-    margin-top:15px;
-}
-
-.band{
     display:flex;
     align-items:center;
     gap:10px;
 
-    margin-bottom:11px;
+    min-width:160px;
 }
 
-.band label{
-    width:42px;
-
-    color:#777;
-
-    font-size:9px;
+.time{
+    color:var(--muted);
+    font-size:12px;
+    min-width:36px;
 }
 
-.band input{
+.seek{
+    height:5px;
     flex:1;
+
+    background:rgba(255,255,255,.12);
+    border-radius:10px;
+
+    cursor:pointer;
+}
+
+.seek-fill{
+    height:100%;
+    width:0;
+
+    border-radius:10px;
+    background:var(--primary);
+
+    box-shadow:0 0 10px var(--primary-dim);
+}
+
+.volume{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+input[type=range]{
+    accent-color:var(--primary);
 }
 
 /* =========================
-   PRESETS
+   EQUALIZADOR
 ========================= */
 
-.presets{
-    display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
-    gap:7px;
+.eq-wrapper{
+    display:flex;
+    justify-content:center;
+    width:100%;
 }
 
-.preset{
-    padding:10px 6px;
+.eq-content{
+    width:min(900px,100%);
+}
 
-    border-radius:9px;
+.eq-title{
+    text-align:center;
+    font-size:21px;
+    margin-bottom:5px;
+}
 
-    border:1px solid #303137;
+.eq-description{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+}
 
-    background:#1e1f25;
+.presets{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:8px;
 
-    color:#aaa;
+    margin:22px auto 28px;
+    max-width:850px;
+}
 
+.eq-bands{
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    gap:clamp(8px,2vw,24px);
+
+    width:100%;
+    padding:15px 5px 5px;
+
+    overflow-x:auto;
+}
+
+.band{
+    min-width:42px;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+}
+
+.band-label{
+    color:var(--muted);
     font-size:11px;
 }
 
-.preset.active{
-    background:#ff8a00;
+.band-value{
+    color:var(--primary);
+    font-size:11px;
+    font-weight:bold;
+}
 
-    color:#111;
+.band input{
+    width:120px;
+    height:32px;
 
-    border-color:#ff8a00;
+    appearance:slider-vertical;
+    -webkit-appearance:slider-vertical;
+}
+
+.eq-extra{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+
+    margin-top:28px;
+    padding-top:20px;
+
+    border-top:1px solid var(--border);
+}
+
+.eq-control{
+    min-width:180px;
+}
+
+.eq-control label{
+    display:flex;
+    justify-content:space-between;
+
+    color:var(--muted);
+    font-size:13px;
+    margin-bottom:7px;
+}
+
+.eq-control input{
+    width:100%;
 }
 
 /* =========================
-   SWITCH
+   VISUALIZADOR
 ========================= */
 
-.switch{
-    width:46px;
-    height:25px;
+.visualizer{
+    height:330px;
 
-    border:0;
-    border-radius:20px;
+    margin-top:18px;
 
-    background:#303137;
+    border-radius:18px;
+    overflow:hidden;
 
-    position:relative;
+    background:#060806;
+    border:1px solid var(--border);
+
+    box-shadow:inset 0 0 40px rgba(0,0,0,.5);
 }
 
-.switch::after{
-    content:"";
+canvas{
+    width:100%;
+    height:100%;
+    display:block;
+}
 
-    position:absolute;
+.viz-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+}
 
-    width:19px;
-    height:19px;
+/* =========================
+   LISTA
+========================= */
 
-    left:4px;
-    top:3px;
+.song-list{
+    margin-top:15px;
+}
 
-    border-radius:50%;
+.song{
+    display:flex;
+    align-items:center;
+    gap:14px;
 
-    background:#999;
+    padding:11px 13px;
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+    border-radius:10px;
+
+    cursor:pointer;
 
     transition:.2s;
 }
 
-.switch.on{
-    background:#ff8a00;
+.song:hover{
+    background:var(--primary-dim);
 }
 
-.switch.on::after{
-    left:23px;
-    background:#111;
-}
+.song-thumb{
+    width:45px;
+    height:45px;
 
-/* =========================
-   MÚSICAS
-========================= */
+    border-radius:8px;
 
-.file-button{
-    display:block;
+    background:rgba(255,255,255,.04);
 
-    text-align:center;
-
-    padding:13px;
-
-    border-radius:10px;
-
-    background:#ff8a00;
-
-    color:#111;
-
-    font-weight:bold;
-
-    margin-bottom:12px;
-}
-
-.file-button input{
-    display:none;
-}
-
-.track{
     display:flex;
     align-items:center;
+    justify-content:center;
 
-    gap:10px;
-
-    padding:12px 5px;
-
-    border-bottom:1px solid #292a30;
-}
-
-.track.active{
-    background:#261a0d;
-}
-
-.track-info{
-    flex:1;
-    min-width:0;
-}
-
-.track-info strong{
-    display:block;
-
-    font-size:12px;
+    color:var(--primary);
 
     overflow:hidden;
-    white-space:nowrap;
-    text-overflow:ellipsis;
 }
 
-.track-info small{
-    color:#707177;
-    font-size:9px;
+.song-thumb img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.song-info{
+    flex:1;
+}
+
+.song-title{
+    font-weight:500;
+}
+
+.song-detail{
+    font-size:12px;
+    color:var(--muted);
 }
 
 /* =========================
-   PASTAS
+   CONFIGURAÇÕES
 ========================= */
 
-.folder{
+.settings{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px 35px;
+    margin-top:15px;
+}
+
+.setting{
     display:flex;
+    justify-content:space-between;
     align-items:center;
 
-    gap:12px;
+    padding:13px 0;
 
-    padding:14px;
-
-    background:#18191f;
-
-    border:1px solid #292a30;
-
-    border-radius:11px;
-
-    margin-bottom:9px;
-
-    color:#ccc;
+    border-bottom:1px solid rgba(255,255,255,.05);
 }
 
-.folder-icon{
-    font-size:22px;
+.setting span{
+    color:var(--muted);
+}
+
+select{
+    background:#101510;
+    color:white;
+
+    border:1px solid var(--border);
+    border-radius:8px;
+
+    padding:7px 10px;
 }
 
 /* =========================
-   MOBILE
+   RESPONSIVO
 ========================= */
 
-@media(max-width:600px){
+@media(max-width:850px){
+
+    .sidebar{
+        width:70px;
+        min-width:70px;
+        padding:15px 6px;
+    }
+
+    .logo span,
+    .nav span{
+        display:none;
+    }
+
+    .logo{
+        justify-content:center;
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .nav{
+        justify-content:center;
+        padding:13px 0;
+    }
+
+    .main{
+        padding:18px 15px;
+    }
 
     .player{
-        padding-left:55px;
-        padding-right:55px;
+        gap:8px;
+        padding:0 10px;
     }
 
-    .side.left{
-        left:5px;
+    .track{
+        width:125px;
+        min-width:100px;
     }
 
-    .side.right{
-        right:5px;
+    .track-cover{
+        width:42px;
+        height:42px;
     }
 
-    .side-button{
-        width:39px;
-        height:39px;
-    }
-
-    .cover{
-        width:min(62vw,245px);
+    .volume{
+        display:none;
     }
 
     .controls{
-        gap:8px;
+        gap:10px;
     }
 
-    .control{
-        width:41px;
-        height:41px;
+    .settings{
+        grid-template-columns:1fr;
     }
 
-    .play{
-        width:58px;
-        height:58px;
+    .eq-bands{
+        justify-content:flex-start;
+    }
+}
+
+@media(max-width:560px){
+
+    .track{
+        width:95px;
+    }
+
+    .track-cover{
+        display:none;
+    }
+
+    .ctrl:nth-child(1),
+    .ctrl:nth-child(5){
+        display:none;
+    }
+
+    .progress{
+        min-width:90px;
     }
 }
 </style>
 </head>
 
-<body>
+<body class="glass-frost">
 
 <div class="app">
 
-<!-- =====================================================
-     TOPO
-===================================================== -->
+<!-- ================= SIDEBAR ================= -->
 
-<header class="top">
+<aside class="sidebar">
 
-    <div>
-        <div class="logo">
-            MUSIC <span>PRO</span>
-        </div>
-
-        <div class="version">
-            VERSÃO 1.4
-        </div>
+    <div class="logo">
+        <i class="fas fa-wave-square"></i>
+        <span>Player Pro</span>
     </div>
 
-    <button
-        class="power active"
-        id="power"
-    >
-        ⏻
+    <button class="nav active" data-section="home">
+        <i class="fas fa-home"></i>
+        <span>Início</span>
     </button>
 
-</header>
-
-<!-- =====================================================
-     BOTÕES LATERAIS ESQUERDOS
-===================================================== -->
-
-<div class="side left">
-
-    <button
-        class="side-button"
-        data-panel="equalizerPanel"
-        title="Equalizador"
-    >
-        🎚️
+    <button class="nav" data-section="music">
+        <i class="fas fa-music"></i>
+        <span>Músicas</span>
     </button>
 
-    <button
-        class="side-button"
-        data-panel="audioPanel"
-        title="Áudio"
-    >
-        🔊
+    <button class="nav" data-section="eq">
+        <i class="fas fa-sliders-h"></i>
+        <span>Equalizador</span>
     </button>
 
-    <button
-        class="side-button"
-        data-panel="musicPanel"
-        title="Músicas"
-    >
-        🎵
+    <button class="nav" data-section="visual">
+        <i class="fas fa-chart-bar"></i>
+        <span>Visualizador</span>
     </button>
 
-    <button
-        class="side-button"
-        data-panel="folderPanel"
-        title="Pastas"
-    >
-        📁
+    <button class="nav" data-section="lyrics">
+        <i class="fas fa-align-center"></i>
+        <span>Letras</span>
     </button>
 
-</div>
-
-<!-- =====================================================
-     BOTÕES LATERAIS DIREITOS
-===================================================== -->
-
-<div class="side right">
-
-    <button
-        class="side-button"
-        data-panel="settingsPanel"
-        title="Configurações"
-    >
-        ⚙️
+    <button class="nav" data-section="settings">
+        <i class="fas fa-cog"></i>
+        <span>Configurações</span>
     </button>
 
-    <button
-        class="side-button"
-        data-panel="playlistPanel"
-        title="Playlist"
-    >
-        ☰
-    </button>
+</aside>
 
-    <button
-        class="side-button"
-        data-panel="favoritesPanel"
-        title="Favoritos"
-    >
-        ♥
-    </button>
 
-    <button
-        class="side-button"
-        data-panel="infoPanel"
-        title="Informações"
-    >
-        ⓘ
-    </button>
+<!-- ================= MAIN ================= -->
 
-</div>
+<main class="main">
 
-<!-- =====================================================
-     PLAYER CENTRAL
-===================================================== -->
+<!-- HOME -->
 
-<main class="player">
+<section class="section active" id="home">
 
-    <div
-        class="cover"
-        id="cover"
-    >
-        ♪
+    <h1>Player Profissional</h1>
+    <div class="subtitle">
+        Seu áudio com processamento suave e visual moderno.
     </div>
 
-    <div class="song-info">
+    <div class="glass-panel">
 
-        <h1
-            class="song-title"
-            id="songTitle"
-        >
-            Nenhuma música selecionada
-        </h1>
+        <h3>Adicionar músicas</h3>
 
-        <p
-            class="artist"
-            id="artist"
-        >
-            Music Pro 1.4
+        <p class="subtitle" style="margin-top:6px">
+            Selecione arquivos MP3, WAV, OGG, M4A e outros formatos compatíveis.
         </p>
 
-    </div>
+        <div style="margin-top:18px">
 
-    <!-- EQUALIZADOR DE AMOSTRA -->
+            <input
+                id="fileInput"
+                type="file"
+                accept="audio/*"
+                multiple
+                style="display:none"
+            >
 
-    <div
-        class="sample-eq"
-        id="sampleEq"
-    ></div>
-
-    <!-- PROGRESSO -->
-
-    <div class="progress-box">
-
-        <input
-            id="progress"
-            type="range"
-            min="0"
-            max="100"
-            value="0"
-        >
-
-        <div class="times">
-
-            <span id="currentTime">
-                00:00
-            </span>
-
-            <span id="totalTime">
-                00:00
-            </span>
+            <button class="btn" id="addMusic">
+                <i class="fas fa-plus"></i>
+                Adicionar músicas
+            </button>
 
         </div>
 
     </div>
 
-    <!-- CONTROLES -->
+    <div class="cards">
+
+        <div class="card">
+            <div class="cover">
+                <i class="fas fa-music"></i>
+            </div>
+            <div class="card-title" id="musicCount">0 músicas</div>
+            <div class="card-sub">Biblioteca</div>
+        </div>
+
+        <div class="card">
+            <div class="cover">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="card-title">Favoritos</div>
+            <div class="card-sub">Suas músicas</div>
+        </div>
+
+        <div class="card">
+            <div class="cover">
+                <i class="fas fa-sliders-h"></i>
+            </div>
+            <div class="card-title">EQ Pro</div>
+            <div class="card-sub">10 bandas</div>
+        </div>
+
+        <div class="card">
+            <div class="cover">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="card-title">Áudio suave</div>
+            <div class="card-sub">Anti-clipping</div>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MÚSICAS -->
+
+<section class="section" id="music">
+
+    <h1>Minhas músicas</h1>
+    <div class="subtitle">
+        Sua biblioteca de áudio
+    </div>
+
+    <div class="glass-panel">
+
+        <button class="btn" id="addMusic2">
+            <i class="fas fa-plus"></i>
+            Adicionar músicas
+        </button>
+
+        <div class="song-list" id="songList">
+
+            <div style="
+                text-align:center;
+                padding:45px;
+                color:var(--muted);
+            ">
+                Nenhuma música adicionada.
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EQUALIZADOR -->
+
+<section class="section" id="eq">
+
+    <div class="eq-wrapper">
+
+        <div class="eq-content">
+
+            <div class="glass-panel">
+
+                <div class="eq-title">
+                    Equalizador
+                </div>
+
+                <div class="eq-description">
+                    10 bandas • processamento suave
+                </div>
+
+                <div class="presets" id="presets"></div>
+
+                <div class="eq-bands" id="eqBands"></div>
+
+                <div class="eq-extra">
+
+                    <div class="eq-control">
+                        <label>
+                            <span>Preamp</span>
+                            <b id="preampValue">0 dB</b>
+                        </label>
+                        <input id="preamp"
+                               type="range"
+                               min="-12"
+                               max="6"
+                               value="0"
+                               step=".1">
+                    </div>
+
+                    <div class="eq-control">
+                        <label>
+                            <span>Bass</span>
+                            <b id="bassValue">0%</b>
+                        </label>
+                        <input id="bass"
+                               type="range"
+                               min="0"
+                               max="100"
+                               value="0">
+                    </div>
+
+                    <div class="eq-control">
+                        <label>
+                            <span>Loudness</span>
+                            <b id="loudnessValue">0%</b>
+                        </label>
+                        <input id="loudness"
+                               type="range"
+                               min="0"
+                               max="100"
+                               value="0">
+                    </div>
+
+                    <div class="eq-control">
+                        <label>
+                            <span>Spatial</span>
+                            <b id="spatialValue">0%</b>
+                        </label>
+                        <input id="spatial"
+                               type="range"
+                               min="0"
+                               max="100"
+                               value="0">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- VISUALIZADOR -->
+
+<section class="section" id="visual">
+
+    <h1>Visualizador</h1>
+
+    <div class="subtitle">
+        Visualização em tempo real do áudio.
+    </div>
+
+    <div class="visualizer">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="viz-buttons">
+
+        <button class="btn viz active" data-viz="bars">
+            Barras
+        </button>
+
+        <button class="btn viz" data-viz="wave">
+            Onda
+        </button>
+
+        <button class="btn viz" data-viz="circle">
+            Círculo
+        </button>
+
+        <button class="btn viz" data-viz="particles">
+            Partículas
+        </button>
+
+        <button class="btn viz" data-viz="mirror">
+            Espelho
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- LETRAS -->
+
+<section class="section" id="lyrics">
+
+    <h1>Letras</h1>
+
+    <div class="glass-panel">
+
+        <div id="lyricsText"
+             style="
+             min-height:300px;
+             display:flex;
+             align-items:center;
+             justify-content:center;
+             text-align:center;
+             color:var(--muted);
+             line-height:1.8;
+             ">
+            Nenhuma letra carregada.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONFIGURAÇÕES -->
+
+<section class="section" id="settings">
+
+    <h1>Configurações</h1>
+
+    <div class="glass-panel">
+
+        <div class="settings">
+
+            <div class="setting">
+
+                <span>Estilo de vidro</span>
+
+                <select id="theme">
+
+                    <option value="glass-frost">Frost</option>
+                    <option value="glass-neon">Neon</option>
+                    <option value="glass-amber">Amber</option>
+                    <option value="glass-azure">Azure</option>
+                    <option value="glass-rose">Rose</option>
+                    <option value="glass-purple">Purple</option>
+                    <option value="glass-red">Red</option>
+                    <option value="glass-blue">Blue</option>
+                    <option value="glass-gold">Gold</option>
+                    <option value="glass-dark">Dark</option>
+
+                </select>
+
+            </div>
+
+            <div class="setting">
+
+                <span>Normalização suave</span>
+
+                <input
+                    type="checkbox"
+                    id="normalizer"
+                    checked
+                >
+
+            </div>
+
+            <div class="setting">
+
+                <span>Visualizador ativo</span>
+
+                <input
+                    type="checkbox"
+                    id="visualizerToggle"
+                    checked
+                >
+
+            </div>
+
+            <div class="setting">
+
+                <span>Volume máximo seguro</span>
+
+                <select id="maxVolume">
+                    <option value="0.85">85%</option>
+                    <option value="0.90">90%</option>
+                    <option value="0.95">95%</option>
+                    <option value="1">100%</option>
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<!-- ================= PLAYER ================= -->
+
+<footer class="player">
+
+    <div class="track">
+
+        <div class="track-cover" id="trackCover">
+            <i class="fas fa-music"></i>
+        </div>
+
+        <div style="min-width:0">
+
+            <div class="track-name" id="trackName">
+                Nenhuma música
+            </div>
+
+            <div class="track-artist" id="trackArtist">
+                Player Pro
+            </div>
+
+        </div>
+
+    </div>
+
 
     <div class="controls">
 
-        <button
-            class="control"
-            id="previous"
-        >
-            ⏮
+        <button class="ctrl" id="shuffle">
+            <i class="fas fa-random"></i>
         </button>
 
-        <button
-            class="control"
-            id="shuffle"
-        >
-            🔀
+        <button class="ctrl" id="prev">
+            <i class="fas fa-step-backward"></i>
         </button>
 
-        <button
-            class="play"
-            id="play"
-        >
-            ▶
+        <button class="ctrl play" id="play">
+            <i class="fas fa-play"></i>
         </button>
 
-        <button
-            class="control"
-            id="repeat"
-        >
-            🔁
+        <button class="ctrl" id="next">
+            <i class="fas fa-step-forward"></i>
         </button>
 
-        <button
-            class="control"
-            id="next"
-        >
-            ⏭
+        <button class="ctrl" id="repeat">
+            <i class="fas fa-redo"></i>
         </button>
 
     </div>
 
-    <!-- VOLUME -->
+
+    <div class="progress">
+
+        <span class="time" id="currentTime">
+            0:00
+        </span>
+
+        <div class="seek" id="seek">
+            <div class="seek-fill" id="seekFill"></div>
+        </div>
+
+        <span class="time" id="duration">
+            0:00
+        </span>
+
+    </div>
+
 
     <div class="volume">
 
-        <span>🔈</span>
+        <i class="fas fa-volume-down"></i>
 
         <input
             id="volume"
             type="range"
             min="0"
             max="1"
+            value=".75"
             step=".01"
-            value=".8"
-        >
-
-        <span>🔊</span>
-
-    </div>
-
-</main>
-
-<!-- =====================================================
-     EQUALIZADOR
-===================================================== -->
-
-<section
-    class="panel left-panel"
-    id="equalizerPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Equalizador
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <div class="eq-title">
-            Equalizador de amostra
-        </div>
-
-        <div
-            class="eq-preview"
-            id="eqPreview"
-        ></div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="eq-title">
-            Ajuste das bandas
-        </div>
-
-        <div
-            class="band-list"
-            id="bandList"
-        ></div>
-
-    </div>
-
-    <div class="card">
-
-        <div class="eq-title">
-            Presets
-        </div>
-
-        <div class="presets">
-
-            <button
-                class="preset active"
-                data-preset="Normal"
-            >
-                Normal
-            </button>
-
-            <button
-                class="preset"
-                data-preset="Rock"
-            >
-                Rock
-            </button>
-
-            <button
-                class="preset"
-                data-preset="Pop"
-            >
-                Pop
-            </button>
-
-            <button
-                class="preset"
-                data-preset="Jazz"
-            >
-                Jazz
-            </button>
-
-            <button
-                class="preset"
-                data-preset="Bass"
-            >
-                Bass
-            </button>
-
-            <button
-                class="preset"
-                data-preset="Vocal"
-            >
-                Vocal
-            </button>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     ÁUDIO
-===================================================== -->
-
-<section
-    class="panel left-panel"
-    id="audioPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Áudio
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <div class="setting">
-
-            <span class="setting-name">
-                Bass
-            </span>
-
-            <span
-                id="bassValue"
-                style="color:#ff8a00"
-            >
-                0 dB
-            </span>
-
-        </div>
-
-        <input
-            id="bass"
-            type="range"
-            min="-12"
-            max="12"
-            value="0"
         >
 
     </div>
 
-    <div class="card">
+</footer>
 
-        <div class="setting">
 
-            <span class="setting-name">
-                Treble
-            </span>
+<audio id="audio" crossorigin="anonymous"></audio>
 
-            <span
-                id="trebleValue"
-                style="color:#ff8a00"
-            >
-                0 dB
-            </span>
-
-        </div>
-
-        <input
-            id="treble"
-            type="range"
-            min="-12"
-            max="12"
-            value="0"
-        >
-
-    </div>
-
-    <div class="card">
-
-        <div class="setting">
-
-            <span class="setting-name">
-                Balance
-            </span>
-
-            <span
-                id="balanceValue"
-                style="color:#ff8a00"
-            >
-                0
-            </span>
-
-        </div>
-
-        <input
-            id="balance"
-            type="range"
-            min="-1"
-            max="1"
-            step=".01"
-            value="0"
-        >
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     MÚSICAS
-===================================================== -->
-
-<section
-    class="panel left-panel"
-    id="musicPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Músicas
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <label class="file-button">
-
-        ＋ Adicionar músicas
-
-        <input
-            id="fileInput"
-            type="file"
-            accept="audio/*"
-            multiple
-        >
-
-    </label>
-
-    <div id="trackList"></div>
-
-</section>
-
-<!-- =====================================================
-     PASTAS
-===================================================== -->
-
-<section
-    class="panel left-panel"
-    id="folderPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Pastas
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="folder">
-
-        <span class="folder-icon">
-            📁
-        </span>
-
-        <span>
-            Músicas
-        </span>
-
-    </div>
-
-    <div class="folder">
-
-        <span class="folder-icon">
-            📁
-        </span>
-
-        <span>
-            Downloads
-        </span>
-
-    </div>
-
-    <div class="folder">
-
-        <span class="folder-icon">
-            📁
-        </span>
-
-        <span>
-            Favoritos
-        </span>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     CONFIGURAÇÕES
-===================================================== -->
-
-<section
-    class="panel right-panel"
-    id="settingsPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Configurações
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <div class="setting">
-
-            <span class="setting-name">
-                Equalizador
-            </span>
-
-            <button
-                class="switch on"
-                id="eqSwitch"
-            ></button>
-
-        </div>
-
-        <div class="setting">
-
-            <span class="setting-name">
-                Bass Boost
-            </span>
-
-            <button
-                class="switch"
-                id="bassSwitch"
-            ></button>
-
-        </div>
-
-        <div class="setting">
-
-            <span class="setting-name">
-                Loudness
-            </span>
-
-            <button
-                class="switch"
-                id="loudSwitch"
-            ></button>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     PLAYLIST
-===================================================== -->
-
-<section
-    class="panel right-panel"
-    id="playlistPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Playlist
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        Sua playlist aparecerá aqui.
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     FAVORITOS
-===================================================== -->
-
-<section
-    class="panel right-panel"
-    id="favoritesPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Favoritos
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        Nenhuma música favorita.
-
-    </div>
-
-</section>
-
-<!-- =====================================================
-     INFORMAÇÕES
-===================================================== -->
-
-<section
-    class="panel right-panel"
-    id="infoPanel"
->
-
-    <div class="panel-header">
-
-        <h2>
-            Informações
-        </h2>
-
-        <button class="close">
-            ×
-        </button>
-
-    </div>
-
-    <div class="card">
-
-        <strong>
-            Music Pro
-        </strong>
-
-        <br><br>
-
-        Versão 1.4
-
-        <br><br>
-
-        Player de música com:
-
-        <br><br>
-
-        • Player central<br>
-        • Equalizador de amostra<br>
-        • Controles de áudio<br>
-        • Biblioteca local<br>
-        • Pastas<br>
-        • Playlist<br>
-        • Favoritos<br>
-        • Configurações laterais
-
-    </div>
-
-</section>
-
-<audio id="audio"></audio>
 
 <script>
 
-/* =========================================================
-   PLAYER
-========================================================= */
+/* =====================================================
+   PLAYER PRO V4.2
+===================================================== */
 
-const audio =
-    document.getElementById("audio");
+const audio = document.getElementById("audio");
+const fileInput = document.getElementById("fileInput");
 
 let tracks = [];
-
-let currentTrack = 0;
-
-let shuffle = false;
-
-let repeat = false;
+let currentIndex = -1;
 
 let audioContext = null;
-
-let source = null;
-
-let bassFilter = null;
-
-let trebleFilter = null;
-
-let masterGain = null;
-
-let panner = null;
+let sourceNode = null;
 
 let analyser = null;
+let masterGain = null;
+let compressor = null;
 
 let eqFilters = [];
 
-let eqEnabled = true;
+let bassFilter = null;
+let loudnessGain = null;
+let spatialGain = null;
 
-let bassBoost = false;
+let objectUrl = null;
 
-let loudness = false;
+let currentViz = "bars";
+let repeat = false;
+let shuffle = false;
 
-/* =========================================================
-   INICIALIZAÇÃO DE ÁUDIO
-========================================================= */
 
-function initAudio(){
+/* =====================================================
+   CONFIGURAÇÃO DO EQUALIZADOR
+===================================================== */
 
-    if(audioContext){
-        return;
+const frequencies = [
+    60,
+    120,
+    250,
+    500,
+    1000,
+    2000,
+    4000,
+    8000,
+    12000,
+    16000
+];
+
+const presetData = {
+
+    "Normal":[0,0,0,0,0,0,0,0,0,0],
+
+    "Bass":[5,4,3,2,1,0,0,0,0,0],
+
+    "Bass+":[7,6,4,2,0,0,0,0,0,0],
+
+    "Deep Bass":[8,7,5,3,1,0,0,0,0,0],
+
+    "Rock":[4,3,1,0,-1,1,3,4,3,2],
+
+    "Pop":[-1,1,3,4,3,1,0,2,3,3],
+
+    "Hip-Hop":[5,5,2,0,1,2,3,2,1,1],
+
+    "Rap":[4,5,3,1,0,2,4,3,2,1],
+
+    "Electronic":[4,3,1,0,2,4,5,4,3,2],
+
+    "Dance":[5,4,2,0,1,3,4,4,3,2],
+
+    "R&B":[3,3,1,0,1,3,3,2,2,2],
+
+    "Vocal":[-2,-1,0,2,4,4,3,2,1,0],
+
+    "Acoustic":[1,2,1,2,3,2,1,2,3,2],
+
+    "Classical":[2,1,0,1,2,2,1,2,3,3],
+
+    "Jazz":[3,2,1,1,0,1,2,3,3,3],
+
+    "Metal":[5,3,1,0,-1,2,4,5,4,3],
+
+    "Reggae":[4,4,2,0,1,2,3,3,2,2],
+
+    "Latin":[3,3,1,1,2,2,3,2,2,2],
+
+    "Podcast":[-3,-2,-1,2,4,4,3,1,0,-1],
+
+    "Loud":[4,3,2,1,1,2,3,3,2,1],
+
+    "Soft":[-2,-1,0,1,2,1,0,-1,-1,-2],
+
+    "Treble":[0,0,-1,0,1,2,4,5,5,4],
+
+    "Treble+":[0,0,-1,0,1,3,5,6,6,5],
+
+    "Club":[5,4,2,0,2,4,5,4,3,2],
+
+    "Cinema":[4,2,0,1,2,1,2,3,3,3],
+
+    "Car":[4,3,2,0,1,2,3,2,2,1],
+
+    "Studio":[0,0,0,0,0,0,0,0,0,0],
+
+    "Flat":[0,0,0,0,0,0,0,0,0,0]
+};
+
+
+/* =====================================================
+   CRIA PRESETS
+===================================================== */
+
+const presets = document.getElementById("presets");
+
+Object.keys(presetData).forEach(name => {
+
+    const button = document.createElement("button");
+
+    button.className = "btn";
+    button.textContent = name;
+
+    button.addEventListener("click", () => {
+
+        applyPreset(name);
+
+        document
+        .querySelectorAll("#presets .btn")
+        .forEach(b => b.classList.remove("active"));
+
+        button.classList.add("active");
+
+    });
+
+    presets.appendChild(button);
+
+});
+
+
+/* =====================================================
+   CRIA BANDAS
+===================================================== */
+
+const eqBands = document.getElementById("eqBands");
+
+frequencies.forEach((frequency,index) => {
+
+    const div = document.createElement("div");
+
+    div.className = "band";
+
+    div.innerHTML = `
+
+        <div class="band-value" id="eqValue${index}">
+            0 dB
+        </div>
+
+        <input
+            id="eq${index}"
+            type="range"
+            min="-12"
+            max="12"
+            step=".1"
+            value="0"
+        >
+
+        <div class="band-label">
+            ${formatFrequency(frequency)}
+        </div>
+
+    `;
+
+    eqBands.appendChild(div);
+
+});
+
+
+function formatFrequency(f){
+
+    if(f >= 1000){
+        return (f/1000)+"k";
     }
 
-    const AudioContext =
+    return f;
+}
+
+
+/* =====================================================
+   ÁUDIO
+===================================================== */
+
+function setupAudio(){
+
+    if(audioContext) return;
+
+    audioContext = new (
         window.AudioContext ||
-        window.webkitAudioContext;
+        window.webkitAudioContext
+    )();
 
-    if(!AudioContext){
-        return;
-    }
-
-    audioContext =
-        new AudioContext();
-
-    source =
-        audioContext
-            .createMediaElementSource(
-                audio
-            );
-
-    bassFilter =
-        audioContext
-            .createBiquadFilter();
-
-    bassFilter.type =
-        "lowshelf";
-
-    bassFilter.frequency.value =
-        100;
-
-    trebleFilter =
-        audioContext
-            .createBiquadFilter();
-
-    trebleFilter.type =
-        "highshelf";
-
-    trebleFilter.frequency.value =
-        8000;
-
-    masterGain =
-        audioContext
-            .createGain();
-
-    panner =
-        audioContext
-            .createStereoPanner();
+    sourceNode =
+        audioContext.createMediaElementSource(audio);
 
     analyser =
-        audioContext
-            .createAnalyser();
+        audioContext.createAnalyser();
 
-    analyser.fftSize =
-        128;
+    analyser.fftSize = 2048;
 
-    analyser.smoothingTimeConstant =
-        .8;
+    analyser.smoothingTimeConstant = .82;
 
-    let node = source;
 
-    const frequencies = [
-        60,
-        120,
-        250,
-        500,
-        1000,
-        2000,
-        4000,
-        8000,
-        12000,
-        16000
-    ];
+    /* EQ */
 
-    frequencies.forEach(
-        frequency=>{
+    eqFilters = frequencies.map((frequency,index) => {
 
-            const filter =
-                audioContext
-                    .createBiquadFilter();
+        const filter =
+            audioContext.createBiquadFilter();
 
-            filter.type =
-                "peaking";
+        filter.type = "peaking";
 
-            filter.frequency.value =
-                frequency;
+        filter.frequency.value = frequency;
 
-            filter.Q.value =
-                1;
+        filter.Q.value = 1.05;
 
-            filter.gain.value =
-                0;
+        filter.gain.value = 0;
 
-            eqFilters.push(
-                filter
-            );
+        return filter;
 
-            node.connect(
-                filter
-            );
+    });
 
-            node = filter;
 
-        }
-    );
+    /* Bass */
 
-    node.connect(
-        bassFilter
-    );
+    bassFilter =
+        audioContext.createBiquadFilter();
 
-    bassFilter.connect(
-        trebleFilter
-    );
+    bassFilter.type = "lowshelf";
+    bassFilter.frequency.value = 110;
+    bassFilter.gain.value = 0;
 
-    trebleFilter.connect(
-        masterGain
-    );
 
-    masterGain.connect(
-        panner
-    );
+    /* Loudness */
 
-    panner.connect(
-        analyser
-    );
+    loudnessGain =
+        audioContext.createGain();
 
-    analyser.connect(
-        audioContext.destination
-    );
+    loudnessGain.gain.value = 1;
+
+
+    /* Spatial */
+
+    spatialGain =
+        audioContext.createGain();
+
+    spatialGain.gain.value = 1;
+
+
+    /* Compressor / limiter */
+
+    compressor =
+        audioContext.createDynamicsCompressor();
+
+    compressor.threshold.value = -4;
+    compressor.knee.value = 8;
+    compressor.ratio.value = 4;
+    compressor.attack.value = .015;
+    compressor.release.value = .15;
+
+
+    /* Master */
+
+    masterGain =
+        audioContext.createGain();
+
+    masterGain.gain.value = .75;
+
+
+    /*
+       Cadeia:
+
+       Source
+       ↓
+       EQ
+       ↓
+       Bass
+       ↓
+       Loudness
+       ↓
+       Spatial
+       ↓
+       Compressor
+       ↓
+       Master
+       ↓
+       Analyser
+       ↓
+       Destination
+    */
+
+    let node = sourceNode;
+
+    eqFilters.forEach(filter => {
+
+        node.connect(filter);
+
+        node = filter;
+
+    });
+
+    node.connect(bassFilter);
+
+    bassFilter.connect(loudnessGain);
+
+    loudnessGain.connect(spatialGain);
+
+    spatialGain.connect(compressor);
+
+    compressor.connect(masterGain);
+
+    masterGain.connect(analyser);
+
+    analyser.connect(audioContext.destination);
 
 }
 
-/* =========================================================
-   BOTÕES LATERAIS
-========================================================= */
 
-document
-    .querySelectorAll(".side-button")
-    .forEach(button=>{
+/* =====================================================
+   TRANSIÇÃO SUAVE
+===================================================== */
 
-        button.addEventListener(
-            "click",
-            ()=>{
+function smoothParam(param,value,time=.08){
 
-                const id =
-                    button.dataset.panel;
+    if(!audioContext) return;
 
-                const panel =
-                    document.getElementById(
-                        id
-                    );
+    const now = audioContext.currentTime;
 
-                document
-                    .querySelectorAll(".panel")
-                    .forEach(p=>{
+    try{
 
-                        if(p!==panel){
-                            p.classList.remove(
-                                "open"
-                            );
-                        }
+        param.cancelScheduledValues(now);
 
-                    });
+        param.setValueAtTime(param.value,now);
 
-                panel.classList.toggle(
-                    "open"
-                );
-
-                document
-                    .querySelectorAll(
-                        ".side-button"
-                    )
-                    .forEach(
-                        b=>{
-                            b.classList.remove(
-                                "active"
-                            );
-                        }
-                    );
-
-                if(
-                    panel.classList.contains(
-                        "open"
-                    )
-                ){
-
-                    button.classList.add(
-                        "active"
-                    );
-
-                }
-
-            }
+        param.linearRampToValueAtTime(
+            value,
+            now + time
         );
+
+    }catch(e){
+
+        param.value = value;
+
+    }
+
+}
+
+
+/* =====================================================
+   PRESET
+===================================================== */
+
+function applyPreset(name){
+
+    const values = presetData[name];
+
+    if(!values) return;
+
+    values.forEach((value,index)=>{
+
+        const slider =
+            document.getElementById("eq"+index);
+
+        slider.value = value;
+
+        document.getElementById(
+            "eqValue"+index
+        ).textContent =
+            `${Number(value).toFixed(1)} dB`;
+
+        if(eqFilters[index]){
+
+            smoothParam(
+                eqFilters[index].gain,
+                Number(value),
+                .12
+            );
+
+        }
 
     });
 
-/* =========================================================
-   FECHAR PAINÉIS
-========================================================= */
+}
 
-document
-    .querySelectorAll(".close")
-    .forEach(button=>{
 
-        button.addEventListener(
-            "click",
-            ()=>{
+/* =====================================================
+   EQ MANUAL
+===================================================== */
 
-                const panel =
-                    button.closest(
-                        ".panel"
-                    );
+frequencies.forEach((_,index)=>{
 
-                panel.classList.remove(
-                    "open"
-                );
+    const slider =
+        document.getElementById("eq"+index);
 
-                document
-                    .querySelectorAll(
-                        ".side-button"
-                    )
-                    .forEach(
-                        b=>{
-                            b.classList.remove(
-                                "active"
-                            );
-                        }
-                    );
+    slider.addEventListener("input",()=>{
 
-            }
-        );
+        const value =
+            Number(slider.value);
+
+        document.getElementById(
+            "eqValue"+index
+        ).textContent =
+            `${value.toFixed(1)} dB`;
+
+        if(eqFilters[index]){
+
+            smoothParam(
+                eqFilters[index].gain,
+                value,
+                .06
+            );
+
+        }
 
     });
 
-/* =========================================================
-   PLAY
-========================================================= */
+});
 
-document
-    .getElementById("play")
-    .addEventListener(
-        "click",
-        async()=>{
 
-            if(!audio.src){
+/* =====================================================
+   PREAMP
+===================================================== */
 
-                document
-                    .getElementById(
-                        "musicPanel"
-                    )
-                    .classList.add(
-                        "open"
-                    );
+document.getElementById("preamp")
+.addEventListener("input",e=>{
 
-                return;
+    const value =
+        Number(e.target.value);
 
-            }
+    document.getElementById(
+        "preampValue"
+    ).textContent =
+        `${value.toFixed(1)} dB`;
 
-            initAudio();
+    if(masterGain){
 
-            if(
-                audioContext.state ===
-                "suspended"
-            ){
+        const linear =
+            Math.pow(10,value/20) * .75;
 
-                await audioContext.resume();
+        smoothParam(
+            masterGain.gain,
+            Math.min(linear,.9),
+            .08
+        );
 
-            }
+    }
 
-            if(audio.paused){
+});
 
-                await audio.play();
 
-                document
-                    .getElementById(
-                        "play"
-                    )
-                    .textContent =
-                    "⏸";
+/* =====================================================
+   BASS
+===================================================== */
 
-            }else{
+document.getElementById("bass")
+.addEventListener("input",e=>{
 
-                audio.pause();
+    const value =
+        Number(e.target.value);
 
-                document
-                    .getElementById(
-                        "play"
-                    )
-                    .textContent =
-                    "▶";
+    document.getElementById(
+        "bassValue"
+    ).textContent =
+        `${value}%`;
 
-            }
+    if(bassFilter){
 
-        }
-    );
+        const gain =
+            value * .12;
 
-/* =========================================================
-   VOLUME
-========================================================= */
+        smoothParam(
+            bassFilter.gain,
+            gain,
+            .10
+        );
 
-document
-    .getElementById("volume")
-    .addEventListener(
-        "input",
-        event=>{
+    }
 
-            const value =
-                Number(
-                    event.target.value
-                );
+});
 
-            audio.volume =
-                value;
 
-            if(masterGain){
-                masterGain.gain.value =
-                    value;
-            }
+/* =====================================================
+   LOUDNESS
+===================================================== */
 
-        }
-    );
+document.getElementById("loudness")
+.addEventListener("input",e=>{
 
-/* =========================================================
+    const value =
+        Number(e.target.value);
+
+    document.getElementById(
+        "loudnessValue"
+    ).textContent =
+        `${value}%`;
+
+    if(loudnessGain){
+
+        /*
+          Ganho limitado para evitar clipping.
+        */
+
+        const gain =
+            1 + (value/100)*.22;
+
+        smoothParam(
+            loudnessGain.gain,
+            Math.min(gain,1.22),
+            .12
+        );
+
+    }
+
+});
+
+
+/* =====================================================
+   SPATIAL
+===================================================== */
+
+document.getElementById("spatial")
+.addEventListener("input",e=>{
+
+    const value =
+        Number(e.target.value);
+
+    document.getElementById(
+        "spatialValue"
+    ).textContent =
+        `${value}%`;
+
+    if(spatialGain){
+
+        const gain =
+            1 + value/100*.08;
+
+        smoothParam(
+            spatialGain.gain,
+            Math.min(gain,1.08),
+            .15
+        );
+
+    }
+
+});
+
+
+/* =====================================================
    ARQUIVOS
-========================================================= */
+===================================================== */
 
-document
-    .getElementById("fileInput")
-    .addEventListener(
-        "change",
-        event=>{
+document.getElementById("addMusic")
+.addEventListener("click",()=>{
+    fileInput.click();
+});
 
-            [...event.target.files]
-            .forEach(file=>{
+document.getElementById("addMusic2")
+.addEventListener("click",()=>{
+    fileInput.click();
+});
 
-                tracks.push({
 
-                    name:file.name,
+fileInput.addEventListener("change",e=>{
 
-                    url:
-                        URL.createObjectURL(
-                            file
-                        )
+    const files =
+        Array.from(e.target.files);
 
-                });
+    files.forEach(file=>{
 
-            });
+        if(!file.type.startsWith("audio/"))
+            return;
 
-            renderTracks();
+        tracks.push({
 
-            if(
-                !audio.src &&
-                tracks.length
-            ){
+            file:file,
 
-                loadTrack(0);
+            name:
+                file.name.replace(
+                    /\.[^/.]+$/,
+                    ""
+                ),
 
-            }
+            artist:"Arquivo local",
 
-        }
-    );
+            cover:null
 
-/* =========================================================
+        });
+
+    });
+
+    renderTracks();
+
+    document.getElementById(
+        "musicCount"
+    ).textContent =
+        `${tracks.length} músicas`;
+
+    if(currentIndex === -1 && tracks.length){
+
+        loadTrack(0);
+
+    }
+
+    fileInput.value="";
+
+});
+
+
+/* =====================================================
    LISTA
-========================================================= */
+===================================================== */
 
 function renderTracks(){
 
     const list =
-        document.getElementById(
-            "trackList"
-        );
+        document.getElementById("songList");
 
-    list.innerHTML = "";
+    list.innerHTML="";
 
-    tracks.forEach(
-        (track,index)=>{
+    if(!tracks.length){
 
-            const row =
-                document.createElement(
-                    "div"
-                );
+        list.innerHTML=`
+            <div style="
+                text-align:center;
+                padding:45px;
+                color:var(--muted)
+            ">
+                Nenhuma música adicionada.
+            </div>
+        `;
 
-            row.className =
-                "track";
+        return;
 
-            if(
-                index===
-                currentTrack
-            ){
+    }
 
-                row.classList.add(
-                    "active"
-                );
 
-            }
+    tracks.forEach((track,index)=>{
 
-            row.innerHTML = `
+        const item =
+            document.createElement("div");
 
-                <span>
-                    ${index+1}
-                </span>
+        item.className="song";
 
-                <div class="track-info">
+        item.innerHTML=`
 
-                    <strong>
-                        ${escapeHTML(
-                            track.name
-                        )}
-                    </strong>
+            <div class="song-thumb">
+                <i class="fas fa-music"></i>
+            </div>
 
-                    <small>
-                        Música local
-                    </small>
+            <div class="song-info">
 
+                <div class="song-title">
+                    ${escapeHTML(track.name)}
                 </div>
 
-                <span>
-                    ▶
-                </span>
+                <div class="song-detail">
+                    ${escapeHTML(track.artist)}
+                </div>
 
-            `;
+            </div>
 
-            row.addEventListener(
-                "click",
-                ()=>{
-                    loadTrack(index);
-                }
-            );
+            <i class="fas fa-play"
+               style="color:var(--primary)">
+            </i>
 
-            list.appendChild(
-                row
-            );
+        `;
 
-        }
-    );
+        item.addEventListener(
+            "click",
+            ()=>loadTrack(index)
+        );
+
+        list.appendChild(item);
+
+    });
 
 }
+
 
 function escapeHTML(text){
 
-    return text
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;");
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
-/* =========================================================
-   CARREGAR
-========================================================= */
+
+/* =====================================================
+   CARREGAR MÚSICA
+===================================================== */
 
 function loadTrack(index){
 
-    if(!tracks[index]){
-        return;
+    if(!tracks[index]) return;
+
+    currentIndex=index;
+
+    setupAudio();
+
+    if(audioContext.state==="suspended"){
+        audioContext.resume();
     }
 
-    initAudio();
+    const track =
+        tracks[index];
 
-    currentTrack =
-        index;
+    if(objectUrl){
 
-    audio.src =
-        tracks[index].url;
+        URL.revokeObjectURL(objectUrl);
 
-    document
-        .getElementById(
-            "songTitle"
-        )
-        .textContent =
-        tracks[index].name;
+    }
 
-    document
-        .getElementById(
-            "artist"
-        )
-        .textContent =
-        "Música local";
+    objectUrl =
+        URL.createObjectURL(track.file);
 
-    renderTracks();
+    audio.src=objectUrl;
+
+    audio.load();
+
+    document.getElementById(
+        "trackName"
+    ).textContent =
+        track.name;
+
+    document.getElementById(
+        "trackArtist"
+    ).textContent =
+        track.artist;
 
     audio.play()
-        .then(()=>{
-
-            document
-                .getElementById(
-                    "play"
-                )
-                .textContent =
-                "⏸";
-
-        })
-        .catch(()=>{
-
-            document
-                .getElementById(
-                    "play"
-                )
-                .textContent =
-                "▶";
-
-        });
+        .then(()=>updatePlayButton())
+        .catch(()=>{});
 
 }
 
-/* =========================================================
-   PRÓXIMA
-========================================================= */
 
-document
-    .getElementById("next")
-    .addEventListener(
-        "click",
-        ()=>{
+/* =====================================================
+   PLAY / PAUSE
+===================================================== */
 
-            if(!tracks.length){
-                return;
-            }
+document.getElementById("play")
+.addEventListener("click",async()=>{
 
-            let next;
+    if(currentIndex===-1){
 
-            if(shuffle){
+        if(tracks.length){
 
-                next =
-                    Math.floor(
-                        Math.random()*
-                        tracks.length
-                    );
-
-            }else{
-
-                next =
-                    (
-                        currentTrack+
-                        1
-                    )%
-                    tracks.length;
-
-            }
-
-            loadTrack(next);
-
-        }
-    );
-
-/* =========================================================
-   ANTERIOR
-========================================================= */
-
-document
-    .getElementById("previous")
-    .addEventListener(
-        "click",
-        ()=>{
-
-            if(!tracks.length){
-                return;
-            }
-
-            loadTrack(
-
-                (
-                    currentTrack-
-                    1+
-                    tracks.length
-                )%
-                tracks.length
-
-            );
-
-        }
-    );
-
-/* =========================================================
-   SHUFFLE
-========================================================= */
-
-document
-    .getElementById("shuffle")
-    .addEventListener(
-        "click",
-        function(){
-
-            shuffle =
-                !shuffle;
-
-            this.classList.toggle(
-                "active",
-                shuffle
-            );
-
-        }
-    );
-
-/* =========================================================
-   REPEAT
-========================================================= */
-
-document
-    .getElementById("repeat")
-    .addEventListener(
-        "click",
-        function(){
-
-            repeat =
-                !repeat;
-
-            this.classList.toggle(
-                "active",
-                repeat
-            );
-
-        }
-    );
-
-/* =========================================================
-   FINAL DA MÚSICA
-========================================================= */
-
-audio.addEventListener(
-    "ended",
-    ()=>{
-
-        if(repeat){
-
-            audio.currentTime =
-                0;
-
-            audio.play();
-
-            return;
+            await loadTrack(0);
 
         }
 
-        if(!tracks.length){
-            return;
-        }
-
-        let next;
-
-        if(shuffle){
-
-            next =
-                Math.floor(
-                    Math.random()*
-                    tracks.length
-                );
-
-        }else{
-
-            next =
-                (
-                    currentTrack+
-                    1
-                )%
-                tracks.length;
-
-        }
-
-        loadTrack(next);
+        return;
 
     }
+
+    setupAudio();
+
+    if(audioContext.state==="suspended"){
+        await audioContext.resume();
+    }
+
+    if(audio.paused){
+
+        audio.play();
+
+    }else{
+
+        audio.pause();
+
+    }
+
+});
+
+
+audio.addEventListener(
+    "play",
+    updatePlayButton
 );
 
-/* =========================================================
+audio.addEventListener(
+    "pause",
+    updatePlayButton
+);
+
+
+function updatePlayButton(){
+
+    document
+    .querySelector("#play i")
+    .className =
+        audio.paused
+        ? "fas fa-play"
+        : "fas fa-pause";
+
+}
+
+
+/* =====================================================
+   PRÓXIMA
+===================================================== */
+
+document.getElementById("next")
+.addEventListener("click",nextTrack);
+
+function nextTrack(){
+
+    if(!tracks.length) return;
+
+    let next;
+
+    if(shuffle){
+
+        next =
+            Math.floor(
+                Math.random()*tracks.length
+            );
+
+    }else{
+
+        next =
+            currentIndex+1;
+
+        if(next>=tracks.length)
+            next=0;
+
+    }
+
+    loadTrack(next);
+
+}
+
+
+/* =====================================================
+   ANTERIOR
+===================================================== */
+
+document.getElementById("prev")
+.addEventListener("click",()=>{
+
+    if(!tracks.length) return;
+
+    let previous =
+        currentIndex-1;
+
+    if(previous<0)
+        previous=tracks.length-1;
+
+    loadTrack(previous);
+
+});
+
+
+/* =====================================================
+   SHUFFLE
+===================================================== */
+
+document.getElementById("shuffle")
+.addEventListener("click",e=>{
+
+    shuffle=!shuffle;
+
+    e.currentTarget.style.color =
+        shuffle
+        ? "var(--primary)"
+        : "";
+
+});
+
+
+/* =====================================================
+   REPEAT
+===================================================== */
+
+document.getElementById("repeat")
+.addEventListener("click",e=>{
+
+    repeat=!repeat;
+
+    e.currentTarget.style.color =
+        repeat
+        ? "var(--primary)"
+        : "";
+
+});
+
+
+audio.addEventListener("ended",()=>{
+
+    if(repeat){
+
+        audio.currentTime=0;
+
+        audio.play();
+
+    }else{
+
+        nextTrack();
+
+    }
+
+});
+
+
+/* =====================================================
    PROGRESSO
-========================================================= */
+===================================================== */
 
 audio.addEventListener(
     "timeupdate",
-    ()=>{
-
-        if(!audio.duration){
-            return;
-        }
-
-        document
-            .getElementById(
-                "progress"
-            )
-            .value =
-            (
-                audio.currentTime /
-                audio.duration
-            )*100;
-
-        document
-            .getElementById(
-                "currentTime"
-            )
-            .textContent =
-            formatTime(
-                audio.currentTime
-            );
-
-    }
+    updateProgress
 );
 
 audio.addEventListener(
     "loadedmetadata",
     ()=>{
 
-        document
-            .getElementById(
-                "totalTime"
-            )
-            .textContent =
-            formatTime(
-                audio.duration
-            );
+        document.getElementById(
+            "duration"
+        ).textContent =
+            formatTime(audio.duration);
 
     }
 );
 
-document
-    .getElementById("progress")
-    .addEventListener(
-        "input",
-        event=>{
 
-            if(audio.duration){
+function updateProgress(){
 
-                audio.currentTime =
-                    (
-                        Number(
-                            event.target.value
-                        )/100
-                    )*
-                    audio.duration;
+    if(!audio.duration) return;
 
-            }
+    const percent =
+        (audio.currentTime/audio.duration)*100;
 
-        }
-    );
+    document.getElementById(
+        "seekFill"
+    ).style.width =
+        percent+"%";
+
+    document.getElementById(
+        "currentTime"
+    ).textContent =
+        formatTime(audio.currentTime);
+
+}
+
+
+document.getElementById("seek")
+.addEventListener("click",e=>{
+
+    if(!audio.duration) return;
+
+    const rect =
+        e.currentTarget.getBoundingClientRect();
+
+    const percent =
+        (e.clientX-rect.left)/rect.width;
+
+    audio.currentTime =
+        percent*audio.duration;
+
+});
+
 
 function formatTime(seconds){
 
-    if(!isFinite(seconds)){
-        return "00:00";
-    }
+    if(!isFinite(seconds))
+        return "0:00";
 
-    const minutes =
-        Math.floor(
-            seconds/60
-        );
+    const min =
+        Math.floor(seconds/60);
 
-    const secs =
-        Math.floor(
-            seconds%60
-        );
-
-    return String(minutes)
-        .padStart(2,"0")
-        +":"
-        +
-        String(secs)
+    const sec =
+        Math.floor(seconds%60)
+        .toString()
         .padStart(2,"0");
 
-}
-
-/* =========================================================
-   BASS
-========================================================= */
-
-document
-    .getElementById("bass")
-    .addEventListener(
-        "input",
-        event=>{
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-            document
-                .getElementById(
-                    "bassValue"
-                )
-                .textContent =
-                value+" dB";
-
-            if(bassFilter){
-
-                bassFilter.gain.value =
-                    bassBoost
-                    ?value+4
-                    :value;
-
-            }
-
-        }
-    );
-
-/* =========================================================
-   TREBLE
-========================================================= */
-
-document
-    .getElementById("treble")
-    .addEventListener(
-        "input",
-        event=>{
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-            document
-                .getElementById(
-                    "trebleValue"
-                )
-                .textContent =
-                value+" dB";
-
-            if(trebleFilter){
-
-                trebleFilter.gain.value =
-                    value;
-
-            }
-
-        }
-    );
-
-/* =========================================================
-   BALANCE
-========================================================= */
-
-document
-    .getElementById("balance")
-    .addEventListener(
-        "input",
-        event=>{
-
-            const value =
-                Number(
-                    event.target.value
-                );
-
-            document
-                .getElementById(
-                    "balanceValue"
-                )
-                .textContent =
-                value===0
-                ? "0"
-                : value<0
-                ? "L "+Math.abs(value)
-                : "R "+value;
-
-            if(panner){
-
-                panner.pan.value =
-                    value;
-
-            }
-
-        }
-    );
-
-/* =========================================================
-   EQ BANDS
-========================================================= */
-
-const bandList =
-    document.getElementById(
-        "bandList"
-    );
-
-const eqPreview =
-    document.getElementById(
-        "eqPreview"
-    );
-
-const bandValues =
-    [
-        60,
-        120,
-        250,
-        500,
-        1000,
-        2000,
-        4000,
-        8000,
-        12000,
-        16000
-    ];
-
-const sliders = [];
-
-bandValues.forEach(
-    (frequency,index)=>{
-
-        const row =
-            document.createElement(
-                "div"
-            );
-
-        row.className =
-            "band";
-
-        row.innerHTML = `
-
-            <label>
-                ${
-                    frequency>=1000
-                    ?frequency/1000+"k"
-                    :frequency
-                }
-            </label>
-
-            <input
-                type="range"
-                min="-12"
-                max="12"
-                value="0"
-            >
-
-        `;
-
-        const slider =
-            row.querySelector(
-                "input"
-            );
-
-        sliders.push(
-            slider
-        );
-
-        slider.addEventListener(
-            "input",
-            ()=>{
-
-                updateEQ(
-                    index,
-                    Number(
-                        slider.value
-                    )
-                );
-
-            }
-        );
-
-        bandList.appendChild(
-            row
-        );
-
-    }
-);
-
-/* =========================================================
-   PREVIEW BARS
-========================================================= */
-
-for(
-    let i=0;
-    i<10;
-    i++
-){
-
-    const bar =
-        document.createElement(
-            "div"
-        );
-
-    bar.className =
-        "eq-preview-bar";
-
-    bar.style.height =
-        "25px";
-
-    eqPreview.appendChild(
-        bar
-    );
+    return `${min}:${sec}`;
 
 }
 
-/* =========================================================
-   EQ
-========================================================= */
 
-function updateEQ(
-    index,
-    value
-){
+/* =====================================================
+   VOLUME
+===================================================== */
 
-    if(eqFilters[index]){
+document.getElementById("volume")
+.addEventListener("input",e=>{
 
-        eqFilters[index]
-            .gain.value =
-            eqEnabled
-            ?value
-            :0;
+    let value =
+        Number(e.target.value);
+
+    const max =
+        Number(
+            document.getElementById(
+                "maxVolume"
+            ).value
+        );
+
+    value =
+        Math.min(value,max);
+
+    /*
+       Mudança suave evita pequenos clicks.
+    */
+
+    if(masterGain){
+
+        smoothParam(
+            masterGain.gain,
+            value,
+            .04
+        );
 
     }
 
-    const bars =
-        document.querySelectorAll(
-            ".eq-preview-bar"
-        );
+});
 
-    if(bars[index]){
 
-        const height =
-            25 +
-            (
-                (value+12)/24
-            )*
-            110;
+/* =====================================================
+   TEMAS
+===================================================== */
 
-        bars[index].style.height =
-            height+"px";
+document.getElementById("theme")
+.addEventListener("change",e=>{
 
-    }
+    document.body.className =
+        e.target.value;
 
-}
+});
 
-/* =========================================================
-   PRESETS
-========================================================= */
 
-const presets = {
+/* =====================================================
+   NAVEGAÇÃO
+===================================================== */
 
-    Normal:[
-        0,0,0,0,0,
-        0,0,0,0,0
-    ],
+document.querySelectorAll(".nav")
+.forEach(button=>{
 
-    Rock:[
-        5,4,2,-1,-2,
-        1,3,4,4,3
-    ],
+    button.addEventListener("click",()=>{
 
-    Pop:[
-        2,1,0,-1,0,
-        2,3,3,2,2
-    ],
+        const section =
+            button.dataset.section;
 
-    Jazz:[
-        3,2,1,0,1,
-        2,3,2,2,1
-    ],
+        document
+        .querySelectorAll(".nav")
+        .forEach(b=>b.classList.remove("active"));
 
-    Bass:[
-        9,7,5,3,1,
-        0,0,0,0,0
-    ],
+        button.classList.add("active");
 
-    Vocal:[
-        -3,-2,0,2,4,
-        5,4,2,1,0
-    ]
+        document
+        .querySelectorAll(".section")
+        .forEach(s=>s.classList.remove("active"));
 
-};
-
-document
-    .querySelectorAll(".preset")
-    .forEach(button=>{
-
-        button.addEventListener(
-            "click",
-            ()=>{
-
-                document
-                    .querySelectorAll(
-                        ".preset"
-                    )
-                    .forEach(
-                        b=>{
-                            b.classList.remove(
-                                "active"
-                            );
-                        }
-                    );
-
-                button.classList.add(
-                    "active"
-                );
-
-                const values =
-                    presets[
-                        button.dataset.preset
-                    ];
-
-                sliders.forEach(
-                    (slider,index)=>{
-
-                        slider.value =
-                            values[index];
-
-                        updateEQ(
-                            index,
-                            values[index]
-                        );
-
-                    }
-                );
-
-            }
-        );
+        document
+        .getElementById(section)
+        .classList.add("active");
 
     });
 
-/* =========================================================
-   SWITCHES
-========================================================= */
+});
 
-function switchButton(
-    id,
-    callback
-){
 
-    document
-        .getElementById(id)
-        .addEventListener(
-            "click",
-            function(){
+/* =====================================================
+   VISUALIZADOR
+===================================================== */
 
-                this.classList.toggle(
-                    "on"
-                );
+const canvas =
+    document.getElementById("canvas");
 
-                callback(
-                    this.classList.contains(
-                        "on"
-                    )
-                );
+const ctx =
+    canvas.getContext("2d");
 
-            }
-        );
+let dataArray;
+
+function resizeCanvas(){
+
+    const rect =
+        canvas.getBoundingClientRect();
+
+    canvas.width =
+        Math.max(1,rect.width);
+
+    canvas.height =
+        Math.max(1,rect.height);
 
 }
 
-/* EQ */
-
-switchButton(
-    "eqSwitch",
-    enabled=>{
-
-        eqEnabled =
-            enabled;
-
-        sliders.forEach(
-            (slider,index)=>{
-
-                if(eqFilters[index]){
-
-                    eqFilters[index]
-                        .gain.value =
-                        enabled
-                        ?Number(
-                            slider.value
-                        )
-                        :0;
-
-                }
-
-            }
-        );
-
-    }
+window.addEventListener(
+    "resize",
+    resizeCanvas
 );
 
-/* BASS BOOST */
+resizeCanvas();
 
-switchButton(
-    "bassSwitch",
-    enabled=>{
 
-        bassBoost =
-            enabled;
-
-        if(bassFilter){
-
-            const value =
-                Number(
-                    document
-                        .getElementById(
-                            "bass"
-                        )
-                        .value
-                );
-
-            bassFilter.gain.value =
-                enabled
-                ?value+4
-                :value;
-
-        }
-
-    }
-);
-
-/* LOUDNESS */
-
-switchButton(
-    "loudSwitch",
-    enabled=>{
-
-        loudness =
-            enabled;
-
-        if(masterGain){
-
-            const volume =
-                Number(
-                    document
-                        .getElementById(
-                            "volume"
-                        )
-                        .value
-                );
-
-            masterGain.gain.value =
-                enabled
-                ?volume*1.15
-                :volume;
-
-        }
-
-    }
-);
-
-/* =========================================================
-   POWER
-========================================================= */
-
-document
-    .getElementById("power")
-    .addEventListener(
-        "click",
-        function(){
-
-            this.classList.toggle(
-                "active"
-            );
-
-            if(
-                !this.classList.contains(
-                    "active"
-                )
-            ){
-
-                audio.pause();
-
-                document
-                    .getElementById(
-                        "play"
-                    )
-                    .textContent =
-                    "▶";
-
-            }
-
-        }
-    );
-
-/* =========================================================
-   EQUALIZADOR DE AMOSTRA ANIMADO
-========================================================= */
-
-const sampleEq =
-    document.getElementById(
-        "sampleEq"
-    );
-
-const sampleBars = [];
-
-for(
-    let i=0;
-    i<36;
-    i++
-){
-
-    const bar =
-        document.createElement(
-            "div"
-        );
-
-    bar.className =
-        "eq-bar";
-
-    sampleEq.appendChild(
-        bar
-    );
-
-    sampleBars.push(
-        bar
-    );
-
-}
-
-/* =========================================================
-   ANIMAÇÃO DO EQ
-========================================================= */
-
-function animateSampleEQ(){
+function drawVisualizer(){
 
     requestAnimationFrame(
-        animateSampleEQ
+        drawVisualizer
     );
 
-    let data = null;
+    if(!analyser){
 
-    if(analyser){
-
-        data =
-            new Uint8Array(
-                analyser.frequencyBinCount
-            );
-
-        analyser.getByteFrequencyData(
-            data
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
         );
+
+        return;
 
     }
 
-    sampleBars.forEach(
-        (bar,index)=>{
+    const bufferLength =
+        analyser.frequencyBinCount;
 
-            let height=7;
+    if(!dataArray ||
+       dataArray.length!==bufferLength){
 
-            if(
-                data &&
-                !audio.paused
-            ){
+        dataArray =
+            new Uint8Array(bufferLength);
 
-                const position =
-                    Math.floor(
-                        index *
-                        data.length /
-                        sampleBars.length
-                    );
+    }
 
-                const value =
-                    data[position] ||
-                    0;
+    analyser.getByteFrequencyData(
+        dataArray
+    );
 
-                height =
-                    6 +
-                    value/255*45;
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
 
-            }
+    const w=canvas.width;
+    const h=canvas.height;
 
-            bar.style.height =
-                height+"px";
+    const primary =
+        getComputedStyle(
+            document.body
+        ).getPropertyValue(
+            "--primary"
+        );
+
+
+    /* ================= BARRAS ================= */
+
+    if(currentViz==="bars"){
+
+        const bars=70;
+
+        const step =
+            Math.floor(
+                bufferLength/bars
+            );
+
+        const barWidth =
+            w/bars;
+
+        for(let i=0;i<bars;i++){
+
+            const value =
+                dataArray[i*step]||0;
+
+            const barHeight =
+                (value/255)*h*.85;
+
+            const x=i*barWidth;
+
+            ctx.fillStyle=primary;
+
+            ctx.fillRect(
+                x,
+                h-barHeight,
+                barWidth-2,
+                barHeight
+            );
 
         }
-    );
+
+    }
+
+
+    /* ================= ONDA ================= */
+
+    if(currentViz==="wave"){
+
+        analyser.getByteTimeDomainData(
+            dataArray
+        );
+
+        ctx.beginPath();
+
+        ctx.lineWidth=2;
+        ctx.strokeStyle=primary;
+
+        for(
+            let i=0;
+            i<dataArray.length;
+            i++
+        ){
+
+            const x =
+                i/dataArray.length*w;
+
+            const y =
+                dataArray[i]/255*h;
+
+            if(i===0)
+                ctx.moveTo(x,y);
+            else
+                ctx.lineTo(x,y);
+
+        }
+
+        ctx.stroke();
+
+    }
+
+
+    /* ================= CÍRCULO ================= */
+
+    if(currentViz==="circle"){
+
+        const cx=w/2;
+        const cy=h/2;
+
+        const base=Math.min(w,h)*.18;
+
+        for(
+            let i=0;
+            i<100;
+            i++
+        ){
+
+            const value =
+                dataArray[
+                    i*5
+                ]||0;
+
+            const angle =
+                i/100*Math.PI*2;
+
+            const radius =
+                base+
+                value/255*Math.min(w,h)*.27;
+
+            const x=
+                cx+Math.cos(angle)*radius;
+
+            const y=
+                cy+Math.sin(angle)*radius;
+
+            ctx.fillStyle=primary;
+
+            ctx.fillRect(
+                x,
+                y,
+                3,
+                3
+            );
+
+        }
+
+    }
+
+
+    /* ================= ESPELHO ================= */
+
+    if(currentViz==="mirror"){
+
+        const bars=60;
+
+        for(let i=0;i<bars;i++){
+
+            const value =
+                dataArray[
+                    i*3
+                ]||0;
+
+            const height =
+                value/255*h*.42;
+
+            const x =
+                i*(w/bars);
+
+            ctx.fillStyle=primary;
+
+            ctx.fillRect(
+                x,
+                h/2-height,
+                w/bars-2,
+                height
+            );
+
+            ctx.fillRect(
+                x,
+                h/2,
+                w/bars-2,
+                height
+            );
+
+        }
+
+    }
+
+
+    /* ================= PARTÍCULAS ================= */
+
+    if(currentViz==="particles"){
+
+        for(let i=0;i<90;i++){
+
+            const value =
+                dataArray[
+                    i*3
+                ]||0;
+
+            const x =
+                (i*97)%w;
+
+            const y =
+                h-
+                value/255*h;
+
+            const size =
+                1+
+                value/80;
+
+            ctx.fillStyle=primary;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                x,
+                y,
+                size,
+                0,
+                Math.PI*2
+            );
+
+            ctx.fill();
+
+        }
+
+    }
 
 }
 
-animateSampleEQ();
+drawVisualizer();
 
-/* =========================================================
+
+/* =====================================================
+   BOTÕES DO VISUALIZADOR
+===================================================== */
+
+document.querySelectorAll(".viz")
+.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        currentViz =
+            button.dataset.viz;
+
+        document
+        .querySelectorAll(".viz")
+        .forEach(b=>b.classList.remove("active"));
+
+        button.classList.add("active");
+
+    });
+
+});
+
+
+/* =====================================================
+   TECLADO
+===================================================== */
+
+document.addEventListener("keydown",e=>{
+
+    if(
+        e.code==="Space" &&
+        e.target.tagName!=="INPUT"
+    ){
+
+        e.preventDefault();
+
+        document
+        .getElementById("play")
+        .click();
+
+    }
+
+    if(e.code==="ArrowRight"){
+
+        if(audio.duration){
+
+            audio.currentTime =
+                Math.min(
+                    audio.currentTime+5,
+                    audio.duration
+                );
+
+        }
+
+    }
+
+    if(e.code==="ArrowLeft"){
+
+        audio.currentTime =
+            Math.max(
+                audio.currentTime-5,
+                0
+            );
+
+    }
+
+});
+
+
+/* =====================================================
    INICIALIZAÇÃO
-========================================================= */
+===================================================== */
 
-audio.volume =
-    .8;
+applyPreset("Normal");
+
+document
+.querySelector("#presets .btn")
+.classList.add("active");
+
+
+/*
+   Ativa o AudioContext somente quando necessário.
+   Isso evita problemas de autoplay em celulares.
+*/
+
+audio.addEventListener("play",()=>{
+
+    setupAudio();
+
+    if(
+        audioContext &&
+        audioContext.state==="suspended"
+    ){
+
+        audioContext.resume();
+
+    }
+
+});
 
 </script>
-
-</div>
 
 </body>
 </html>
