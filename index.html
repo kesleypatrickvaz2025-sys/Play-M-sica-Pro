@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="theme-color" content="#ff6500">
+<title>Play Music Pro V2</title>
+
+<style>
+:root{
+  --orange:#ff6500;
+  --orange2:#ff9d00;
+  --bg:#050505;
+  --card:#121212;
+  --card2:#191919;
+  --line:#292929;
+  --text:#fff;
+  --muted:#888;
+  --danger:#ff3b30;
+  --success:#34c759;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body{
+  background:#000;
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  overscroll-behavior:contain;
+}
+
+button{
+  border:0;
+  background:none;
+  color:#fff;
+  cursor:pointer;
+  transition:opacity .15s, transform .1s;
+}
+button:active{
+  opacity:.7;
+  transform:scale(.96);
+}
+
+input,select{
+  outline:none;
+}
+
+.app{
+  width:100%;
+  max-width:570px;
+  min-height:100vh;
+  margin:auto;
+  padding-bottom:110px;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(255,101,0,.25), transparent 34%),
+    var(--bg);
+}
+
+/* HEADER */
+.header{
+  height:68px;
+  padding:10px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:rgba(5,5,5,.9);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid #1c1c1c;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:18px;
+  font-weight:800;
+}
+
+.brandIcon{
+  width:43px;
+  height:43px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg, var(--orange), var(--orange2));
+  box-shadow:0 10px 30px rgba(255,101,0,.3);
+  font-size:22px;
+}
+
+.brand span{
+  color:var(--orange);
+}
+
+.iconBtn{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:#191919;
+  font-size:19px;
+  position:relative;
+}
+
+/* SEARCH */
+.search{
+  margin:15px 16px;
+  height:47px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:0 14px;
+  border-radius:15px;
+  background:#151515;
+  border:1px solid #292929;
+}
+.search input{
+  width:100%;
+  border:0;
+  background:none;
+  color:white;
+  font-size:14px;
+}
+.search input::placeholder{
+  color:#666;
+}
+
+/* TABS */
+.tabs{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:0 16px 16px;
+  scrollbar-width:none;
+}
+.tabs::-webkit-scrollbar{
+  display:none;
+}
+.tab{
+  white-space:nowrap;
+  padding:9px 15px;
+  border-radius:20px;
+  color:#888;
+  background:#181818;
+  transition:all .2s;
+}
+.tab.active{
+  color:#fff;
+  background:var(--orange);
+  box-shadow:0 6px 18px rgba(255,101,0,.3);
+}
+
+/* SECTIONS */
+.section{
+  padding:0 16px;
+  margin-bottom:22px;
+}
+.sectionTitle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:13px;
+}
+.sectionTitle h2{
+  font-size:18px;
+}
+.sectionTitle button{
+  color:var(--orange);
+  font-size:12px;
+  font-weight:bold;
+}
+
+/* PLAYER */
+.player{
+  padding:18px;
+  border-radius:28px;
+  background:linear-gradient(145deg,#1b1b1b,#0d0d0d);
+  border:1px solid #2a2a2a;
+  box-shadow:0 25px 70px rgba(0,0,0,.5);
+}
+.coverWrapper{
+  position:relative;
+  width:min(280px,75vw);
+  margin:auto;
+}
+.cover{
+  width:100%;
+  aspect-ratio:1;
+  display:block;
+  object-fit:cover;
+  border-radius:24px;
+  background:#222;
+  box-shadow:0 25px 60px rgba(0,0,0,.6);
+}
+.coverOverlay{
+  position:absolute;
+  inset:0;
+  border-radius:24px;
+  background:linear-gradient(to top, rgba(0,0,0,.4), transparent 40%);
+  pointer-events:none;
+}
+.songMeta{
+  text-align:center;
+  margin-top:18px;
+}
+.songMeta h1{
+  font-size:21px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.songMeta p{
+  color:#888;
+  font-size:13px;
+  margin-top:6px;
+}
+.progress{
+  margin-top:22px;
+}
+.progressTrack{
+  height:5px;
+  background:#333;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  position:relative;
+}
+.bufferFill{
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  width:0%;
+  background:rgba(255,255,255,.2);
+  border-radius:10px;
+  z-index:1;
+}
+.progressFill{
+  position:absolute;
+  left:0;
+  top:0;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--orange), #ffc000);
+  border-radius:10px;
+  z-index:2;
+}
+.times{
+  display:flex;
+  justify-content:space-between;
+  color:#777;
+  font-size:10px;
+  margin-top:7px;
+}
+.controls{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  margin-top:18px;
+}
+.control{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:18px;
+  background:#202020;
+}
+.control.active{
+  color:var(--orange);
+}
+.play{
+  width:65px;
+  height:65px;
+  background:linear-gradient(135deg, var(--orange), var(--orange2));
+  box-shadow:0 10px 35px rgba(255,101,0,.35);
+  font-size:25px;
+}
+.play:active{
+  box-shadow:0 4px 15px rgba(255,101,0,.4);
+}
+.subControls{
+  display:flex;
+  justify-content:space-around;
+  margin-top:15px;
+}
+.subBtn{
+  color:#999;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+}
+.subBtn.active{
+  color:var(--orange);
+}
+
+/* VOLUME */
+.volumePanel{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.volumePanel input{
+  flex:1;
+  accent-color:var(--orange);
+}
+.volumePanel span{
+  font-size:18px;
+  cursor:pointer;
+}
+
+/* PREDICTIVE */
+.predictive{
+  margin-top:15px;
+  padding:16px;
+  border-radius:18px;
+  background:#101010;
+  border:1px solid #292929;
+}
+.predHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.predHeader strong{
+  font-size:14px;
+}
+.status{
+  color:var(--orange);
+  font-size:11px;
+  font-weight:bold;
+}
+.switch{
+  width:49px;
+  height:27px;
+  border-radius:20px;
+  background:#333;
+  position:relative;
+  transition:background .2s;
+}
+.switch:after{
+  content:"";
+  position:absolute;
+  width:21px;
+  height:21px;
+  left:4px;
+  top:3px;
+  border-radius:50%;
+  background:#aaa;
+  transition:.2s;
+}
+.switch.on{
+  background:var(--orange);
+}
+.switch.on:after{
+  left:24px;
+  background:#fff;
+}
+.predRow{
+  margin-top:14px;
+}
+.predLabel{
+  display:flex;
+  justify-content:space-between;
+  color:#888;
+  font-size:11px;
+}
+.predTrack{
+  height:6px;
+  margin-top:6px;
+  background:#292929;
+  border-radius:10px;
+  overflow:hidden;
+}
+.predFill{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg, var(--orange), #ffc000);
+  transition:width .2s;
+}
+
+/* VISUALIZER */
+.visualizer{
+  height:86px;
+  padding:10px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:4px;
+  overflow:hidden;
+  border-radius:18px;
+  background:#101010;
+  border:1px solid #292929;
+}
+.bar{
+  width:5px;
+  min-height:4px;
+  height:8px;
+  border-radius:5px;
+  background:linear-gradient(to top, var(--orange), #ffc000);
+  transition:height .05s linear;
+}
+
+/* AUDIO PANEL */
+.audioPanel{
+  padding:16px;
+  border-radius:20px;
+  background:#141414;
+  border:1px solid #292929;
+}
+.audioRow{
+  padding:14px 0;
+  border-bottom:1px solid #292929;
+}
+.audioRow:last-child{
+  border-bottom:0;
+}
+.audioHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:9px;
+}
+.audioName{
+  font-size:14px;
+  font-weight:bold;
+}
+.value{
+  color:var(--orange);
+  font-size:12px;
+}
+.range{
+  width:100%;
+  accent-color:var(--orange);
+}
+.select{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  background:#222;
+  color:white;
+  border:1px solid #333;
+}
+
+/* EQ */
+.eq{
+  height:185px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-around;
+  margin-top:10px;
+}
+.band{
+  height:160px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+}
+.band input{
+  height:130px;
+  writing-mode:vertical-lr;
+  direction:rtl;
+  accent-color:var(--orange);
+  width:28px;
+}
+.band small{
+  color:#777;
+  font-size:8px;
+}
+
+/* SONG LIST */
+.song{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:9px 5px;
+  border-radius:13px;
+  background:transparent;
+  transition:background .15s;
+}
+.song:active{
+  background:#181818;
+}
+.songCover{
+  width:53px;
+  height:53px;
+  object-fit:cover;
+  border-radius:11px;
+  background:#222;
+}
+.songInfo{
+  flex:1;
+  min-width:0;
+}
+.songTitle{
+  font-size:14px;
+  font-weight:bold;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.songArtist{
+  color:#888;
+  font-size:12px;
+  margin-top:5px;
+}
+.songAction{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#202020;
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+}
+.songRemove{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:rgba(255,59,48,.15);
+  color:var(--danger);
+  display:grid;
+  place-items:center;
+  flex-shrink:0;
+  font-size:18px;
+}
+
+/* EMPTY */
+.empty{
+  text-align:center;
+  padding:35px;
+  color:#777;
+  border:2px dashed #292929;
+  border-radius:20px;
+  transition:all .2s;
+}
+.empty.dragOver{
+  border-color:var(--orange);
+  background:rgba(255,101,0,.05);
+}
+.empty p{
+  margin:10px 0;
+  font-size:13px;
+}
+
+/* BOTTOM */
+.bottom{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:min(570px,100%);
+  height:78px;
+  z-index:40;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  background:rgba(11,11,11,.96);
+  border-top:1px solid #292929;
+  backdrop-filter:blur(18px);
+}
+.nav{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  color:#777;
+  font-size:10px;
+  padding:8px 12px;
+  border-radius:12px;
+}
+.nav b{
+  font-size:20px;
+}
+.nav.active{
+  color:var(--orange);
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:95px;
+  transform:translate(-50%,20px);
+  padding:11px 18px;
+  background:#292929;
+  border-radius:24px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:100;
+  max-width:85%;
+  text-align:center;
+}
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+/* SLEEP TIMER */
+.sleepMenu{
+  position:fixed;
+  left:50%;
+  bottom:180px;
+  transform:translateX(-50%) scale(.95);
+  background:#222;
+  border:1px solid #333;
+  border-radius:18px;
+  padding:10px;
+  z-index:90;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  max-width:300px;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.2s;
+}
+.sleepMenu.show{
+  opacity:1;
+  pointer-events:auto;
+  transform:translateX(-50%) scale(1);
+}
+.sleepMenu button{
+  padding:8px 12px;
+  border-radius:12px;
+  background:#333;
+  font-size:12px;
+}
+.sleepMenu button:hover{
+  background:#444;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="brand">
+    <div class="brandIcon">♫</div>
+    <div>Play Music <span>Pro</span></div>
+  </div>
+  <button class="iconBtn" onclick="addFiles()" title="Adicionar músicas">＋</button>
+</header>
+
+<div class="search">
+  🔎
+  <input id="search" placeholder="Pesquisar música..." oninput="renderLibrary()">
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="setTab(this,'all')">Todas</button>
+  <button class="tab" onclick="setTab(this,'favorites')">Favoritas</button>
+  <button class="tab" onclick="setTab(this,'recent')">Recentes</button>
+</div>
+
+<!-- PLAYER -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Agora tocando</h2>
+    <button onclick="showToast('DSP Pro ativo')">DSP Pro</button>
+  </div>
+  <div class="player">
+    <div class="coverWrapper">
+      <img id="cover" class="cover" src="https://picsum.photos/700/700?random=100" alt="Capa do álbum">
+      <div class="coverOverlay"></div>
+    </div>
+    <div class="songMeta">
+      <h1 id="title">Nenhuma música</h1>
+      <p id="artist">Adicione um arquivo de áudio</p>
+    </div>
+    <div class="progress">
+      <div id="progressTrack" class="progressTrack">
+        <div id="bufferFill" class="bufferFill"></div>
+        <div id="progressFill" class="progressFill"></div>
+      </div>
+      <div class="times">
+        <span id="current">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+    <div class="controls">
+      <button id="shuffle" class="control" onclick="toggleShuffle()" title="Aleatório">🔀</button>
+      <button class="control" onclick="previousSong()" title="Anterior">⏮</button>
+      <button id="play" class="control play" onclick="togglePlay()" title="Play/Pause">▶</button>
+      <button class="control" onclick="nextSong()" title="Próxima">⏭</button>
+      <button id="repeat" class="control" onclick="toggleRepeat()" title="Repetir">🔁</button>
+    </div>
+    <div class="subControls">
+      <button id="favorite" class="subBtn" onclick="toggleFavorite()">♡ Favorito</button>
+      <button class="subBtn" onclick="showQueue()">☰ Fila</button>
+      <button class="subBtn" onclick="toggleSleepMenu()">⏱ Sleep</button>
+    </div>
+    <div class="volumePanel">
+      <span onclick="toggleMute()" id="muteIcon">🔊</span>
+      <input id="volume" type="range" min="0" max="100" value="80">
+      <span id="volumeValue">80%</span>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEP MENU -->
+<div id="sleepMenu" class="sleepMenu">
+  <button onclick="setSleepTimer(5)">5 min</button>
+  <button onclick="setSleepTimer(15)">15 min</button>
+  <button onclick="setSleepTimer(30)">30 min</button>
+  <button onclick="setSleepTimer(60)">60 min</button>
+  <button onclick="cancelSleepTimer()">Cancelar</button>
+</div>
+
+<!-- PREDICTIVE -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Áudio Preditivo</h2>
+    <span id="dspStatus" class="status">Aguardando</span>
+  </div>
+  <div class="predictive">
+    <div class="predHeader">
+      <strong>🧠 Auto Audio Engine</strong>
+      <button id="predictiveSwitch" class="switch on" onclick="togglePredictive()"></button>
+    </div>
+    <div class="predRow">
+      <div class="predLabel"><span>Graves detectados</span><span id="bassDetect">0%</span></div>
+      <div class="predTrack"><div id="bassFill" class="predFill"></div></div>
+    </div>
+    <div class="predRow">
+      <div class="predLabel"><span>Agudos detectados</span><span id="trebleDetect">0%</span></div>
+      <div class="predTrack"><div id="trebleFill" class="predFill"></div></div>
+    </div>
+    <div class="predRow">
+      <div class="predLabel"><span>Nível RMS</span><span id="rmsDetect">0%</span></div>
+      <div class="predTrack"><div id="rmsFill" class="predFill"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- VISUALIZER -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Espectro</h2>
+    <button onclick="toggleVisualizer()">Alternar</button>
+  </div>
+  <div id="visualizer" class="visualizer"></div>
+</section>
+
+<!-- PROCESSAMENTO -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Processamento de áudio</h2>
+    <button onclick="resetAudio()">Restaurar</button>
+  </div>
+  <div class="audioPanel">
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">🎧 Perfil de saída</span></div>
+      <select id="outputProfile" class="select">
+        <option value="headphones">Fone de ouvido</option>
+        <option value="bluetooth">Bluetooth</option>
+        <option value="speaker">Alto-falante</option>
+        <option value="car">Carro</option>
+        <option value="studio">Studio</option>
+      </select>
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader">
+        <span class="audioName">🧠 Auto EQ</span>
+        <button id="autoEqSwitch" class="switch on" onclick="toggleAutoEQ()"></button>
+      </div>
+      <p style="font-size:11px;color:#777">O sistema adapta suavemente o EQ conforme a energia espectral da música.</p>
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">🔊 Loudness Adaptativo</span><span id="loudValue" class="value">50%</span></div>
+      <input id="loud" class="range" type="range" min="0" max="100" value="50">
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">💥 Bass Boost Inteligente</span><span id="bassValue" class="value">0 dB</span></div>
+      <input id="bass" class="range" type="range" min="0" max="15" value="0">
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">🌐 Espacial Pro</span><span id="spatialValue" class="value">50%</span></div>
+      <input id="spatial" class="range" type="range" min="0" max="100" value="50">
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">✨ Virtualizador</span><span id="virtualValue" class="value">0%</span></div>
+      <input id="virtual" class="range" type="range" min="0" max="100" value="0">
+    </div>
+    <div class="audioRow">
+      <div class="audioHeader"><span class="audioName">🎛 Pré-amplificador</span><span id="preValue" class="value">0 dB</span></div>
+      <input id="pre" class="range" type="range" min="-12" max="12" value="0">
+    </div>
+  </div>
+</section>
+
+<!-- EQ -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Equalizador 10 bandas</h2>
+    <button onclick="resetEQ()">Reset</button>
+  </div>
+  <div class="audioPanel">
+    <select id="eqPreset" class="select">
+      <option value="flat">Flat</option>
+      <option value="bass">Bass Boost</option>
+      <option value="rock">Rock</option>
+      <option value="pop">Pop</option>
+      <option value="vocal">Vocal</option>
+      <option value="jazz">Jazz</option>
+      <option value="electronic">Electronic</option>
+    </select>
+    <div class="eq">
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>60</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>120</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>250</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>500</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>1K</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>2K</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>4K</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>8K</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>12K</small></div>
+      <div class="band"><input class="eqBand" type="range" min="-12" max="12" value="0"><small>16K</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- BIBLIOTECA -->
+<section class="section">
+  <div class="sectionTitle">
+    <h2>Biblioteca</h2>
+    <button onclick="addFiles()">＋ Adicionar</button>
+  </div>
+  <div id="library"></div>
+  <div id="empty" class="empty" onclick="addFiles()">
+    <p style="font-size:30px">🎵</p>
+    <p><strong>Nenhuma música adicionada</strong></p>
+    <p>Clique aqui ou arraste arquivos de áudio</p>
+  </div>
+</section>
+
+<input id="fileInput" type="file" accept="audio/*" multiple hidden>
+
+</div>
+
+<!-- BOTTOM -->
+<nav class="bottom">
+  <button class="nav active"><b>⌂</b>Início</button>
+  <button class="nav" onclick="addFiles()"><b>♫</b>Músicas</button>
+  <button class="nav" onclick="scrollToAudio()"><b>🎚</b>Áudio</button>
+  <button class="nav" onclick="scrollToPredictive()"><b>🧠</b>Pro</button>
+</nav>
+
+<div id="toast" class="toast">Pronto</div>
+
+<audio id="audio"></audio>
+
+<script>
+/* =========================================================
+   PLAY MUSIC PRO V2
+   AUDIO ENGINE MELHORADO
+   ========================================================= */
+
+const audio = document.getElementById('audio');
+const visualizer = document.getElementById('visualizer');
+const toast = document.getElementById('toast');
+const fileInput = document.getElementById('fileInput');
+const emptyEl = document.getElementById('empty');
+const libraryEl = document.getElementById('library');
+
+let ctx = null;
+let source = null;
+let analyser = null;
+let compressor = null;
+let master = null;
+let bassFilter = null;
+let autoEQFilter = null;
+let eqFilters = [];
+let audioReady = false;
+
+let songs = [];
+let currentIndex = -1;
+let currentTab = 'all';
+let shuffle = false;
+let repeat = false;
+let predictive = true;
+let autoEQ = true;
+let visualizerEnabled = true;
+let sleepTimerId = null;
+let sleepRemaining = 0;
+let isMuted = false;
+let lastVolume = 80;
+
+let toastTimer;
+let sleepInterval;
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+function initAudio() {
+  if (audioReady) return;
+  const AudioContext = window.AudioContext || window.webkitAudioContext;
+  if (!AudioContext) {
+    showToast('Seu navegador não suporta Web Audio API');
+    return;
+  }
+
+  ctx = new AudioContext();
+  source = ctx.createMediaElementSource(audio);
+  analyser = ctx.createAnalyser();
+  analyser.fftSize = 1024;
+  analyser.smoothingTimeConstant = 0.82;
+
+  compressor = ctx.createDynamicsCompressor();
+  compressor.threshold.value = -8;
+  compressor.knee.value = 12;
+  compressor.ratio.value = 4;
+  compressor.attack.value = 0.008;
+  compressor.release.value = 0.18;
+
+  master = ctx.createGain();
+  master.gain.value = 1;
+
+  bassFilter = ctx.createBiquadFilter();
+  bassFilter.type = 'lowshelf';
+  bassFilter.frequency.value = 120;
+  bassFilter.gain.value = 0;
+
+  autoEQFilter = ctx.createBiquadFilter();
+  autoEQFilter.type = 'lowshelf';
+  autoEQFilter.frequency.value = 100;
+  autoEQFilter.gain.value = 0;
+
+  const frequencies = [60,120,250,500,1000,2000,4000,8000,12000,16000];
+  frequencies.forEach(freq => {
+    const filter = ctx.createBiquadFilter();
+    filter.type = 'peaking';
+    filter.frequency.value = freq;
+    filter.Q.value = 1;
+    filter.gain.value = 0;
+    eqFilters.push(filter);
+  });
+
+  source.connect(eqFilters[0]);
+  for (let i = 0; i < eqFilters.length - 1; i++) {
+    eqFilters[i].connect(eqFilters[i+1]);
+  }
+  eqFilters[eqFilters.length-1].connect(autoEQFilter);
+  autoEQFilter.connect(bassFilter);
+  bassFilter.connect(compressor);
+  compressor.connect(analyser);
+  analyser.connect(master);
+  master.connect(ctx.destination);
+
+  audioReady = true;
+  document.getElementById('dspStatus').textContent = 'DSP ONLINE';
+  document.getElementById('dspStatus').style.color = 'var(--success)';
+}
+
+/* =========================================================
+   CONTROLE DE REPRODUÇÃO
+   ========================================================= */
+
+function togglePlay() {
+  if (!audio.src) {
+    showToast('Adicione uma música primeiro');
+    return;
+  }
+  initAudio();
+  if (ctx && ctx.state === 'suspended') ctx.resume();
+  if (audio.paused) {
+    audio.play().catch(() => showToast('Não foi possível reproduzir'));
+    document.getElementById('play').textContent = '❚❚';
+  } else {
+    audio.pause();
+    document.getElementById('play').textContent = '▶';
+  }
+}
+
+function playSong(index) {
+  if (!songs[index]) return;
+  initAudio();
+  currentIndex = index;
+  const song = songs[index];
+  audio.src = song.url;
+  document.getElementById('title').textContent = song.title;
+  document.getElementById('artist').textContent = 'Arquivo local';
+  document.getElementById('cover').src = `https://picsum.photos/700/700?random=${index+100}`;
+  if (ctx) ctx.resume();
+  audio.play().catch(() => {});
+  document.getElementById('play').textContent = '❚❚';
+  song.recent = true;
+  updateFavoriteButton();
+  renderLibrary();
+}
+
+function nextSong() {
+  if (!songs.length) return;
+  let index;
+  if (shuffle) {
+    do {
+      index = Math.floor(Math.random() * songs.length);
+    } while (index === currentIndex && songs.length > 1);
+  } else {
+    index = currentIndex + 1;
+    if (index >= songs.length) index = 0;
+  }
+  playSong(index);
+}
+
+function previousSong() {
+  if (audio.currentTime > 3) {
+    audio.currentTime = 0;
+    return;
+  }
+  if (!songs.length) return;
+  let index = currentIndex - 1;
+  if (index < 0) index = songs.length - 1;
+  playSong(index);
+}
+
+function toggleShuffle() {
+  shuffle = !shuffle;
+  document.getElementById('shuffle').classList.toggle('active', shuffle);
+  showToast(shuffle ? 'Aleatório ativado' : 'Aleatório desativado');
+}
+
+function toggleRepeat() {
+  repeat = !repeat;
+  document.getElementById('repeat').classList.toggle('active', repeat);
+  showToast(repeat ? 'Repetição ativada' : 'Repetição desativada');
+}
+
+audio.addEventListener('ended', () => {
+  if (repeat) {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+  } else {
+    nextSong();
+  }
+});
+
+/* =========================================================
+   PROGRESSO & BUFFER
+   ========================================================= */
+
+audio.addEventListener('timeupdate', () => {
+  if (!audio.duration) return;
+  const p = (audio.currentTime / audio.duration) * 100;
+  document.getElementById('progressFill').style.width = p + '%';
+  document.getElementById('current').textContent = formatTime(audio.currentTime);
+  updateBuffer();
+});
+
+audio.addEventListener('loadedmetadata', () => {
+  document.getElementById('duration').textContent = formatTime(audio.duration);
+  updateBuffer();
+});
+
+function updateBuffer() {
+  if (audio.buffered.length > 0 && audio.duration) {
+    const bufferedEnd = audio.buffered.end(audio.buffered.length - 1);
+    const p = (bufferedEnd / audio.duration) * 100;
+    document.getElementById('bufferFill').style.width = p + '%';
+  }
+}
+
+document.getElementById('progressTrack').addEventListener('click', e => {
+  if (!audio.duration) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const p = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = p * audio.duration;
+});
+
+function formatTime(sec) {
+  if (!isFinite(sec)) return '0:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return `${m}:${String(s).padStart(2,'0')}`;
+}
+
+/* =========================================================
+   VOLUME
+   ========================================================= */
+
+document.getElementById('volume').addEventListener('input', e => {
+  const value = Number(e.target.value);
+  document.getElementById('volumeValue').textContent = value + '%';
+  audio.volume = value / 100;
+  if (value > 0) {
+    isMuted = false;
+    document.getElementById('muteIcon').textContent = value > 50 ? '🔊' : '🔉';
+  } else {
+    document.getElementById('muteIcon').textContent = '🔇';
+  }
+  saveSettings();
+});
+
+function toggleMute() {
+  const volumeSlider = document.getElementById('volume');
+  if (isMuted) {
+    audio.volume = lastVolume / 100;
+    volumeSlider.value = lastVolume;
+    document.getElementById('volumeValue').textContent = lastVolume + '%';
+    document.getElementById('muteIcon').textContent = lastVolume > 50 ? '🔊' : '🔉';
+    isMuted = false;
+  } else {
+    lastVolume = Number(volumeSlider.value);
+    audio.volume = 0;
+    volumeSlider.value = 0;
+    document.getElementById('volumeValue').textContent = '0%';
+    document.getElementById('muteIcon').textContent = '🔇';
+    isMuted = true;
+  }
+}
+
+/* =========================================================
+   BIBLIOTECA E ARQUIVOS
+   ========================================================= */
+
+function addFiles() {
+  fileInput.click();
+}
+
+fileInput.addEventListener('change', e => {
+  const files = [...e.target.files];
+  if (!files.length) return;
+  files.forEach(file => {
+    songs.push({
+      title: file.name.replace(/\.[^/.]+$/,''),
+      url: URL.createObjectURL(file),
+      favorite: false,
+      recent: false
+    });
+  });
+  renderLibrary();
+  if (currentIndex === -1 && songs.length) playSong(0);
+  fileInput.value = '';
+  showToast(`${files.length} música(s) adicionada(s)`);
+});
+
+// Drag and Drop
+let dragCounter = 0;
+document.addEventListener('dragover', e => {
+  e.preventDefault();
+  emptyEl.classList.add('dragOver');
+});
+document.addEventListener('dragleave', e => {
+  e.preventDefault();
+  dragCounter--;
+  if (dragCounter <= 0) {
+    emptyEl.classList.remove('dragOver');
+    dragCounter = 0;
+  }
+});
+document.addEventListener('drop', e => {
+  e.preventDefault();
+  dragCounter = 0;
+  emptyEl.classList.remove('dragOver');
+  const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('audio/'));
+  if (!files.length) {
+    showToast('Arquivo de áudio inválido');
+    return;
+  }
+  files.forEach(file => {
+    songs.push({
+      title: file.name.replace(/\.[^/.]+$/,''),
+      url: URL.createObjectURL(file),
+      favorite: false,
+      recent: false
+    });
+  });
+  renderLibrary();
+  if (currentIndex === -1 && songs.length) playSong(0);
+  showToast(`${files.length} música(s) adicionada(s)`);
+});
+
+function setTab(button, tab) {
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  button.classList.add('active');
+  currentTab = tab;
+  renderLibrary();
+}
+
+function renderLibrary() {
+  const search = document.getElementById('search').value.toLowerCase();
+  let filtered = songs.filter(song => song.title.toLowerCase().includes(search));
+  if (currentTab === 'favorites') filtered = filtered.filter(s => s.favorite);
+  if (currentTab === 'recent') filtered = filtered.filter(s => s.recent);
+
+  libraryEl.innerHTML = '';
+  emptyEl.style.display = filtered.length ? 'none' : 'block';
+
+  filtered.forEach(song => {
+    const index = songs.indexOf(song);
+    const item = document.createElement('div');
+    item.className = 'song';
+    item.innerHTML = `
+      <img class="songCover" src="https://picsum.photos/100/100?random=${index+30}" alt="">
+      <div class="songInfo">
+        <div class="songTitle">${escapeHTML(song.title)}</div>
+        <div class="songArtist">Arquivo local</div>
+      </div>
+      <button class="songAction" onclick="playSong(${index})" title="Tocar">▶</button>
+      <button class="songRemove" onclick="removeSong(${index})" title="Remover">✕</button>
+    `;
+    libraryEl.appendChild(item);
+  });
+}
+
+function removeSong(index) {
+  if (index === currentIndex) {
+    audio.pause();
+    document.getElementById('play').textContent = '▶';
+    currentIndex = -1;
+    document.getElementById('title').textContent = 'Nenhuma música';
+    document.getElementById('artist').textContent = 'Adicione um arquivo de áudio';
+    document.getElementById('cover').src = 'https://picsum.photos/700/700?random=100';
+  }
+  if (index < currentIndex) currentIndex--;
+  if (songs[index]?.url) URL.revokeObjectURL(songs[index].url);
+  songs.splice(index, 1);
+  renderLibrary();
+  showToast('Música removida');
+}
+
+function escapeHTML(text) {
+  return String(text)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#039;');
+}
+
+/* =========================================================
+   FAVORITO
+   ========================================================= */
+
+function toggleFavorite() {
+  if (!songs[currentIndex]) return;
+  songs[currentIndex].favorite = !songs[currentIndex].favorite;
+  updateFavoriteButton();
+  renderLibrary();
+}
+
+function updateFavoriteButton() {
+  const active = songs[currentIndex]?.favorite || false;
+  const btn = document.getElementById('favorite');
+  btn.classList.toggle('active', active);
+  btn.textContent = active ? '♥ Favorito' : '♡ Favorito';
+}
+
+/* =========================================================
+   AUTO EQ & PREDITIVO
+   ========================================================= */
+
+function toggleAutoEQ() {
+  autoEQ = !autoEQ;
+  document.getElementById('autoEqSwitch').classList.toggle('on', autoEQ);
+  if (!autoEQ && autoEQFilter) autoEQFilter.gain.value = 0;
+  showToast(autoEQ ? 'Auto EQ ativado' : 'Auto EQ desativado');
+  saveSettings();
+}
+
+function togglePredictive() {
+  predictive = !predictive;
+  document.getElementById('predictiveSwitch').classList.toggle('on', predictive);
+  showToast(predictive ? 'Áudio Preditivo ativado' : 'Áudio Preditivo desativado');
+  saveSettings();
+}
+
+document.getElementById('bass').addEventListener('input', e => {
+  const value = Number(e.target.value);
+  document.getElementById('bassValue').textContent = value + ' dB';
+  if (bassFilter) bassFilter.gain.value = value;
+  saveSettings();
+});
+
+document.getElementById('loud').addEventListener('input', e => {
+  document.getElementById('loudValue').textContent = e.target.value + '%';
+  saveSettings();
+});
+
+document.getElementById('spatial').addEventListener('input', e => {
+  document.getElementById('spatialValue').textContent = e.target.value + '%';
+  saveSettings();
+});
+
+document.getElementById('virtual').addEventListener('input', e => {
+  document.getElementById('virtualValue').textContent = e.target.value + '%';
+  saveSettings();
+});
+
+document.getElementById('pre').addEventListener('input', e => {
+  const db = Number(e.target.value);
+  document.getElementById('preValue').textContent = db + ' dB';
+  if (master) master.gain.value = Math.pow(10, db/20);
+  saveSettings();
+});
+
+/* =========================================================
+   EQ
+   ========================================================= */
+
+const presets = {
+  flat: [0,0,0,0,0,0,0,0,0,0],
+  bass: [6,5,4,2,1,0,0,1,2,2],
+  rock: [4,3,1,0,-1,1,3,4,4,3],
+  pop: [-1,1,3,4,3,1,0,2,3,4],
+  vocal: [-2,-1,1,4,5,4,2,1,0,0],
+  jazz: [3,2,0,-1,-1,2,3,4,4,3],
+  electronic: [5,4,2,0,-1,2,4,5,6,6]
+};
+
+document.getElementById('eqPreset').addEventListener('change', e => applyEQPreset(e.target.value));
+
+document.querySelectorAll('.eqBand').forEach((slider, index) => {
+  slider.addEventListener('input', () => {
+    if (eqFilters[index]) eqFilters[index].gain.value = Number(slider.value);
+    saveSettings();
+  });
+});
+
+function applyEQPreset(name) {
+  const values = presets[name] || presets.flat;
+  document.querySelectorAll('.eqBand').forEach((slider, index) => {
+    slider.value = values[index];
+    if (eqFilters[index]) eqFilters[index].gain.value = values[index];
+  });
+  saveSettings();
+}
+
+function resetEQ() {
+  applyEQPreset('flat');
+  document.getElementById('eqPreset').value = 'flat';
+  showToast('Equalizador resetado');
+}
+
+function resetAudio() {
+  document.getElementById('loud').value = 50;
+  document.getElementById('bass').value = 0;
+  document.getElementById('spatial').value = 50;
+  document.getElementById('virtual').value = 0;
+  document.getElementById('pre').value = 0;
+  if (bassFilter) bassFilter.gain.value = 0;
+  if (master) master.gain.value = 1;
+  if (compressor) compressor.threshold.value = -8;
+  if (autoEQFilter) autoEQFilter.gain.value = 0;
+  resetEQ();
+  document.getElementById('loudValue').textContent = '50%';
+  document.getElementById('bassValue').textContent = '0 dB';
+  document.getElementById('spatialValue').textContent = '50%';
+  document.getElementById('virtualValue').textContent = '0%';
+  document.getElementById('preValue').textContent = '0 dB';
+  showToast('Processamento restaurado');
+  saveSettings();
+}
+
+/* =========================================================
+   PERFIL DE SAÍDA
+   ========================================================= */
+
+document.getElementById('outputProfile').addEventListener('change', e => {
+  const profile = e.target.value;
+  const spatial = document.getElementById('spatial');
+  const bass = document.getElementById('bass');
+  switch(profile) {
+    case 'headphones':
+      spatial.value = 35;
+      bass.value = 0;
+      break;
+    case 'bluetooth':
+      spatial.value = 25;
+      bass.value = 0;
+      break;
+    case 'speaker':
+      spatial.value = 15;
+      bass.value = 2;
+      break;
+    case 'car':
+      spatial.value = 20;
+      bass.value = 4;
+      break;
+    case 'studio':
+      spatial.value = 10;
+      bass.value = 0;
+      break;
+  }
+  document.getElementById('spatialValue').textContent = spatial.value + '%';
+  document.getElementById('bassValue').textContent = bass.value + ' dB';
+  if (bassFilter) bassFilter.gain.value = Number(bass.value);
+  showToast('Perfil: ' + profile);
+  saveSettings();
+});
+
+/* =========================================================
+   VISUALIZADOR
+   ========================================================= */
+
+for (let i = 0; i < 48; i++) {
+  const bar = document.createElement('div');
+  bar.className = 'bar';
+  visualizer.appendChild(bar);
+}
+const bars = document.querySelectorAll('.bar');
+const freqData = new Uint8Array(512);
+
+function toggleVisualizer() {
+  visualizerEnabled = !visualizerEnabled;
+  visualizer.style.display = visualizerEnabled ? 'flex' : 'none';
+  saveSettings();
+}
+
+function analyze() {
+  requestAnimationFrame(analyze);
+  if (!analyser) return;
+  analyser.getByteFrequencyData(freqData);
+
+  bars.forEach((bar, index) => {
+    const pos = Math.floor(index / bars.length * freqData.length);
+    const value = Math.max(0.03, freqData[pos] / 255);
+    bar.style.height = (value * 65 + 4) + 'px';
+  });
+
+  if (!predictive) return;
+
+  let bass = 0;
+  for (let i = 1; i < 35; i++) bass += freqData[i];
+  bass /= 35;
+
+  let treble = 0;
+  for (let i = 250; i < 480; i++) treble += freqData[i];
+  treble /= 230;
+
+  let rms = 0;
+  for (let i = 0; i < freqData.length; i++) rms += freqData[i];
+  rms /= freqData.length;
+
+  const bassPct = Math.min(100, Math.round(bass / 2.55));
+  const treblePct = Math.min(100, Math.round(treble / 2.55));
+  const rmsPct = Math.min(100, Math.round(rms / 2.55));
+
+  document.getElementById('bassDetect').textContent = bassPct + '%';
+  document.getElementById('trebleDetect').textContent = treblePct + '%';
+  document.getElementById('rmsDetect').textContent = rmsPct + '%';
+  document.getElementById('bassFill').style.width = bassPct + '%';
+  document.getElementById('trebleFill').style.width = treblePct + '%';
+  document.getElementById('rmsFill').style.width = rmsPct + '%';
+
+  if (!autoEQ || !autoEQFilter) return;
+
+  let correction = 0;
+  if (bassPct > 85) correction = -2;
+  else if (bassPct < 25) correction = 1.5;
+  autoEQFilter.gain.value = correction;
+
+  if (bassFilter) {
+    const userBass = Number(document.getElementById('bass').value);
+    let adaptiveBass = userBass;
+    if (bassPct > 85) adaptiveBass = userBass * 0.25;
+    else if (bassPct > 70) adaptiveBass = userBass * 0.55;
+    bassFilter.gain.value = adaptiveBass;
+  }
+
+  if (compressor) {
+    if (rmsPct > 90) compressor.threshold.value = -15;
+    else if (rmsPct > 75) compressor.threshold.value = -11;
+    else compressor.threshold.value = -7;
+  }
+}
+
+/* =========================================================
+   FILA
+   ========================================================= */
+
+function showQueue() {
+  if (!songs.length) {
+    showToast('A fila está vazia');
+    return;
+  }
+  const names = songs.slice(0, 5).map((s, i) => `${i+1}. ${s.title}`).join(' • ');
+  showToast(names);
+}
+
+/* =========================================================
+   SLEEP TIMER
+   ========================================================= */
+
+function toggleSleepMenu() {
+  const menu = document.getElementById('sleepMenu');
+  menu.classList.toggle('show');
+}
+
+function setSleepTimer(minutes) {
+  if (sleepTimerId) clearTimeout(sleepTimerId);
+  if (sleepInterval) clearInterval(sleepInterval);
+  sleepRemaining = minutes * 60;
+  sleepTimerId = setTimeout(() => {
+    audio.pause();
+    document.getElementById('play').textContent = '▶';
+    sleepRemaining = 0;
+    showToast('Sleep timer ativado: pausado');
+    document.getElementById('sleepMenu').classList.remove('show');
+    sleepTimerId = null;
+    if (sleepInterval) clearInterval(sleepInterval);
+  }, minutes * 60 * 1000);
+  sleepInterval = setInterval(() => {
+    if (sleepRemaining > 0) {
+      sleepRemaining--;
+    }
+  }, 1000);
+  document.getElementById('sleepMenu').classList.remove('show');
+  showToast(`Sleep timer: ${minutes} min`);
+}
+
+function cancelSleepTimer() {
+  if (sleepTimerId) {
+    clearTimeout(sleepTimerId);
+    sleepTimerId = null;
+  }
+  if (sleepInterval) {
+    clearInterval(sleepInterval);
+    sleepInterval = null;
+  }
+  sleepRemaining = 0;
+  document.getElementById('sleepMenu').classList.remove('show');
+  showToast('Sleep timer cancelado');
+}
+
+/* =========================================================
+   SCROLL
+   ========================================================= */
+
+function scrollToAudio() {
+  document.querySelector('.audioPanel').scrollIntoView({ behavior: 'smooth' });
+}
+function scrollToPredictive() {
+  document.querySelector('.predictive').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+}
+
+/* =========================================================
+   PERSISTÊNCIA (LOCALSTORAGE)
+   ========================================================= */
+
+function saveSettings() {
+  const settings = {
+    volume: document.getElementById('volume').value,
+    loud: document.getElementById('loud').value,
+    bass: document.getElementById('bass').value,
+    spatial: document.getElementById('spatial').value,
+    virtual: document.getElementById('virtual').value,
+    pre: document.getElementById('pre').value,
+    eq: [...document.querySelectorAll('.eqBand')].map(s => s.value),
+    predictive: predictive,
+    autoEQ: autoEQ,
+    visualizer: visualizerEnabled,
+    profile: document.getElementById('outputProfile').value
+  };
+  localStorage.setItem('playMusicProSettings', JSON.stringify(settings));
+}
+
+function loadSettings() {
+  const saved = localStorage.getItem('playMusicProSettings');
+  if (!saved) return;
+  try {
+    const s = JSON.parse(saved);
+    document.getElementById('volume').value = s.volume || 80;
+    document.getElementById('volumeValue').textContent = (s.volume || 80) + '%';
+    audio.volume = (s.volume || 80) / 100;
+    document.getElementById('loud').value = s.loud || 50;
+    document.getElementById('bass').value = s.bass || 0;
+    document.getElementById('spatial').value = s.spatial || 50;
+    document.getElementById('virtual').value = s.virtual || 0;
+    document.getElementById('pre').value = s.pre || 0;
+    if (s.eq && s.eq.length === 10) {
+      document.querySelectorAll('.eqBand').forEach((slider, i) => slider.value = s.eq[i]);
+    }
+    predictive = s.predictive !== undefined ? s.predictive : true;
+    autoEQ = s.autoEQ !== undefined ? s.autoEQ : true;
+    visualizerEnabled = s.visualizer !== undefined ? s.visualizer : true;
+    document.getElementById('predictiveSwitch').classList.toggle('on', predictive);
+    document.getElementById('autoEqSwitch').classList.toggle('on', autoEQ);
+    visualizer.style.display = visualizerEnabled ? 'flex' : 'none';
+    if (s.profile) document.getElementById('outputProfile').value = s.profile;
+    document.getElementById('loudValue').textContent = (s.loud || 50) + '%';
+    document.getElementById('bassValue').textContent = (s.bass || 0) + ' dB';
+    document.getElementById('spatialValue').textContent = (s.spatial || 50) + '%';
+    document.getElementById('virtualValue').textContent = (s.virtual || 0) + '%';
+    document.getElementById('preValue').textContent = (s.pre || 0) + ' dB';
+  } catch(e) {}
+}
+
+/* =========================================================
+   ATALHOS DE TECLADO
+   ========================================================= */
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+  switch(e.key.toLowerCase()) {
+    case ' ':
+      e.preventDefault();
+      togglePlay();
+      break;
+    case 'arrowright':
+      nextSong();
+      break;
+    case 'arrowleft':
+      previousSong();
+      break;
+    case 'arrowup':
+      const volUp = document.getElementById('volume');
+      volUp.value = Math.min(100, Number(volUp.value) + 5);
+      volUp.dispatchEvent(new Event('input'));
+      break;
+    case 'arrowdown':
+      const volDown = document.getElementById('volume');
+      volDown.value = Math.max(0, Number(volDown.value) - 5);
+      volDown.dispatchEvent(new Event('input'));
+      break;
+    case 'm':
+      toggleMute();
+      break;
+    case 'f':
+      toggleFavorite();
+      break;
+  }
+});
+
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
+
+loadSettings();
+analyze();
+renderLibrary();
+
+</script>
+</body>
+</html>
