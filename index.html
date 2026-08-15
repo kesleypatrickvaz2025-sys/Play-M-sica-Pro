@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Music Pro V1.2</title>
+<title>Music Pro V1.3</title>
 
 <style>
 *{box-sizing:border-box}
 
 :root{
- --bg:#08090d;
- --panel:#12141b;
- --panel2:#1b1e27;
+ --bg:#07080c;
+ --panel:#11131a;
+ --panel2:#1a1d25;
  --orange:#ff7800;
- --orange2:#ffad58;
+ --orange2:#ffad55;
  --text:#fff;
  --muted:#9297a4;
  --line:#292d38;
@@ -22,29 +22,24 @@
 body{
  margin:0;
  background:
- radial-gradient(circle at 50% -10%,#42210c 0,#111 35%,#07080b 75%);
+ radial-gradient(circle at 50% -15%,#572705 0,#15100c 27%,#07080c 70%);
  color:var(--text);
- font-family:Arial,sans-serif;
- overflow-x:hidden;
+ font-family:Arial,Helvetica,sans-serif;
 }
 
 button,input,textarea{font:inherit}
-
-button{
- cursor:pointer;
- -webkit-tap-highlight-color:transparent;
-}
+button{cursor:pointer}
 
 .header{
  position:sticky;
  top:0;
- z-index:20;
+ z-index:50;
  height:62px;
  display:flex;
  align-items:center;
  justify-content:space-between;
  padding:0 15px;
- background:rgba(8,9,13,.92);
+ background:rgba(7,8,12,.94);
  backdrop-filter:blur(18px);
  border-bottom:1px solid var(--line);
 }
@@ -58,7 +53,7 @@ button{
 
 .header-actions{
  display:flex;
- gap:7px;
+ gap:8px;
 }
 
 .icon{
@@ -67,33 +62,31 @@ button{
  border:0;
  border-radius:50%;
  background:var(--panel2);
- color:white;
- font-size:18px;
+ color:#fff;
 }
 
 .view{
  display:none;
- padding:18px 14px 110px;
- max-width:760px;
+ max-width:780px;
  margin:auto;
+ padding:18px 14px 110px;
 }
 
 .view.active{display:block}
 
 .title{
- font-size:26px;
+ font-size:27px;
  font-weight:900;
- margin-bottom:6px;
 }
 
 .subtitle{
  color:var(--muted);
  font-size:13px;
- margin-bottom:18px;
+ margin:5px 0 18px;
 }
 
 .card{
- background:linear-gradient(145deg,#161920,#101218);
+ background:linear-gradient(145deg,#171a21,#101218);
  border:1px solid var(--line);
  border-radius:19px;
  padding:16px;
@@ -101,54 +94,55 @@ button{
 }
 
 .section-title{
- font-size:16px;
- font-weight:800;
+ font-weight:900;
  margin-bottom:13px;
 }
 
 /* PLAYER */
 
 .cover{
- width:min(78vw,340px);
+ width:min(78vw,350px);
  aspect-ratio:1;
- margin:12px auto 20px;
- border-radius:25px;
- position:relative;
+ margin:10px auto 16px;
+ border-radius:27px;
  overflow:hidden;
- background:
- radial-gradient(circle at 30% 25%,#ffbf72 0,transparent 18%),
- radial-gradient(circle at 70% 75%,#7b2600 0,transparent 32%),
- linear-gradient(135deg,#ff7b00,#251000 70%);
- box-shadow:0 25px 60px #000;
  display:flex;
  align-items:center;
  justify-content:center;
- font-size:82px;
+ position:relative;
+ background:
+ radial-gradient(circle at 30% 25%,#ffc27a,transparent 17%),
+ radial-gradient(circle at 70% 70%,#7b2600,transparent 30%),
+ linear-gradient(135deg,#ff7800,#211000);
+ box-shadow:0 28px 70px #000;
 }
 
 .cover img{
+ display:none;
  width:100%;
  height:100%;
  object-fit:cover;
- display:none;
 }
 
 .cover.has-image img{display:block}
-.cover.has-image .cover-icon{display:none}
 
-.cover.playing{
- animation:albumPulse 2s infinite ease-in-out;
+.cover-icon{
+ font-size:90px;
 }
 
-@keyframes albumPulse{
- 50%{transform:scale(1.018)}
+.cover.playing{
+ animation:album 2s infinite ease-in-out;
+}
+
+@keyframes album{
+ 50%{transform:scale(1.015)}
 }
 
 .visualizer{
- width:100%;
- height:115px;
  display:block;
- margin:0 auto 10px;
+ width:100%;
+ height:105px;
+ margin:auto;
 }
 
 .track{
@@ -169,7 +163,7 @@ button{
 }
 
 .progress{
- margin-top:18px;
+ margin-top:17px;
 }
 
 .progress input{
@@ -188,25 +182,24 @@ button{
  display:flex;
  justify-content:center;
  align-items:center;
- gap:13px;
- margin:17px 0;
+ gap:12px;
+ margin:18px 0;
 }
 
 .control{
- width:45px;
- height:45px;
+ width:44px;
+ height:44px;
  border:0;
  border-radius:50%;
  background:var(--panel2);
- color:white;
- font-size:18px;
+ color:#fff;
 }
 
 .control.main{
- width:65px;
- height:65px;
+ width:66px;
+ height:66px;
  background:var(--orange);
- font-size:25px;
+ font-size:23px;
 }
 
 .active{
@@ -214,53 +207,64 @@ button{
  border-color:var(--orange)!important;
 }
 
-.player-tools{
+.tools{
  display:grid;
  grid-template-columns:repeat(3,1fr);
  gap:8px;
 }
 
 .tool{
+ min-height:44px;
  border:1px solid var(--line);
- background:var(--panel);
- color:white;
  border-radius:12px;
- padding:11px 5px;
+ background:var(--panel);
+ color:#fff;
+ padding:9px 5px;
  font-size:12px;
 }
 
-/* SPECTRUM */
+/* VISUALIZERS */
 
-.spectrum-card{
+.visual-card{
  overflow:hidden;
 }
 
-.spectrum{
+.spectrum,
+.circular{
  width:100%;
- height:160px;
+ height:180px;
  display:block;
- background:#090a0e;
+ background:#08090d;
  border-radius:12px;
 }
 
-/* SEARCH */
+.circular{
+ height:230px;
+}
+
+/* LIBRARY */
 
 .search{
  width:100%;
  height:46px;
- border-radius:13px;
  border:1px solid var(--line);
+ border-radius:13px;
  background:var(--panel);
- color:white;
+ color:#fff;
  padding:0 14px;
  outline:none;
 }
 
-.search:focus{
- border-color:var(--orange);
+.import{
+ display:block;
+ padding:18px;
+ text-align:center;
+ border:1px dashed #555;
+ border-radius:15px;
+ background:var(--panel);
 }
 
-/* SONGS */
+#importInput{display:none}
 
 .song{
  display:flex;
@@ -270,20 +274,18 @@ button{
  border-bottom:1px solid var(--line);
 }
 
-.song:last-child{
- border-bottom:0;
-}
+.song:last-child{border-bottom:0}
 
 .song-cover{
  width:48px;
  height:48px;
+ flex-shrink:0;
  border-radius:10px;
- background:linear-gradient(135deg,#ff7800,#281000);
- overflow:hidden;
  display:flex;
  align-items:center;
  justify-content:center;
- flex-shrink:0;
+ overflow:hidden;
+ background:linear-gradient(135deg,#ff7800,#2c1100);
 }
 
 .song-cover img{
@@ -314,22 +316,7 @@ button{
  border:0;
  background:none;
  color:#aaa;
- font-size:18px;
-}
-
-/* IMPORT */
-
-.import{
- display:block;
- padding:18px;
- border:1px dashed #555;
- border-radius:15px;
- background:var(--panel);
- text-align:center;
-}
-
-#importInput{
- display:none;
+ font-size:19px;
 }
 
 /* EQ */
@@ -338,8 +325,7 @@ button{
  height:250px;
  display:grid;
  grid-template-columns:repeat(10,1fr);
- gap:6px;
- align-items:end;
+ gap:5px;
 }
 
 .band{
@@ -359,8 +345,8 @@ button{
 }
 
 .band span{
- color:var(--muted);
  font-size:9px;
+ color:var(--muted);
 }
 
 .band b{
@@ -377,15 +363,21 @@ button{
 }
 
 .effect{
- padding:15px;
- border:1px solid var(--line);
  background:var(--panel);
+ border:1px solid var(--line);
  border-radius:14px;
+ padding:14px;
 }
 
 .effect strong{
  display:block;
- margin-bottom:10px;
+ margin-bottom:9px;
+}
+
+.effect small{
+ color:var(--muted);
+ display:block;
+ margin-top:5px;
 }
 
 .effect input{
@@ -393,25 +385,75 @@ button{
  accent-color:var(--orange);
 }
 
-.effect small{
+/* SETTINGS */
+
+.setting{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+ padding:14px 0;
+ border-bottom:1px solid var(--line);
+}
+
+.setting:last-child{border-bottom:0}
+
+.setting small{
+ display:block;
  color:var(--muted);
+ margin-top:4px;
+}
+
+.switch{
+ width:48px;
+ height:27px;
+ border:0;
+ border-radius:20px;
+ background:#343741;
+ position:relative;
+ flex-shrink:0;
+}
+
+.switch:after{
+ content:"";
+ position:absolute;
+ width:21px;
+ height:21px;
+ left:3px;
+ top:3px;
+ border-radius:50%;
+ background:#fff;
+ transition:.2s;
+}
+
+.switch.active{
+ background:var(--orange);
+}
+
+.switch.active:after{
+ left:24px;
 }
 
 /* LYRICS */
 
-.lyrics{
- min-height:300px;
- white-space:pre-wrap;
- line-height:1.8;
- text-align:center;
- color:#c8cbd3;
- padding:10px;
+textarea{
+ width:100%;
+ min-height:180px;
+ resize:vertical;
+ background:#0b0c10;
+ color:#fff;
+ border:1px solid var(--line);
+ border-radius:12px;
+ padding:12px;
+ outline:none;
 }
 
-.lyric-active{
- color:var(--orange);
- font-size:21px;
- font-weight:bold;
+.lyrics{
+ min-height:250px;
+ text-align:center;
+ white-space:pre-wrap;
+ line-height:1.8;
+ color:#c8cad0;
 }
 
 /* PLAYLIST */
@@ -420,15 +462,15 @@ button{
  display:flex;
  align-items:center;
  gap:12px;
- padding:14px 5px;
+ padding:13px 4px;
  border-bottom:1px solid var(--line);
 }
 
 .playlist-icon{
  width:48px;
  height:48px;
- border-radius:12px;
- background:linear-gradient(135deg,#ff7800,#321300);
+ border-radius:11px;
+ background:linear-gradient(135deg,#ff7800,#2b1000);
  display:flex;
  align-items:center;
  justify-content:center;
@@ -440,7 +482,7 @@ button{
 }
 
 .playlist-name{
- font-weight:800;
+ font-weight:900;
 }
 
 .playlist-count{
@@ -449,130 +491,74 @@ button{
  margin-top:4px;
 }
 
-/* FULLSCREEN PLAYER */
+/* MINI */
 
-.fullscreen{
- position:fixed;
- inset:0;
- z-index:200;
+.mini{
  display:none;
- flex-direction:column;
+ position:fixed;
+ bottom:78px;
+ left:8px;
+ right:8px;
+ z-index:90;
  align-items:center;
- justify-content:center;
- padding:20px;
- background:
- radial-gradient(circle at 50% 20%,#5a2808,#111 45%,#050609);
+ gap:10px;
+ background:#1a1c23;
+ border:1px solid var(--line);
+ border-radius:15px;
+ padding:8px;
 }
 
-.fullscreen.show{
- display:flex;
-}
+.mini.show{display:flex}
 
-.full-close{
- position:absolute;
- top:16px;
- right:16px;
+.mini-cover{
  width:42px;
  height:42px;
- border:0;
- border-radius:50%;
- background:#252832;
- color:white;
- font-size:20px;
-}
-
-.fs-cover{
- width:min(78vw,380px);
- aspect-ratio:1;
- border-radius:28px;
+ border-radius:9px;
  overflow:hidden;
- background:linear-gradient(135deg,#ff7800,#261000);
  display:flex;
  align-items:center;
  justify-content:center;
- font-size:90px;
- box-shadow:0 30px 80px #000;
+ background:#4a1b00;
 }
 
-.fs-cover img{
+.mini-cover img{
  width:100%;
  height:100%;
  object-fit:cover;
 }
 
-.fs-spectrum{
- width:100%;
- max-width:700px;
- height:110px;
- margin-top:15px;
+.mini-info{
+ flex:1;
+ min-width:0;
 }
 
-.fs-title{
- max-width:90%;
- text-align:center;
- font-size:26px;
- font-weight:900;
- margin-top:15px;
+.mini-title{
+ font-size:13px;
+ font-weight:800;
+ white-space:nowrap;
+ overflow:hidden;
+ text-overflow:ellipsis;
 }
 
-.fs-artist{
- color:var(--muted);
- margin-top:5px;
-}
-
-/* MODAL */
-
-.modal{
- position:fixed;
- inset:0;
- z-index:300;
- background:#000b;
- display:none;
- align-items:flex-end;
-}
-
-.modal.show{
- display:flex;
-}
-
-.modal-box{
- width:100%;
- max-height:85vh;
- overflow:auto;
- background:#15171e;
- border-radius:24px 24px 0 0;
- padding:20px;
- border-top:1px solid var(--line);
-}
-
-.modal-head{
- display:flex;
- justify-content:space-between;
- align-items:center;
- margin-bottom:15px;
-}
-
-.close{
- width:37px;
- height:37px;
+.mini button{
  border:0;
- border-radius:50%;
- background:#292c35;
- color:white;
+ background:none;
+ color:#fff;
+ font-size:19px;
 }
 
 /* NAV */
 
 .nav{
  position:fixed;
- bottom:0;
  left:0;
  right:0;
+ bottom:0;
  z-index:100;
- height:75px;
+ height:76px;
  display:grid;
  grid-template-columns:repeat(5,1fr);
- background:rgba(10,11,15,.96);
+ background:rgba(9,10,14,.97);
  backdrop-filter:blur(18px);
  border-top:1px solid var(--line);
 }
@@ -594,134 +580,116 @@ button{
  color:var(--orange);
 }
 
-/* MINI */
+/* FULLSCREEN */
 
-.mini{
- position:fixed;
- bottom:79px;
- left:8px;
- right:8px;
- z-index:90;
+.fullscreen{
  display:none;
+ position:fixed;
+ inset:0;
+ z-index:200;
+ background:
+ radial-gradient(circle at 50% 15%,#582707,#15100d 35%,#050609 80%);
  align-items:center;
- gap:10px;
- background:#1a1c23;
- border:1px solid var(--line);
- border-radius:15px;
- padding:8px;
+ flex-direction:column;
+ justify-content:center;
+ padding:20px;
 }
 
-.mini.show{
- display:flex;
-}
+.fullscreen.show{display:flex}
 
-.mini-cover{
+.full-close{
+ position:absolute;
+ right:16px;
+ top:16px;
  width:42px;
  height:42px;
- border-radius:9px;
- background:#542000;
+ border:0;
+ border-radius:50%;
+ background:#292c34;
+ color:#fff;
+}
+
+.fs-cover{
+ width:min(78vw,390px);
+ aspect-ratio:1;
+ border-radius:27px;
+ overflow:hidden;
+ background:linear-gradient(135deg,#ff7800,#251000);
  display:flex;
  align-items:center;
  justify-content:center;
- overflow:hidden;
+ box-shadow:0 30px 90px #000;
+ font-size:90px;
 }
 
-.mini-cover img{
+.fs-cover img{
  width:100%;
  height:100%;
  object-fit:cover;
 }
 
-.mini-info{
- flex:1;
- min-width:0;
+.fs-spectrum{
+ width:100%;
+ max-width:720px;
+ height:100px;
 }
 
-.mini-title{
- white-space:nowrap;
- overflow:hidden;
- text-overflow:ellipsis;
- font-size:13px;
- font-weight:bold;
+.fs-title{
+ max-width:90%;
+ font-size:26px;
+ font-weight:900;
+ text-align:center;
+ margin-top:10px;
 }
 
-.mini button{
- border:0;
- background:none;
- color:white;
- font-size:20px;
-}
-
-/* SWITCH */
-
-.switch{
- width:48px;
- height:27px;
- border:0;
- border-radius:20px;
- background:#343741;
- position:relative;
-}
-
-.switch:after{
- content:"";
- position:absolute;
- width:21px;
- height:21px;
- border-radius:50%;
- background:white;
- left:3px;
- top:3px;
- transition:.2s;
-}
-
-.switch.active{
- background:var(--orange);
-}
-
-.switch.active:after{
- left:24px;
-}
-
-/* SETTINGS */
-
-.setting{
- display:flex;
- justify-content:space-between;
- align-items:center;
- padding:15px 0;
- border-bottom:1px solid var(--line);
-}
-
-.setting:last-child{
- border-bottom:0;
-}
-
-.setting small{
- display:block;
+.fs-artist{
  color:var(--muted);
- margin-top:4px;
+ margin-top:5px;
 }
+
+/* MODAL */
+
+.modal{
+ display:none;
+ position:fixed;
+ inset:0;
+ z-index:300;
+ background:#000b;
+ align-items:flex-end;
+}
+
+.modal.show{display:flex}
+
+.modal-box{
+ width:100%;
+ max-height:86vh;
+ overflow:auto;
+ background:#15171e;
+ border-radius:24px 24px 0 0;
+ padding:20px;
+}
+
+.modal-head{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+}
+
+.close{
+ width:38px;
+ height:38px;
+ border:0;
+ border-radius:50%;
+ background:#292c35;
+ color:#fff;
+}
+
+/* EMPTY */
 
 .empty{
+ padding:35px 10px;
  text-align:center;
  color:var(--muted);
- padding:35px 10px;
-}
-
-@media(min-width:700px){
- .nav{
-  max-width:760px;
-  left:50%;
-  transform:translateX(-50%);
- }
- .mini{
-  max-width:730px;
-  left:50%;
-  right:auto;
-  width:calc(100% - 30px);
-  transform:translateX(-50%);
- }
 }
 </style>
 </head>
@@ -732,7 +700,7 @@ button{
  <div class="logo">MUSIC <span>PRO</span></div>
 
  <div class="header-actions">
-  <button class="icon" onclick="openModal('queueModal')">☷</button>
+  <button class="icon" onclick="openQueue()">☷</button>
   <button class="icon" onclick="openFullscreen()">⛶</button>
  </div>
 </header>
@@ -742,7 +710,7 @@ button{
 <section id="playerView" class="view active">
 
  <div class="cover" id="cover">
-  <div class="cover-icon">♫</div>
+  <span class="cover-icon">♫</span>
   <img id="coverImage">
  </div>
 
@@ -754,7 +722,7 @@ button{
   </div>
 
   <div class="track-artist" id="trackArtist">
-   Adicione músicas à biblioteca
+   Adicione uma música à biblioteca
   </div>
  </div>
 
@@ -775,28 +743,33 @@ button{
   <button class="control" id="repeatBtn" onclick="toggleRepeat()">🔁</button>
  </div>
 
- <div class="player-tools">
+ <div class="tools">
   <button class="tool" onclick="showView('libraryView')">🎵 Música</button>
-  <button class="tool" onclick="showView('eqView')">🎚 EQ</button>
+  <button class="tool" onclick="showView('audioView')">🎚 Áudio</button>
   <button class="tool" onclick="showView('lyricsView')">🎤 Letras</button>
   <button class="tool" onclick="showView('playlistView')">📁 Playlist</button>
   <button class="tool" id="loudBtn" onclick="toggleFeature('loud')">🔊 Loudness</button>
-  <button class="tool" id="spatialBtn" onclick="toggleFeature('spatial')">🌌 Espacial</button>
+  <button class="tool" id="spatialBtn" onclick="toggleFeature('spatial')">🌌 Spatial</button>
  </div>
 
- <div class="card spectrum-card">
-  <div class="section-title">Analisador de espectro</div>
+ <div class="card visual-card">
+  <div class="section-title">Espectro</div>
   <canvas class="spectrum" id="spectrum"></canvas>
+ </div>
+
+ <div class="card visual-card">
+  <div class="section-title">Visualizador circular</div>
+  <canvas class="circular" id="circular"></canvas>
  </div>
 
 </section>
 
-<!-- MUSIC -->
+<!-- LIBRARY -->
 
 <section id="libraryView" class="view">
 
  <div class="title">Biblioteca</div>
- <div class="subtitle">Adicione suas músicas diretamente do aparelho.</div>
+ <div class="subtitle">Músicas armazenadas nesta sessão.</div>
 
  <label class="import">
   📂 Adicionar músicas
@@ -805,7 +778,7 @@ button{
 
  <br>
 
- <input class="search" id="search" placeholder="🔎 Procurar música...">
+ <input id="search" class="search" placeholder="🔎 Procurar música...">
 
  <div class="card">
   <div class="section-title">Todas as músicas</div>
@@ -814,60 +787,85 @@ button{
 
 </section>
 
-<!-- EQ -->
+<!-- AUDIO -->
 
-<section id="eqView" class="view">
+<section id="audioView" class="view">
 
- <div class="title">Equalizador</div>
- <div class="subtitle">10 bandas com processamento em tempo real.</div>
+ <div class="title">Áudio</div>
+ <div class="subtitle">Processamento avançado em tempo real.</div>
 
  <div class="card">
-
   <div class="section-title">Presets</div>
 
   <div class="effect-grid">
    <button class="effect" onclick="preset('flat')">Flat</button>
-   <button class="effect" onclick="preset('bass')">Bass+</button>
+   <button class="effect" onclick="preset('bass')">Bass Boost</button>
    <button class="effect" onclick="preset('rock')">Rock</button>
    <button class="effect" onclick="preset('pop')">Pop</button>
    <button class="effect" onclick="preset('vocal')">Vocal</button>
-   <button class="effect" onclick="preset('treble')">Treble+</button>
+   <button class="effect" onclick="preset('electronic')">Electronic</button>
   </div>
-
  </div>
 
  <div class="card">
+
+  <div class="section-title">Equalizador 10 bandas</div>
   <div class="eq" id="eq"></div>
+
  </div>
 
  <div class="card">
 
-  <div class="section-title">Efeitos avançados</div>
+  <div class="section-title">Processamento</div>
 
   <div class="effect-grid">
 
    <div class="effect">
-    <strong>Graves</strong>
-    <input id="bassEffect" type="range" min="0" max="100" value="50">
-    <small id="bassValue">50%</small>
+    <strong>Pré-amplificador</strong>
+    <input id="preamp" type="range" min="-12" max="12" value="0">
+    <small id="preampText">0 dB</small>
    </div>
 
    <div class="effect">
-    <strong>Presença</strong>
-    <input id="presenceEffect" type="range" min="0" max="100" value="50">
-    <small id="presenceValue">50%</small>
+    <strong>Bass Booster</strong>
+    <input id="bass" type="range" min="0" max="100" value="50">
+    <small id="bassText">50%</small>
    </div>
 
    <div class="effect">
-    <strong>Estéreo</strong>
-    <input id="stereoEffect" type="range" min="-100" max="100" value="0">
-    <small id="stereoValue">0</small>
+    <strong>Treble</strong>
+    <input id="treble" type="range" min="0" max="100" value="50">
+    <small id="trebleText">50%</small>
    </div>
 
    <div class="effect">
     <strong>Compressor</strong>
-    <input id="compressEffect" type="range" min="0" max="100" value="25">
-    <small id="compressValue">25%</small>
+    <input id="compressor" type="range" min="0" max="100" value="25">
+    <small id="compressorText">25%</small>
+   </div>
+
+   <div class="effect">
+    <strong>Limiter</strong>
+    <input id="limiter" type="range" min="0" max="100" value="20">
+    <small id="limiterText">20%</small>
+   </div>
+
+   <div class="effect">
+    <strong>Reverb</strong>
+    <input id="reverb" type="range" min="0" max="100" value="0">
+    <small id="reverbText">0%</small>
+   </div>
+
+   <div class="effect">
+    <strong>Crossfeed</strong>
+    <input id="crossfeed" type="range" min="0" max="100" value="0">
+    <small id="crossfeedText">0%</small>
+   </div>
+
+   <div class="effect">
+    <strong>Stereo Width</strong>
+    <input id="width" type="range" min="0" max="200" value="100">
+    <small id="widthText">100%</small>
    </div>
 
   </div>
@@ -881,15 +879,23 @@ button{
     Loudness
     <small>Reforço dinâmico</small>
    </div>
-   <button class="switch" id="loudSwitch" onclick="toggleFeature('loud')"></button>
+   <button id="loudSwitch" class="switch" onclick="toggleFeature('loud')"></button>
   </div>
 
   <div class="setting">
    <div>
     Spatial
-    <small>Expansão estéreo</small>
+    <small>Ampliação estéreo</small>
    </div>
-   <button class="switch" id="spatialSwitch" onclick="toggleFeature('spatial')"></button>
+   <button id="spatialSwitch" class="switch" onclick="toggleFeature('spatial')"></button>
+  </div>
+
+  <div class="setting">
+   <div>
+    Balance
+    <small>Esquerda / direita</small>
+   </div>
+   <input id="balance" type="range" min="-1" max="1" step=".01" value="0">
   </div>
 
  </div>
@@ -901,23 +907,16 @@ button{
 <section id="lyricsView" class="view">
 
  <div class="title">Letras</div>
- <div class="subtitle">Adicione ou edite a letra da música atual.</div>
+ <div class="subtitle">Letra associada à música atual.</div>
 
  <div class="card">
 
-  <textarea
-   id="lyricsInput"
-   placeholder="Digite ou cole a letra aqui..."
-   style="width:100%;height:180px;background:#0d0e13;color:white;border:1px solid #292d38;border-radius:12px;padding:12px;resize:vertical"
-  ></textarea>
+  <textarea id="lyricsInput"
+   placeholder="Cole a letra da música aqui..."></textarea>
 
   <br><br>
 
-  <button
-   class="tool"
-   style="width:100%"
-   onclick="saveLyrics()"
-  >
+  <button class="tool" style="width:100%" onclick="saveLyrics()">
    💾 Salvar letra
   </button>
 
@@ -937,10 +936,10 @@ button{
 <section id="playlistView" class="view">
 
  <div class="title">Playlists</div>
- <div class="subtitle">Organize suas músicas em coleções.</div>
+ <div class="subtitle">Organize suas músicas.</div>
 
  <button class="import" onclick="createPlaylist()">
-  ＋ Criar nova playlist
+  ＋ Criar playlist
  </button>
 
  <br>
@@ -965,77 +964,84 @@ button{
     <small>Avançar automaticamente.</small>
    </div>
 
-   <button
+   <button id="autoSwitch"
     class="switch active"
-    id="autoSwitch"
-    onclick="toggleSetting('auto')"
-   ></button>
+    onclick="toggleSetting('auto')"></button>
   </div>
 
   <div class="setting">
    <div>
     Crossfade
-    <small>Transição suave entre músicas.</small>
+    <small>Transição suave entre faixas.</small>
    </div>
 
-   <button
+   <button id="crossSwitch"
     class="switch"
-    id="crossSwitch"
-    onclick="toggleSetting('crossfade')"
-   ></button>
+    onclick="toggleSetting('crossfade')"></button>
+  </div>
+
+  <div class="setting">
+   <div>
+    Volume
+    <small>Volume principal.</small>
+   </div>
+
+   <input id="volume" type="range"
+    min="0" max="1" step=".01" value=".8">
   </div>
 
  </div>
 
  <div class="card">
 
-  <div class="section-title">Crossfade</div>
+  <div class="section-title">Tempo de Crossfade</div>
 
-  <input
-   id="crossfadeRange"
+  <input id="crossfadeRange"
    type="range"
    min="0"
    max="10"
    step=".5"
    value="3"
-   style="width:100%;accent-color:#ff7800"
-  >
+   style="width:100%;accent-color:#ff7800">
 
-  <div style="color:#999;margin-top:7px">
-   <span id="crossfadeValue">3</span> segundos
-  </div>
+  <small>
+   <span id="crossfadeText">3</span> segundos
+  </small>
 
  </div>
 
  <div class="card">
 
-  <div class="setting">
-   <div>
-    Volume
-    <small>Volume principal</small>
-   </div>
+  <div class="section-title">Velocidade</div>
 
-   <input id="volume" type="range" min="0" max="1" step=".01" value=".8">
+  <div class="effect-grid">
+   <button class="effect" onclick="setSpeed(.75)">0.75x</button>
+   <button class="effect" onclick="setSpeed(1)">1x</button>
+   <button class="effect" onclick="setSpeed(1.25)">1.25x</button>
+   <button class="effect" onclick="setSpeed(1.5)">1.5x</button>
+   <button class="effect" onclick="setSpeed(2)">2x</button>
   </div>
 
  </div>
 
 </section>
 
-<!-- MINI -->
+<!-- MINI PLAYER -->
 
 <div class="mini" id="mini">
 
  <div class="mini-cover">
+  <span>♫</span>
   <img id="miniImage">
-  <span id="miniIcon">♫</span>
  </div>
 
  <div class="mini-info">
-  <div class="mini-title" id="miniTitle">Nenhuma música</div>
+  <div class="mini-title" id="miniTitle">
+   Nenhuma música
+  </div>
  </div>
 
- <button onclick="togglePlay()" id="miniPlay">▶</button>
+ <button id="miniPlay" onclick="togglePlay()">▶</button>
  <button onclick="nextSong()">⏭</button>
 
 </div>
@@ -1052,8 +1058,8 @@ button{
   <b>♫</b>Músicas
  </button>
 
- <button onclick="showView('eqView',this)">
-  <b>🎚</b>EQ
+ <button onclick="showView('audioView',this)">
+  <b>🎚</b>Áudio
  </button>
 
  <button onclick="showView('lyricsView',this)">
@@ -1066,6 +1072,40 @@ button{
 
 </nav>
 
+<!-- FULLSCREEN -->
+
+<div class="fullscreen" id="fullscreen">
+
+ <button class="full-close" onclick="closeFullscreen()">×</button>
+
+ <div class="fs-cover">
+  <img id="fsImage">
+  <span id="fsIcon">♫</span>
+ </div>
+
+ <canvas id="fsSpectrum" class="fs-spectrum"></canvas>
+
+ <div id="fsTitle" class="fs-title">
+  Nenhuma música
+ </div>
+
+ <div id="fsArtist" class="fs-artist">—</div>
+
+ <input id="fsProgress"
+  type="range"
+  min="0"
+  max="100"
+  value="0"
+  style="width:100%;max-width:700px;margin-top:18px;accent-color:#ff7800">
+
+ <div class="controls">
+  <button class="control" onclick="previousSong()">⏮</button>
+  <button class="control main" id="fsPlay" onclick="togglePlay()">▶</button>
+  <button class="control" onclick="nextSong()">⏭</button>
+ </div>
+
+</div>
+
 <!-- QUEUE -->
 
 <div class="modal" id="queueModal">
@@ -1073,8 +1113,8 @@ button{
  <div class="modal-box">
 
   <div class="modal-head">
-   <h3>Fila</h3>
-   <button class="close" onclick="closeModal('queueModal')">×</button>
+   <h3>Fila de reprodução</h3>
+   <button class="close" onclick="closeQueue()">×</button>
   </div>
 
   <div id="queueList"></div>
@@ -1083,55 +1123,19 @@ button{
 
 </div>
 
-<!-- FULLSCREEN -->
-
-<div class="fullscreen" id="fullscreen">
-
- <button class="full-close" onclick="closeFullscreen()">×</button>
-
- <div class="fs-cover" id="fsCover">
-  <span>♫</span>
-  <img id="fsImage">
- </div>
-
- <canvas class="fs-spectrum" id="fsSpectrum"></canvas>
-
- <div class="fs-title" id="fsTitle">
-  Nenhuma música
- </div>
-
- <div class="fs-artist" id="fsArtist">
-  —
- </div>
-
- <div style="width:100%;max-width:700px;margin-top:20px">
-  <input id="fsProgress" type="range" min="0" max="100" value="0" style="width:100%;accent-color:#ff7800">
- </div>
-
- <div class="controls">
-
-  <button class="control" onclick="previousSong()">⏮</button>
-  <button class="control main" onclick="togglePlay()" id="fsPlay">▶</button>
-  <button class="control" onclick="nextSong()">⏭</button>
-
- </div>
-
-</div>
-
 <audio id="audio"></audio>
 
 <script>
-
-/* =========================
- STATE
-========================= */
+/* =========================================================
+   MUSIC PRO V1.3
+   AUDIO ENGINE
+========================================================= */
 
 const audio=document.getElementById("audio");
 
 let songs=[];
-let currentIndex=-1;
-
 let playlists=[];
+let currentIndex=-1;
 
 let state={
  shuffle:false,
@@ -1147,29 +1151,40 @@ let state={
  lyrics:{}
 };
 
-/* LOAD */
-
 try{
- const saved=JSON.parse(localStorage.getItem("musicProV12"));
- if(saved)state={...state,...saved};
+ const x=JSON.parse(localStorage.getItem("musicProV13"));
+ if(x)state={...state,...x};
+
+ const p=JSON.parse(localStorage.getItem("musicProV13Playlists"));
+ if(Array.isArray(p))playlists=p;
 }catch(e){}
 
-/* =========================
- AUDIO ENGINE
-========================= */
+/* AUDIO NODES */
 
 let ctx=null;
 let source=null;
 let analyser=null;
-let gain=null;
-let compressor=null;
-let panner=null;
-let filters=[];
+let preGain=null;
+let bassFilter=null;
+let trebleFilter=null;
+let compressorNode=null;
+let limiterNode=null;
+let stereoNode=null;
+let masterGain=null;
+let convolver=null;
+let dryGain=null;
+let wetGain=null;
 
-const freqs=[
+let eqFilters=[];
+
+const frequencies=[
  60,120,250,500,1000,
  2000,4000,8000,12000,16000
 ];
+
+/* =========================================================
+   AUDIO INITIALIZATION
+========================================================= */
 
 function setupAudio(){
 
@@ -1179,110 +1194,215 @@ function setupAudio(){
 
  source=ctx.createMediaElementSource(audio);
 
- analyser=ctx.createAnalyser();
+ preGain=ctx.createGain();
 
- analyser.fftSize=512;
+ bassFilter=ctx.createBiquadFilter();
+ bassFilter.type="lowshelf";
+ bassFilter.frequency.value=120;
 
- gain=ctx.createGain();
+ trebleFilter=ctx.createBiquadFilter();
+ trebleFilter.type="highshelf";
+ trebleFilter.frequency.value=8000;
 
- compressor=ctx.createDynamicsCompressor();
-
- panner=ctx.createStereoPanner();
-
- filters=freqs.map(f=>{
-
-  const filter=ctx.createBiquadFilter();
-
-  filter.type="peaking";
-  filter.frequency.value=f;
-  filter.Q.value=1;
-  filter.gain.value=0;
-
-  return filter;
-
+ eqFilters=frequencies.map(f=>{
+  const n=ctx.createBiquadFilter();
+  n.type="peaking";
+  n.frequency.value=f;
+  n.Q.value=1;
+  n.gain.value=0;
+  return n;
  });
 
- let chain=source;
+ compressorNode=ctx.createDynamicsCompressor();
 
- filters.forEach(f=>{
+ limiterNode=ctx.createDynamicsCompressor();
+ limiterNode.threshold.value=-1;
+ limiterNode.knee.value=0;
+ limiterNode.ratio.value=20;
+ limiterNode.attack.value=.001;
+ limiterNode.release.value=.08;
+
+ stereoNode=ctx.createStereoPanner();
+
+ masterGain=ctx.createGain();
+
+ analyser=ctx.createAnalyser();
+ analyser.fftSize=1024;
+ analyser.smoothingTimeConstant=.82;
+
+ /* REVERB */
+
+ convolver=ctx.createConvolver();
+
+ const length=ctx.sampleRate*2.5;
+ const impulse=ctx.createBuffer(
+  2,
+  length,
+  ctx.sampleRate
+ );
+
+ for(let ch=0;ch<2;ch++){
+
+  const data=impulse.getChannelData(ch);
+
+  for(let i=0;i<length;i++){
+
+   data[i]=
+    (Math.random()*2-1)*
+    Math.pow(1-i/length,2.8);
+
+  }
+
+ }
+
+ convolver.buffer=impulse;
+
+ dryGain=ctx.createGain();
+ wetGain=ctx.createGain();
+
+ /* CHAIN */
+
+ source.connect(preGain);
+ preGain.connect(bassFilter);
+ bassFilter.connect(trebleFilter);
+
+ let chain=trebleFilter;
+
+ eqFilters.forEach(f=>{
   chain.connect(f);
   chain=f;
  });
 
- chain.connect(gain);
- gain.connect(compressor);
- compressor.connect(panner);
- panner.connect(analyser);
+ chain.connect(compressorNode);
+
+ compressorNode.connect(limiterNode);
+
+ limiterNode.connect(stereoNode);
+
+ stereoNode.connect(masterGain);
+
+ masterGain.connect(dryGain);
+ masterGain.connect(convolver);
+
+ convolver.connect(wetGain);
+
+ dryGain.connect(analyser);
+ wetGain.connect(analyser);
+
  analyser.connect(ctx.destination);
 
- applyEffects();
- drawSpectrum();
+ applyAudio();
 
+ drawVisualizers();
 }
 
-/* =========================
- EFFECTS
-========================= */
+/* =========================================================
+   EFFECT PROCESSING
+========================================================= */
 
-function applyEffects(){
+function applyAudio(){
 
  if(!ctx)return;
 
- gain.gain.value=state.loud?1.12:1;
+ const pre=Number(document.getElementById("preamp").value||0);
 
- compressor.threshold.value=state.loud?-18:-1;
- compressor.ratio.value=state.loud?4:1;
+ preGain.gain.value=Math.pow(10,pre/20);
+
+ const bass=Number(document.getElementById("bass").value||50);
+ const treble=Number(document.getElementById("treble").value||50);
+
+ bassFilter.gain.value=(bass-50)/4;
+ trebleFilter.gain.value=(treble-50)/5;
+
+ const comp=Number(document.getElementById("compressor").value||25);
+
+ compressorNode.threshold.value=
+  -4-(comp*.30);
+
+ compressorNode.ratio.value=
+  1+(comp/100*6);
+
+ const lim=Number(document.getElementById("limiter").value||20);
+
+ limiterNode.threshold.value=
+  -1-(lim/10);
+
+ const reverb=Number(document.getElementById("reverb").value||0);
+
+ wetGain.gain.value=reverb/100;
+ dryGain.gain.value=1-(reverb/100*.35);
+
+ const cross=Number(document.getElementById("crossfeed").value||0);
+
+ /*
+  Crossfeed é aproximado através
+  da redução da separação estéreo.
+ */
+
+ const width=Number(document.getElementById("width").value||100);
+
+ if(state.spatial){
+  stereoNode.pan.value=
+   Number(document.getElementById("balance").value||0);
+ }else{
+  stereoNode.pan.value=
+   Number(document.getElementById("balance").value||0);
+ }
+
+ masterGain.gain.value=
+  state.loud?1.12:1;
 
  audio.volume=state.volume;
-
  audio.playbackRate=state.speed;
 
 }
 
-/* =========================
- VISUALIZER
-========================= */
+/* =========================================================
+   VISUALIZERS
+========================================================= */
 
-function drawSpectrum(){
+function drawVisualizers(){
 
- const canvas=document.getElementById("spectrum");
- const fsCanvas=document.getElementById("fsSpectrum");
+ const spectrum=document.getElementById("spectrum");
+ const circular=document.getElementById("circular");
  const wave=document.getElementById("wave");
+ const fs=document.getElementById("fsSpectrum");
 
- const c=canvas.getContext("2d");
- const fc=fsCanvas.getContext("2d");
+ const sc=spectrum.getContext("2d");
+ const cc=circular.getContext("2d");
  const wc=wave.getContext("2d");
+ const fc=fs.getContext("2d");
 
  function resize(){
 
-  [canvas,fsCanvas,wave].forEach(x=>{
-   x.width=x.clientWidth*devicePixelRatio;
-   x.height=x.clientHeight*devicePixelRatio;
+  [spectrum,circular,wave,fs].forEach(c=>{
+   c.width=c.clientWidth*devicePixelRatio;
+   c.height=c.clientHeight*devicePixelRatio;
   });
 
  }
 
  resize();
+
  window.addEventListener("resize",resize);
 
- const data=new Uint8Array(256);
+ const data=new Uint8Array(512);
 
- function frame(){
+ function render(){
 
-  requestAnimationFrame(frame);
+  requestAnimationFrame(render);
 
   if(!analyser)return;
 
   analyser.getByteFrequencyData(data);
 
-  drawBars(c,canvas,data);
-  drawBars(fc,fsCanvas,data);
+  drawBars(sc,spectrum,data);
+  drawCircle(cc,circular,data);
   drawWave(wc,wave,data);
-
+  drawBars(fc,fs,data);
  }
 
- frame();
-
+ render();
 }
 
 function drawBars(c,canvas,data){
@@ -1292,28 +1412,26 @@ function drawBars(c,canvas,data){
 
  c.clearRect(0,0,w,h);
 
- const bars=48;
- const step=Math.floor(data.length/bars);
+ const count=64;
+ const step=Math.floor(data.length/count);
 
- for(let i=0;i<bars;i++){
+ for(let i=0;i<count;i++){
 
   const value=data[i*step]/255;
-  const bh=value*h*.95;
 
-  const x=i*(w/bars);
-  const bw=(w/bars)-3;
+  const bh=value*h*.9;
+
+  const x=i*(w/count);
 
   c.fillStyle="#ff7800";
 
   c.fillRect(
    x,
    h-bh,
-   bw,
+   Math.max(2,w/count-3),
    bh
   );
-
  }
-
 }
 
 function drawWave(c,canvas,data){
@@ -1327,51 +1445,92 @@ function drawWave(c,canvas,data){
 
  for(let x=0;x<w;x++){
 
-  const i=Math.floor((x/w)*data.length);
+  const i=Math.floor(x/w*data.length);
 
-  const y=h/2-(data[i]-128)*.7;
+  const y=h/2+(data[i]-128)*.55;
 
   if(x===0)c.moveTo(x,y);
   else c.lineTo(x,y);
-
  }
 
  c.strokeStyle="#ff7800";
  c.lineWidth=2;
  c.stroke();
-
 }
 
-/* =========================
- IMPORT
-========================= */
+function drawCircle(c,canvas,data){
+
+ const w=canvas.width;
+ const h=canvas.height;
+
+ c.clearRect(0,0,w,h);
+
+ const cx=w/2;
+ const cy=h/2;
+
+ const radius=Math.min(w,h)*.25;
+
+ c.beginPath();
+
+ c.arc(cx,cy,radius,0,Math.PI*2);
+
+ c.strokeStyle="#ff7800";
+ c.lineWidth=3;
+ c.stroke();
+
+ const bars=80;
+
+ for(let i=0;i<bars;i++){
+
+  const value=data[i*4]/255;
+
+  const angle=(Math.PI*2/bars)*i;
+
+  const r1=radius+5;
+  const r2=radius+value*radius*.9;
+
+  const x1=cx+Math.cos(angle)*r1;
+  const y1=cy+Math.sin(angle)*r1;
+
+  const x2=cx+Math.cos(angle)*r2;
+  const y2=cy+Math.sin(angle)*r2;
+
+  c.beginPath();
+  c.moveTo(x1,y1);
+  c.lineTo(x2,y2);
+  c.strokeStyle="#ff7800";
+  c.lineWidth=3;
+  c.stroke();
+ }
+}
+
+/* =========================================================
+   IMPORT
+========================================================= */
 
 document.getElementById("importInput")
 .addEventListener("change",e=>{
 
  [...e.target.files].forEach(file=>{
 
-  const song={
+  songs.push({
    id:Date.now()+Math.random(),
    name:file.name.replace(/\.[^/.]+$/,""),
    artist:"Arquivo local",
-   file,
    url:URL.createObjectURL(file),
+   file:file,
    cover:null
-  };
-
-  songs.push(song);
+  });
 
  });
 
  renderSongs();
- renderPlaylists();
 
 });
 
-/* =========================
- LOAD SONG
-========================= */
+/* =========================================================
+   PLAYER
+========================================================= */
 
 function loadSong(index,play=true){
 
@@ -1389,7 +1548,6 @@ function loadSong(index,play=true){
 
  document.getElementById("trackTitle").textContent=song.name;
  document.getElementById("trackArtist").textContent=song.artist;
-
  document.getElementById("miniTitle").textContent=song.name;
 
  updateCover(song);
@@ -1401,57 +1559,22 @@ function loadSong(index,play=true){
 
   setupAudio();
 
-  if(ctx.state==="suspended")ctx.resume();
+  if(ctx.state==="suspended")
+   ctx.resume();
 
   audio.play().catch(()=>{});
-
  }
 
  updateButtons();
 }
 
-/* =========================
- COVER
-========================= */
-
-function updateCover(song){
-
- const cover=document.getElementById("coverImage");
- const fs=document.getElementById("fsImage");
- const mini=document.getElementById("miniImage");
-
- if(song.cover){
-
-  cover.src=song.cover;
-  fs.src=song.cover;
-  mini.src=song.cover;
-
-  document.getElementById("cover").classList.add("has-image");
-
- }else{
-
-  cover.removeAttribute("src");
-  fs.removeAttribute("src");
-  mini.removeAttribute("src");
-
-  document.getElementById("cover").classList.remove("has-image");
-
- }
-
- document.getElementById("fsTitle").textContent=song.name;
- document.getElementById("fsArtist").textContent=song.artist;
-}
-
-/* =========================
- PLAY
-========================= */
-
 function togglePlay(){
 
  if(currentIndex<0){
 
-  if(songs.length)loadSong(0,true);
-  else{
+  if(songs.length){
+   loadSong(0,true);
+  }else{
    showView("libraryView");
    alert("Adicione uma música primeiro.");
   }
@@ -1461,17 +1584,13 @@ function togglePlay(){
 
  setupAudio();
 
- if(audio.paused){
+ if(ctx.state==="suspended")
+  ctx.resume();
 
-  if(ctx.state==="suspended")ctx.resume();
-
+ if(audio.paused)
   audio.play();
-
- }else{
-
+ else
   audio.pause();
-
- }
 
  updateButtons();
 }
@@ -1480,18 +1599,55 @@ function updateButtons(){
 
  const playing=!audio.paused;
 
- document.getElementById("playBtn").textContent=playing?"❚❚":"▶";
- document.getElementById("miniPlay").textContent=playing?"❚❚":"▶";
- document.getElementById("fsPlay").textContent=playing?"❚❚":"▶";
+ document.getElementById("playBtn").textContent=
+  playing?"❚❚":"▶";
+
+ document.getElementById("miniPlay").textContent=
+  playing?"❚❚":"▶";
+
+ document.getElementById("fsPlay").textContent=
+  playing?"❚❚":"▶";
 
  document.getElementById("cover")
  .classList.toggle("playing",playing);
-
 }
 
-/* =========================
- NEXT / PREVIOUS
-========================= */
+/* =========================================================
+   COVER
+========================================================= */
+
+function updateCover(song){
+
+ const cover=document.getElementById("coverImage");
+ const mini=document.getElementById("miniImage");
+ const fs=document.getElementById("fsImage");
+
+ if(song.cover){
+
+  cover.src=song.cover;
+  mini.src=song.cover;
+  fs.src=song.cover;
+
+  document.getElementById("cover")
+  .classList.add("has-image");
+
+ }else{
+
+  cover.removeAttribute("src");
+  mini.removeAttribute("src");
+  fs.removeAttribute("src");
+
+  document.getElementById("cover")
+  .classList.remove("has-image");
+ }
+
+ document.getElementById("fsTitle").textContent=song.name;
+ document.getElementById("fsArtist").textContent=song.artist;
+}
+
+/* =========================================================
+   NEXT / PREVIOUS
+========================================================= */
 
 function nextSong(){
 
@@ -1512,11 +1668,9 @@ function nextSong(){
    audio.pause();
    return;
   }
-
  }
 
  loadSong(next,true);
-
 }
 
 function previousSong(){
@@ -1528,83 +1682,15 @@ function previousSong(){
 
  let prev=currentIndex-1;
 
- if(prev<0)prev=songs.length-1;
+ if(prev<0)
+  prev=songs.length-1;
 
  loadSong(prev,true);
-
 }
 
-/* =========================
- CROSSFADE
-========================= */
-
-audio.addEventListener("timeupdate",()=>{
-
- if(
-  state.crossfade &&
-  audio.duration &&
-  audio.duration-audio.currentTime<=state.crossfadeSeconds &&
-  !audio.dataset.fading
- ){
-
-  audio.dataset.fading="1";
-
-  fadeNext();
-
- }
-
-});
-
-function fadeNext(){
-
- const oldVolume=audio.volume;
- const duration=state.crossfadeSeconds*1000;
-
- let start=Date.now();
-
- const timer=setInterval(()=>{
-
-  const p=(Date.now()-start)/duration;
-
-  audio.volume=Math.max(0,oldVolume*(1-p));
-
-  if(p>=1){
-
-   clearInterval(timer);
-
-   audio.dataset.fading="";
-
-   nextSong();
-
-   let start2=Date.now();
-
-   const timer2=setInterval(()=>{
-
-    const p2=(Date.now()-start2)/duration;
-
-    audio.volume=Math.min(
-     oldVolume,
-     oldVolume*p2
-    );
-
-    if(p2>=1){
-
-     clearInterval(timer2);
-     audio.volume=oldVolume;
-
-    }
-
-   },30);
-
-  }
-
- },30);
-
-}
-
-/* =========================
- TIME
-========================= */
+/* =========================================================
+   PROGRESS
+========================================================= */
 
 audio.addEventListener("timeupdate",()=>{
 
@@ -1615,8 +1701,11 @@ audio.addEventListener("timeupdate",()=>{
  document.getElementById("progress").value=p;
  document.getElementById("fsProgress").value=p;
 
- document.getElementById("currentTime").textContent=format(audio.currentTime);
- document.getElementById("duration").textContent=format(audio.duration);
+ document.getElementById("currentTime")
+ .textContent=formatTime(audio.currentTime);
+
+ document.getElementById("duration")
+ .textContent=formatTime(audio.duration);
 
 });
 
@@ -1641,42 +1730,86 @@ audio.addEventListener("pause",updateButtons);
 
 audio.addEventListener("ended",()=>{
 
- if(!state.crossfade){
+ if(state.repeat){
 
-  if(state.repeat){
-   audio.currentTime=0;
-   audio.play();
-  }else if(state.auto){
-   nextSong();
-  }
+  audio.currentTime=0;
+  audio.play();
+
+ }else if(state.auto){
+
+  nextSong();
 
  }
 
 });
 
-function format(s){
+function formatTime(s){
 
  if(!isFinite(s))return"0:00";
 
  const m=Math.floor(s/60);
- const sec=Math.floor(s%60).toString().padStart(2,"0");
+ const sec=Math.floor(s%60)
+  .toString().padStart(2,"0");
 
  return `${m}:${sec}`;
-
 }
 
-/* =========================
- EQ
-========================= */
+/* =========================================================
+   SHUFFLE / REPEAT
+========================================================= */
+
+function toggleShuffle(){
+
+ state.shuffle=!state.shuffle;
+
+ document.getElementById("shuffleBtn")
+ .classList.toggle("active",state.shuffle);
+
+ save();
+}
+
+function toggleRepeat(){
+
+ state.repeat=!state.repeat;
+
+ document.getElementById("repeatBtn")
+ .classList.toggle("active",state.repeat);
+
+ save();
+}
+
+/* =========================================================
+   EFFECT TOGGLES
+========================================================= */
+
+function toggleFeature(type){
+
+ state[type]=!state[type];
+
+ applyAudio();
+
+ const btn=document.getElementById(type+"Btn");
+ const sw=document.getElementById(type+"Switch");
+
+ if(btn)btn.classList.toggle("active",state[type]);
+ if(sw)sw.classList.toggle("active",state[type]);
+
+ save();
+}
+
+/* =========================================================
+   EQ
+========================================================= */
 
 function createEQ(){
 
  const box=document.getElementById("eq");
 
- freqs.forEach((f,i)=>{
+ frequencies.forEach((freq,i)=>{
 
   box.innerHTML+=`
    <div class="band">
+
     <b id="db${i}">0</b>
 
     <input
@@ -1687,7 +1820,8 @@ function createEQ(){
      value="0"
     >
 
-    <span>${f>=1000?f/1000+"k":f}</span>
+    <span>${freq>=1000?freq/1000+"k":freq}</span>
+
    </div>
   `;
 
@@ -1696,220 +1830,189 @@ function createEQ(){
    document.getElementById("band"+i)
    .addEventListener("input",e=>{
 
-    const v=Number(e.target.value);
+    const value=Number(e.target.value);
 
-    if(filters[i])
-     filters[i].gain.value=v;
+    if(eqFilters[i])
+     eqFilters[i].gain.value=value;
 
-    document.getElementById("db"+i).textContent=
-     (v>0?"+":"")+v;
+    document.getElementById("db"+i)
+     .textContent=(value>0?"+":"")+value;
 
    });
 
   });
-
  });
-
 }
 
-function preset(type){
+function preset(name){
 
- const presets={
-
- flat:[0,0,0,0,0,0,0,0,0,0],
-
- bass:[8,7,5,3,1,0,0,0,0,0],
-
- rock:[6,4,0,-2,2,5,6,5,3,2],
-
- pop:[-1,1,3,4,2,-1,-2,-1,1,2],
-
- vocal:[-2,-2,0,3,6,5,3,0,-1,-2],
-
- treble:[0,0,0,0,0,3,5,6,7,7]
-
+ const p={
+  flat:[0,0,0,0,0,0,0,0,0,0],
+  bass:[8,7,5,3,1,0,0,0,0,0],
+  rock:[6,4,0,-2,2,5,6,5,3,2],
+  pop:[-1,1,3,4,2,-1,-2,-1,1,2],
+  vocal:[-2,-2,0,3,6,5,3,0,-1,-2],
+  electronic:[5,3,1,0,-2,2,4,5,4,3]
  };
 
- const values=presets[type];
-
- values.forEach((v,i)=>{
+ p[name].forEach((v,i)=>{
 
   document.getElementById("band"+i).value=v;
 
-  document.getElementById("db"+i).textContent=
-   (v>0?"+":"")+v;
+  document.getElementById("db"+i)
+   .textContent=(v>0?"+":"")+v;
 
-  if(filters[i])
-   filters[i].gain.value=v;
+  if(eqFilters[i])
+   eqFilters[i].gain.value=v;
 
  });
 
 }
 
-/* =========================
- ADVANCED EFFECTS
-========================= */
+/* =========================================================
+   ADVANCED CONTROLS
+========================================================= */
 
-document.getElementById("bassEffect")
-.addEventListener("input",e=>{
+[
+ ["preamp","preampText"," dB"],
+ ["bass","bassText","%"],
+ ["treble","trebleText","%"],
+ ["compressor","compressorText","%"],
+ ["limiter","limiterText","%"],
+ ["reverb","reverbText","%"],
+ ["crossfeed","crossfeedText","%"],
+ ["width","widthText","%"]
+].forEach(x=>{
 
- const v=Number(e.target.value);
+ document.getElementById(x[0])
+ .addEventListener("input",e=>{
 
- document.getElementById("bassValue").textContent=v+"%";
+  document.getElementById(x[1])
+   .textContent=e.target.value+x[2];
 
- if(filters[0])
-  filters[0].gain.value=(v-50)/4;
+  setupAudio();
+  applyAudio();
 
-});
-
-document.getElementById("presenceEffect")
-.addEventListener("input",e=>{
-
- const v=Number(e.target.value);
-
- document.getElementById("presenceValue").textContent=v+"%";
-
- if(filters[4])
-  filters[4].gain.value=(v-50)/5;
-
-});
-
-document.getElementById("stereoEffect")
-.addEventListener("input",e=>{
-
- const v=Number(e.target.value);
-
- document.getElementById("stereoValue").textContent=v;
-
- if(panner)
-  panner.pan.value=v/100;
+ });
 
 });
 
-document.getElementById("compressEffect")
+document.getElementById("balance")
+.addEventListener("input",()=>{
+
+ setupAudio();
+ applyAudio();
+
+});
+
+/* =========================================================
+   VOLUME
+========================================================= */
+
+document.getElementById("volume")
 .addEventListener("input",e=>{
 
- const v=Number(e.target.value);
+ state.volume=Number(e.target.value);
 
- document.getElementById("compressValue").textContent=v+"%";
+ audio.volume=state.volume;
 
- if(compressor){
+ save();
+});
 
-  compressor.threshold.value=-5-(v/100*35);
-  compressor.ratio.value=1+(v/100*7);
+/* =========================================================
+   SPEED
+========================================================= */
 
+function setSpeed(v){
+
+ state.speed=v;
+
+ audio.playbackRate=v;
+
+ save();
+}
+
+/* =========================================================
+   CROSSFADE
+========================================================= */
+
+document.getElementById("crossfadeRange")
+.addEventListener("input",e=>{
+
+ state.crossfadeSeconds=Number(e.target.value);
+
+ document.getElementById("crossfadeText")
+  .textContent=state.crossfadeSeconds;
+
+ save();
+});
+
+audio.addEventListener("timeupdate",()=>{
+
+ if(
+  state.crossfade &&
+  audio.duration &&
+  audio.currentTime>0 &&
+  audio.duration-audio.currentTime<=state.crossfadeSeconds &&
+  !audio.dataset.fade
+ ){
+
+  audio.dataset.fade="1";
+
+  const duration=state.crossfadeSeconds*1000;
+  const initial=audio.volume;
+  const start=performance.now();
+
+  function fade(now){
+
+   const p=Math.min(
+    1,
+    (now-start)/duration
+   );
+
+   audio.volume=initial*(1-p);
+
+   if(p<1){
+
+    requestAnimationFrame(fade);
+
+   }else{
+
+    audio.dataset.fade="";
+
+    nextSong();
+
+    audio.volume=initial;
+   }
+  }
+
+  requestAnimationFrame(fade);
  }
 
 });
 
-/* =========================
- FEATURES
-========================= */
+/* =========================================================
+   SETTINGS
+========================================================= */
 
-function toggleFeature(type){
+function toggleSetting(type){
 
  state[type]=!state[type];
 
- applyEffects();
+ if(type==="auto")
+  document.getElementById("autoSwitch")
+   .classList.toggle("active",state.auto);
 
- document.getElementById(
-  type+"Btn"
- )?.classList.toggle("active",state[type]);
-
- document.getElementById(
-  type+"Switch"
- )?.classList.toggle("active",state[type]);
+ if(type==="crossfade")
+  document.getElementById("crossSwitch")
+   .classList.toggle("active",state.crossfade);
 
  save();
-
 }
 
-/* =========================
- LIBRARY
-========================= */
-
-function renderSongs(){
-
- const list=document.getElementById("songList");
-
- const q=(document.getElementById("search").value||"").toLowerCase();
-
- const filtered=songs.filter(s=>
-  s.name.toLowerCase().includes(q)
- );
-
- if(!filtered.length){
-
-  list.innerHTML=
-   `<div class="empty">Nenhuma música encontrada.</div>`;
-
-  return;
-
- }
-
- list.innerHTML="";
-
- filtered.forEach(song=>{
-
-  const index=songs.indexOf(song);
-
-  list.innerHTML+=`
-
-   <div class="song">
-
-    <div class="song-cover">
-     ${song.cover?`<img src="${song.cover}">`:"♫"}
-    </div>
-
-    <div
-     class="song-info"
-     onclick="loadSong(${index},true)"
-    >
-     <div class="song-name">${esc(song.name)}</div>
-     <div class="song-meta">${esc(song.artist)}</div>
-    </div>
-
-    <button
-     class="song-btn"
-     onclick="toggleFavorite(${index})"
-    >
-     ${state.favorites.includes(song.id)?"♥":"♡"}
-    </button>
-
-   </div>
-
-  `;
-
- });
-
-}
-
-document.getElementById("search")
-.addEventListener("input",renderSongs);
-
-/* =========================
- FAVORITES
-========================= */
-
-function toggleFavorite(index){
-
- const id=songs[index].id;
-
- const i=state.favorites.indexOf(id);
-
- if(i>=0)
-  state.favorites.splice(i,1);
- else
-  state.favorites.push(id);
-
- renderSongs();
- save();
-
-}
-
-/* =========================
- LYRICS
-========================= */
+/* =========================================================
+   LYRICS
+========================================================= */
 
 function loadLyrics(song){
 
@@ -1917,9 +2020,8 @@ function loadLyrics(song){
 
  document.getElementById("lyricsInput").value=text;
 
- document.getElementById("lyricsDisplay").textContent=
-  text||"Nenhuma letra adicionada.";
-
+ document.getElementById("lyricsDisplay")
+  .textContent=text||"Nenhuma letra adicionada.";
 }
 
 function saveLyrics(){
@@ -1928,18 +2030,19 @@ function saveLyrics(){
 
  const text=document.getElementById("lyricsInput").value;
 
- state.lyrics[songs[currentIndex].id]=text;
+ state.lyrics[
+  songs[currentIndex].id
+ ]=text;
 
- document.getElementById("lyricsDisplay").textContent=
-  text||"Nenhuma letra adicionada.";
+ document.getElementById("lyricsDisplay")
+  .textContent=text||"Nenhuma letra adicionada.";
 
  save();
-
 }
 
-/* =========================
- PLAYLISTS
-========================= */
+/* =========================================================
+   PLAYLISTS
+========================================================= */
 
 function createPlaylist(){
 
@@ -1949,13 +2052,12 @@ function createPlaylist(){
 
  playlists.push({
   id:Date.now(),
-  name,
+  name:name,
   songs:[]
  });
 
  savePlaylists();
  renderPlaylists();
-
 }
 
 function renderPlaylists(){
@@ -1968,7 +2070,6 @@ function renderPlaylists(){
    `<div class="empty">Nenhuma playlist criada.</div>`;
 
   return;
-
  }
 
  box.innerHTML="";
@@ -1976,9 +2077,8 @@ function renderPlaylists(){
  playlists.forEach(p=>{
 
   box.innerHTML+=`
-
    <div class="playlist"
-    onclick="openPlaylist(${p.id})">
+    onclick="playlistMenu(${p.id})">
 
     <div class="playlist-icon">♫</div>
 
@@ -1995,74 +2095,147 @@ function renderPlaylists(){
     </div>
 
    </div>
-
   `;
-
  });
-
 }
 
-function openPlaylist(id){
+function playlistMenu(id){
 
- const playlist=playlists.find(p=>p.id===id);
+ const p=playlists.find(x=>x.id===id);
 
- if(!playlist)return;
+ if(!p)return;
 
- const available=playlist.songs
-  .map(id=>songs.findIndex(s=>s.id===id))
-  .filter(i=>i>=0);
+ const option=prompt(
+  "Digite:\n1 - Adicionar música atual\n2 - Reproduzir\n3 - Excluir"
+ );
 
- if(!available.length){
+ if(option==="1"){
 
-  alert("Essa playlist ainda não possui músicas disponíveis.");
+  if(currentIndex<0){
+   alert("Selecione uma música primeiro.");
+   return;
+  }
 
-  return;
+  const song=songs[currentIndex];
+
+  if(!p.songs.includes(song.id))
+   p.songs.push(song.id);
+
+  savePlaylists();
+  renderPlaylists();
 
  }
 
- loadSong(available[0],true);
+ if(option==="2"){
 
+  const indexes=p.songs
+   .map(id=>songs.findIndex(s=>s.id===id))
+   .filter(i=>i>=0);
+
+  if(indexes.length)
+   loadSong(indexes[0],true);
+  else
+   alert("Playlist vazia.");
+
+ }
+
+ if(option==="3"){
+
+  playlists=playlists.filter(x=>x.id!==id);
+
+  savePlaylists();
+  renderPlaylists();
+ }
 }
 
-/* =========================
- QUEUE
-========================= */
+/* =========================================================
+   LIBRARY
+========================================================= */
 
-function openQueue(){
+document.getElementById("search")
+.addEventListener("input",renderSongs);
 
- const list=document.getElementById("queueList");
+function renderSongs(){
 
- list.innerHTML="";
+ const box=document.getElementById("songList");
 
- songs.forEach((song,i)=>{
+ const q=
+  document.getElementById("search")
+  .value.toLowerCase();
 
-  list.innerHTML+=`
+ const list=songs.filter(s=>
+  s.name.toLowerCase().includes(q)
+ );
 
-   <div class="song"
-    onclick="loadSong(${i},true);closeModal('queueModal')">
+ if(!list.length){
 
-    <div class="song-cover">♫</div>
+  box.innerHTML=
+   `<div class="empty">Nenhuma música encontrada.</div>`;
 
-    <div class="song-info">
-     <div class="song-name">${esc(song.name)}</div>
-     <div class="song-meta">${i===currentIndex?"Reproduzindo":"Na fila"}</div>
+  return;
+ }
+
+ box.innerHTML="";
+
+ list.forEach(song=>{
+
+  const i=songs.indexOf(song);
+
+  box.innerHTML+=`
+
+   <div class="song">
+
+    <div class="song-cover">
+     ${song.cover?
+      `<img src="${song.cover}">`:
+      "♫"}
     </div>
 
+    <div
+     class="song-info"
+     onclick="loadSong(${i},true)"
+    >
+     <div class="song-name">
+      ${esc(song.name)}
+     </div>
+
+     <div class="song-meta">
+      ${esc(song.artist)}
+     </div>
+    </div>
+
+    <button
+     class="song-btn"
+     onclick="favorite(${i})"
+    >
+     ${state.favorites.includes(song.id)?"♥":"♡"}
+    </button>
+
    </div>
-
   `;
-
  });
-
- openModal("queueModal");
-
 }
 
-/* =========================
- NAVIGATION
-========================= */
+function favorite(index){
 
-function showView(id,btn){
+ const id=songs[index].id;
+
+ const i=state.favorites.indexOf(id);
+
+ if(i>=0)
+  state.favorites.splice(i,1);
+ else
+  state.favorites.push(id);
+
+ renderSongs();
+ save();
+}
+
+/* =========================================================
+   NAV
+========================================================= */
+
+function showView(id,button){
 
  document.querySelectorAll(".view")
  .forEach(v=>v.classList.remove("active"));
@@ -2070,171 +2243,155 @@ function showView(id,btn){
  document.getElementById(id)
  .classList.add("active");
 
- if(btn){
+ if(button){
 
   document.querySelectorAll(".nav button")
   .forEach(b=>b.classList.remove("active"));
 
-  btn.classList.add("active");
-
+  button.classList.add("active");
  }
-
- if(id==="libraryView")renderSongs();
- if(id==="playlistView")renderPlaylists();
-
 }
 
-/* =========================
- FULLSCREEN
-========================= */
+/* =========================================================
+   FULLSCREEN
+========================================================= */
 
 function openFullscreen(){
 
  document.getElementById("fullscreen")
  .classList.add("show");
-
 }
 
 function closeFullscreen(){
 
  document.getElementById("fullscreen")
  .classList.remove("show");
-
 }
 
-/* =========================
- MODAL
-========================= */
+/* =========================================================
+   QUEUE
+========================================================= */
 
-function openModal(id){
+function openQueue(){
 
- if(id==="queueModal")
-  openQueue();
- else
-  document.getElementById(id).classList.add("show");
+ const modal=document.getElementById("queueModal");
+ const box=document.getElementById("queueList");
 
+ box.innerHTML="";
+
+ if(!songs.length){
+
+  box.innerHTML=
+   `<div class="empty">Fila vazia.</div>`;
+
+ }else{
+
+  songs.forEach((song,i)=>{
+
+   box.innerHTML+=`
+    <div class="song"
+     onclick="loadSong(${i},true);closeQueue()">
+
+     <div class="song-cover">♫</div>
+
+     <div class="song-info">
+      <div class="song-name">
+       ${esc(song.name)}
+      </div>
+
+      <div class="song-meta">
+       ${i===currentIndex?
+        "Reproduzindo":
+        "Na fila"}
+      </div>
+     </div>
+
+    </div>
+   `;
+  });
+ }
+
+ modal.classList.add("show");
 }
 
-function closeModal(id){
+function closeQueue(){
 
- document.getElementById(id)
+ document.getElementById("queueModal")
  .classList.remove("show");
-
 }
 
-/* =========================
- SETTINGS
-========================= */
-
-function toggleSetting(type){
-
- state[type]=!state[type];
-
- if(type==="auto")
-  document.getElementById("autoSwitch")
-   .classList.toggle("active",state.auto);
-
- if(type==="crossfade")
-  document.getElementById("crossSwitch")
-   .classList.toggle("active",state.crossfade);
-
- save();
-
-}
-
-document.getElementById("crossfadeRange")
-.addEventListener("input",e=>{
-
- state.crossfadeSeconds=Number(e.target.value);
-
- document.getElementById("crossfadeValue").textContent=
-  state.crossfadeSeconds;
-
- save();
-
-});
-
-document.getElementById("volume")
-.addEventListener("input",e=>{
-
- state.volume=Number(e.target.value);
-
- audio.volume=state.volume;
-
- save();
-
-});
-
-/* =========================
- STORAGE
-========================= */
+/* =========================================================
+   STORAGE
+========================================================= */
 
 function save(){
 
  localStorage.setItem(
-  "musicProV12",
+  "musicProV13",
   JSON.stringify(state)
  );
-
- savePlaylists();
-
 }
 
 function savePlaylists(){
 
  localStorage.setItem(
-  "musicProV12Playlists",
+  "musicProV13Playlists",
   JSON.stringify(playlists)
  );
-
 }
 
-/* =========================
- UTILS
-========================= */
+/* =========================================================
+   UTILITY
+========================================================= */
 
-function esc(text){
+function esc(v){
 
- return String(text)
- .replaceAll("&","&amp;")
- .replaceAll("<","&lt;")
- .replaceAll(">","&gt;")
- .replaceAll('"',"&quot;")
- .replaceAll("'","&#039;");
-
+ return String(v)
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
 }
 
-/* =========================
- START
-========================= */
-
-try{
-
- const savedPlaylists=
-  JSON.parse(
-   localStorage.getItem("musicProV12Playlists")
-  );
-
- if(savedPlaylists)
-  playlists=savedPlaylists;
-
-}catch(e){}
+/* =========================================================
+   INITIALIZATION
+========================================================= */
 
 createEQ();
 
-document.getElementById("volume").value=state.volume;
+document.getElementById("volume").value=
+ state.volume;
 
 document.getElementById("crossfadeRange").value=
  state.crossfadeSeconds;
 
-document.getElementById("crossfadeValue").textContent=
+document.getElementById("crossfadeText").textContent=
  state.crossfadeSeconds;
+
+document.getElementById("shuffleBtn")
+ .classList.toggle("active",state.shuffle);
+
+document.getElementById("repeatBtn")
+ .classList.toggle("active",state.repeat);
 
 document.getElementById("autoSwitch")
  .classList.toggle("active",state.auto);
 
 document.getElementById("crossSwitch")
  .classList.toggle("active",state.crossfade);
+
+document.getElementById("loudSwitch")
+ .classList.toggle("active",state.loud);
+
+document.getElementById("spatialSwitch")
+ .classList.toggle("active",state.spatial);
+
+document.getElementById("loudBtn")
+ .classList.toggle("active",state.loud);
+
+document.getElementById("spatialBtn")
+ .classList.toggle("active",state.spatial);
 
 renderSongs();
 renderPlaylists();
